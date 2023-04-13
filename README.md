@@ -11,7 +11,15 @@ The app lives in your menu bar and saves files to your downloads folder. It's th
 
 ## Installation
 
-Download the latest build from the releases section, unzip, move to your applications folder. Do the usual Gatekeeper thing to run an Apple-untrusted app for the first time. If you want the app to start on boot, add it manually to login objects in System Preferences.
+Download the latest build from the releases section, unzip, move to your applications folder.
+
+Before first start, macOS will block the application due to not being signed, this can be circumvented by going to System Settings > Privacy & Security after attempting to open.
+
+You will need to enable notifications under System Settings > Notifications to approve share requests from other devices.
+
+### Start on boot
+
+If you want the app to launch on boot, add it manually to login objects in System Preferences.
 
 ## FAQ
 
