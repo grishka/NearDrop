@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		698DFAE629E2F91A0064F247 /* NearbyConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698DFAE529E2F91A0064F247 /* NearbyConnection.swift */; };
+		698DFB0329E362140064F247 /* NDNotificationCenterHackery.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */; };
+		69D2C32D29E77F2200EC7E30 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69D2C32B29E77F2200EC7E30 /* Localizable.strings */; };
+		69D2C32F29E7898C00EC7E30 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69D2C32E29E7898C00EC7E30 /* MainMenu.xib */; };
+		69D2C33829E78DF400EC7E30 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 69D2C33629E78DF400EC7E30 /* Localizable.stringsdict */; };
+		69DA9A1229E0BF5100A442DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A1129E0BF5100A442DA /* AppDelegate.swift */; };
+		69DA9A1429E0BF5200A442DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69DA9A1329E0BF5200A442DA /* Assets.xcassets */; };
+		69DA9A1F29E0C0B300A442DA /* NearbyConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A1E29E0C0B300A442DA /* NearbyConnectionManager.swift */; };
+		69DA9A2129E0CC4E00A442DA /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2029E0CC4E00A442DA /* Data+Extensions.swift */; };
+		69DA9A2329E17F0400A442DA /* InboundNearbyConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2229E17F0400A442DA /* InboundNearbyConnection.swift */; };
+		69DA9A2629E189EF00A442DA /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 69DA9A2529E189EF00A442DA /* SwiftProtobuf */; };
+		69DA9A2E29E18CB500A442DA /* ukey.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2829E18CB500A442DA /* ukey.pb.swift */; };
+		69DA9A2F29E18CB500A442DA /* wire_format.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2929E18CB500A442DA /* wire_format.pb.swift */; };
+		69DA9A3029E18CB500A442DA /* device_to_device_messages.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2A29E18CB500A442DA /* device_to_device_messages.pb.swift */; };
+		69DA9A3129E18CB500A442DA /* offline_wire_formats.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2B29E18CB500A442DA /* offline_wire_formats.pb.swift */; };
+		69DA9A3229E18CB500A442DA /* securegcm.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2C29E18CB500A442DA /* securegcm.pb.swift */; };
+		69DA9A3329E18CB500A442DA /* securemessage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2D29E18CB500A442DA /* securemessage.pb.swift */; };
+		69DA9A3629E1994C00A442DA /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 69DA9A3529E1994C00A442DA /* SwiftECC */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		698DFAFF29E353220064F247 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		698DFAE529E2F91A0064F247 /* NearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnection.swift; sourceTree = "<group>"; };
+		698DFAED29E353220064F247 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		698DFAEF29E353220064F247 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		698DFB0029E362140064F247 /* NearDrop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NearDrop-Bridging-Header.h"; sourceTree = "<group>"; };
+		698DFB0129E362140064F247 /* NDNotificationCenterHackery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NDNotificationCenterHackery.h; sourceTree = "<group>"; };
+		698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NDNotificationCenterHackery.m; sourceTree = "<group>"; };
+		69D2C32C29E77F2200EC7E30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		69D2C32E29E7898C00EC7E30 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		69D2C33029E789AF00EC7E30 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		69D2C33729E78DF400EC7E30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		69D2C33929E78DFD00EC7E30 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		69DA9A0E29E0BF5100A442DA /* NearDrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearDrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69DA9A1129E0BF5100A442DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		69DA9A1329E0BF5200A442DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		69DA9A1829E0BF5200A442DA /* NearDrop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NearDrop.entitlements; sourceTree = "<group>"; };
+		69DA9A1E29E0C0B300A442DA /* NearbyConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnectionManager.swift; sourceTree = "<group>"; };
+		69DA9A2029E0CC4E00A442DA /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		69DA9A2229E17F0400A442DA /* InboundNearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboundNearbyConnection.swift; sourceTree = "<group>"; };
+		69DA9A2829E18CB500A442DA /* ukey.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ukey.pb.swift; sourceTree = "<group>"; };
+		69DA9A2929E18CB500A442DA /* wire_format.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wire_format.pb.swift; sourceTree = "<group>"; };
+		69DA9A2A29E18CB500A442DA /* device_to_device_messages.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = device_to_device_messages.pb.swift; sourceTree = "<group>"; };
+		69DA9A2B29E18CB500A442DA /* offline_wire_formats.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = offline_wire_formats.pb.swift; sourceTree = "<group>"; };
+		69DA9A2C29E18CB500A442DA /* securegcm.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = securegcm.pb.swift; sourceTree = "<group>"; };
+		69DA9A2D29E18CB500A442DA /* securemessage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = securemessage.pb.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		69DA9A0B29E0BF5100A442DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69DA9A3629E1994C00A442DA /* SwiftECC in Frameworks */,
+				69DA9A2629E189EF00A442DA /* SwiftProtobuf in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		698DFAEC29E353220064F247 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				698DFAED29E353220064F247 /* UserNotifications.framework */,
+				698DFAEF29E353220064F247 /* UserNotificationsUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		69DA9A0529E0BF5100A442DA = {
+			isa = PBXGroup;
+			children = (
+				69DA9A1029E0BF5100A442DA /* NearDrop */,
+				698DFAEC29E353220064F247 /* Frameworks */,
+				69DA9A0F29E0BF5100A442DA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		69DA9A0F29E0BF5100A442DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				69DA9A0E29E0BF5100A442DA /* NearDrop.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		69DA9A1029E0BF5100A442DA /* NearDrop */ = {
+			isa = PBXGroup;
+			children = (
+				69DA9A2729E18CB500A442DA /* Protobuf */,
+				69DA9A1129E0BF5100A442DA /* AppDelegate.swift */,
+				69DA9A1329E0BF5200A442DA /* Assets.xcassets */,
+				69DA9A1E29E0C0B300A442DA /* NearbyConnectionManager.swift */,
+				69D2C33629E78DF400EC7E30 /* Localizable.stringsdict */,
+				69D2C32B29E77F2200EC7E30 /* Localizable.strings */,
+				69DA9A2229E17F0400A442DA /* InboundNearbyConnection.swift */,
+				698DFB0129E362140064F247 /* NDNotificationCenterHackery.h */,
+				698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */,
+				698DFAE529E2F91A0064F247 /* NearbyConnection.swift */,
+				69DA9A2029E0CC4E00A442DA /* Data+Extensions.swift */,
+				69DA9A1829E0BF5200A442DA /* NearDrop.entitlements */,
+				698DFB0029E362140064F247 /* NearDrop-Bridging-Header.h */,
+				69D2C32E29E7898C00EC7E30 /* MainMenu.xib */,
+			);
+			path = NearDrop;
+			sourceTree = "<group>";
+		};
+		69DA9A2729E18CB500A442DA /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				69DA9A2829E18CB500A442DA /* ukey.pb.swift */,
+				69DA9A2929E18CB500A442DA /* wire_format.pb.swift */,
+				69DA9A2A29E18CB500A442DA /* device_to_device_messages.pb.swift */,
+				69DA9A2B29E18CB500A442DA /* offline_wire_formats.pb.swift */,
+				69DA9A2C29E18CB500A442DA /* securegcm.pb.swift */,
+				69DA9A2D29E18CB500A442DA /* securemessage.pb.swift */,
+			);
+			path = Protobuf;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		69DA9A0D29E0BF5100A442DA /* NearDrop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69DA9A1B29E0BF5200A442DA /* Build configuration list for PBXNativeTarget "NearDrop" */;
+			buildPhases = (
+				69DA9A0A29E0BF5100A442DA /* Sources */,
+				69DA9A0B29E0BF5100A442DA /* Frameworks */,
+				69DA9A0C29E0BF5100A442DA /* Resources */,
+				698DFAFF29E353220064F247 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NearDrop;
+			packageProductDependencies = (
+				69DA9A2529E189EF00A442DA /* SwiftProtobuf */,
+				69DA9A3529E1994C00A442DA /* SwiftECC */,
+			);
+			productName = NearDrop;
+			productReference = 69DA9A0E29E0BF5100A442DA /* NearDrop.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		69DA9A0629E0BF5100A442DA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					69DA9A0D29E0BF5100A442DA = {
+						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
+					};
+				};
+			};
+			buildConfigurationList = 69DA9A0929E0BF5100A442DA /* Build configuration list for PBXProject "NearDrop" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				ru,
+			);
+			mainGroup = 69DA9A0529E0BF5100A442DA;
+			packageReferences = (
+				69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				69DA9A3429E1994C00A442DA /* XCRemoteSwiftPackageReference "SwiftECC" */,
+			);
+			productRefGroup = 69DA9A0F29E0BF5100A442DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				69DA9A0D29E0BF5100A442DA /* NearDrop */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		69DA9A0C29E0BF5100A442DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69DA9A1429E0BF5200A442DA /* Assets.xcassets in Resources */,
+				69D2C33829E78DF400EC7E30 /* Localizable.stringsdict in Resources */,
+				69D2C32D29E77F2200EC7E30 /* Localizable.strings in Resources */,
+				69D2C32F29E7898C00EC7E30 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		69DA9A0A29E0BF5100A442DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69DA9A2E29E18CB500A442DA /* ukey.pb.swift in Sources */,
+				698DFB0329E362140064F247 /* NDNotificationCenterHackery.m in Sources */,
+				69DA9A2329E17F0400A442DA /* InboundNearbyConnection.swift in Sources */,
+				69DA9A1F29E0C0B300A442DA /* NearbyConnectionManager.swift in Sources */,
+				69DA9A3029E18CB500A442DA /* device_to_device_messages.pb.swift in Sources */,
+				69DA9A3129E18CB500A442DA /* offline_wire_formats.pb.swift in Sources */,
+				69DA9A1229E0BF5100A442DA /* AppDelegate.swift in Sources */,
+				69DA9A2F29E18CB500A442DA /* wire_format.pb.swift in Sources */,
+				69DA9A3329E18CB500A442DA /* securemessage.pb.swift in Sources */,
+				69DA9A2129E0CC4E00A442DA /* Data+Extensions.swift in Sources */,
+				69DA9A3229E18CB500A442DA /* securegcm.pb.swift in Sources */,
+				698DFAE629E2F91A0064F247 /* NearbyConnection.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		69D2C32B29E77F2200EC7E30 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69D2C32C29E77F2200EC7E30 /* Base */,
+				69D2C33029E789AF00EC7E30 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		69D2C33629E78DF400EC7E30 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69D2C33729E78DF400EC7E30 /* Base */,
+				69D2C33929E78DFD00EC7E30 /* ru */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		69DA9A1929E0BF5200A442DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		69DA9A1A29E0BF5200A442DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		69DA9A1C29E0BF5200A442DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NearDrop/NearDrop.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.grishka.NearDrop;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NearDrop/NearDrop-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		69DA9A1D29E0BF5200A442DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = NearDrop/NearDrop.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.grishka.NearDrop;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "NearDrop/NearDrop-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		69DA9A0929E0BF5100A442DA /* Build configuration list for PBXProject "NearDrop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69DA9A1929E0BF5200A442DA /* Debug */,
+				69DA9A1A29E0BF5200A442DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69DA9A1B29E0BF5200A442DA /* Build configuration list for PBXNativeTarget "NearDrop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69DA9A1C29E0BF5200A442DA /* Debug */,
+				69DA9A1D29E0BF5200A442DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		69DA9A3429E1994C00A442DA /* XCRemoteSwiftPackageReference "SwiftECC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leif-ibsen/SwiftECC";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		69DA9A2529E189EF00A442DA /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		69DA9A3529E1994C00A442DA /* SwiftECC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69DA9A3429E1994C00A442DA /* XCRemoteSwiftPackageReference "SwiftECC" */;
+			productName = SwiftECC;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 69DA9A0629E0BF5100A442DA /* Project object */;
+}
