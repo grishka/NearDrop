@@ -58,7 +58,7 @@ sequenceDiagram
     Client->>Server: UKEY2 ClientInit
     Server->>Client: UKEY2 ServerInit
     Client->>Server: UKEY2 ClientFinish
-    Client->>Server: Connection response
+    Server->>Client: Connection response
     Note over Server, Client: All following packets are encrypted
     Server->>Client: Paired key encryption
     Client->>Server: Paired key encryption
