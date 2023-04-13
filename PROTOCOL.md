@@ -134,7 +134,7 @@ The **authentication string** is used for out-of-band key verification. Nearby S
 
 #### Connection response
 
-After the key exchange is complete, the client sends one last plaintext message to the server: a connection response. It's a subtype of offline frame saying that the client has accepted the connection (the connection it itself initiated... whatever). All the following communication is encrypted and wrapped in the payload layer.
+After the key exchange is complete, the server sends one last plaintext message to the client: a connection response. It's a subtype of offline frame saying that the server has accepted the connection. All the following communication is encrypted and wrapped in the payload layer.
 
 ### The encryption layer
 
@@ -144,7 +144,7 @@ Header and body is a serialized `HeaderAndBody` message. Inside, there are two f
 
 The signature is a HMAC-SHA256 of the header-and-body fields using one of the keys derived above.
 
-The body inside header-and-body is encrypted using AES-CBC with PKCS7 padding. After decryption it should be a valid device to device message (see securegcm.proto). If it isn't, you did something wrong. Go back and debug your key exchange code. Cryptography is messy, don't worry, no one gets it right on the first try ¯\\\_(ツ)_/¯
+The body inside header-and-body is encrypted using AES-CBC with PKCS7 padding. After decryption it should be a valid device to device message (see securegcm.proto). If it isn't, you did something wrong. Go back and debug your key exchange code. Cryptography is messy, don't worry, no one gets it right on the first try ¯\\\_(ツ)\_/¯
 
 The device to device message contains a sequence number and a message. The message is always a serialized offline frame. The sequence number starts at 0 and is incremented with each message. Client and server have their own independent sequence numbers.
 
