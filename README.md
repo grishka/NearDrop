@@ -20,7 +20,7 @@ If you want the app to start on boot, add it manually to login objects in System
 
 #### Why is the app not notarized?
 
-Because I don't want to pay Apple $99 a year for the privilege of developing macOS apps and oppose their idea of security.
+Because I don't want to pay Apple $99 a year for the privilege of developing macOS apps and appease their idea of security.
 
 #### Why is this not on the app store?
 
