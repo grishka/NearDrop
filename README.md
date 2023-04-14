@@ -16,6 +16,10 @@ Download the latest build from the releases section, unzip, move to your applica
 
 If you want the app to start on boot, add it manually to login objects in System Preferences.
 
+## Contributing
+
+Pull requests that change the readme will not be accepted.
+
 ## FAQ
 
 #### Why is the app not notarized?
