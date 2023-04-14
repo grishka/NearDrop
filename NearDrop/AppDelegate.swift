@@ -27,7 +27,9 @@ class AppDelegate: NSObject, NSApplicationDelegate{
 		let nc=UNUserNotificationCenter.current()
 		nc.requestAuthorization(options: [.alert, .sound]) { granted, err in
 			if !granted{
-				self.showNotificationsDeniedAlert()
+				DispatchQueue.main.async {
+					self.showNotificationsDeniedAlert()
+				}
 			}
 		}
 		let incomingTransfersCategory=NDNotificationCenterHackery.hackedNotificationCategory()
