@@ -188,10 +188,10 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
-				ru,
+				en,
 				it,
+				ru,
 			);
 			mainGroup = 69DA9A0529E0BF5100A442DA;
 			packageReferences = (
@@ -248,8 +248,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				69D2C32C29E77F2200EC7E30 /* Base */,
-				69D2C33029E789AF00EC7E30 /* ru */,
 				A3930F0629EAB2D1008F891D /* it */,
+				69D2C33029E789AF00EC7E30 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -258,8 +258,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				69D2C33729E78DF400EC7E30 /* Base */,
-				69D2C33929E78DFD00EC7E30 /* ru */,
 				A3930F0529EAB2D1008F891D /* it */,
+				69D2C33929E78DFD00EC7E30 /* ru */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";

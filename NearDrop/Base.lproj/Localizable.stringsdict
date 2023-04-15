@@ -12,9 +12,9 @@
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
-			<key>uno</key>
+			<key>one</key>
 			<string>%d file</string>
-			<key>altro</key>
+			<key>other</key>
 			<string>%d files</string>
 		</dict>
 	</dict>
