@@ -41,6 +41,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		085958F02A0B6A3300C4BDDD /* securegcm.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = securegcm.proto; sourceTree = "<group>"; };
+		085958F12A0B6A3300C4BDDD /* wire_format.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = wire_format.proto; sourceTree = "<group>"; };
+		085958F22A0B6A3300C4BDDD /* securemessage.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = securemessage.proto; sourceTree = "<group>"; };
+		085958F32A0B6A3300C4BDDD /* ukey.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = ukey.proto; sourceTree = "<group>"; };
+		085958F42A0B6A3300C4BDDD /* offline_wire_formats.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = offline_wire_formats.proto; sourceTree = "<group>"; };
+		085958F52A0B6A3300C4BDDD /* device_to_device_messages.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = device_to_device_messages.proto; sourceTree = "<group>"; };
 		698DFAE529E2F91A0064F247 /* NearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnection.swift; sourceTree = "<group>"; };
 		698DFAED29E353220064F247 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		698DFAEF29E353220064F247 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -82,6 +88,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		085958EF2A0B6A3300C4BDDD /* ProtobufSource */ = {
+			isa = PBXGroup;
+			children = (
+				085958F02A0B6A3300C4BDDD /* securegcm.proto */,
+				085958F12A0B6A3300C4BDDD /* wire_format.proto */,
+				085958F22A0B6A3300C4BDDD /* securemessage.proto */,
+				085958F32A0B6A3300C4BDDD /* ukey.proto */,
+				085958F42A0B6A3300C4BDDD /* offline_wire_formats.proto */,
+				085958F52A0B6A3300C4BDDD /* device_to_device_messages.proto */,
+			);
+			path = ProtobufSource;
+			sourceTree = "<group>";
+		};
 		698DFAEC29E353220064F247 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +130,7 @@
 		69DA9A1029E0BF5100A442DA /* NearDrop */ = {
 			isa = PBXGroup;
 			children = (
+				085958EF2A0B6A3300C4BDDD /* ProtobufSource */,
 				69DA9A2729E18CB500A442DA /* Protobuf */,
 				69DA9A1129E0BF5100A442DA /* AppDelegate.swift */,
 				69DA9A1329E0BF5200A442DA /* Assets.xcassets */,
