@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		085958F72A0B7B0300C4BDDD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085958F62A0B7B0300C4BDDD /* Preferences.swift */; };
+		085958F92A0B7B8700C4BDDD /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085958F82A0B7B8700C4BDDD /* UserDefault.swift */; };
 		698DFAE629E2F91A0064F247 /* NearbyConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698DFAE529E2F91A0064F247 /* NearbyConnection.swift */; };
 		698DFB0329E362140064F247 /* NDNotificationCenterHackery.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */; };
 		69D2C32D29E77F2200EC7E30 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69D2C32B29E77F2200EC7E30 /* Localizable.strings */; };
@@ -47,6 +49,8 @@
 		085958F32A0B6A3300C4BDDD /* ukey.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = ukey.proto; sourceTree = "<group>"; };
 		085958F42A0B6A3300C4BDDD /* offline_wire_formats.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = offline_wire_formats.proto; sourceTree = "<group>"; };
 		085958F52A0B6A3300C4BDDD /* device_to_device_messages.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = device_to_device_messages.proto; sourceTree = "<group>"; };
+		085958F62A0B7B0300C4BDDD /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		085958F82A0B7B8700C4BDDD /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		698DFAE529E2F91A0064F247 /* NearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnection.swift; sourceTree = "<group>"; };
 		698DFAED29E353220064F247 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		698DFAEF29E353220064F247 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -133,6 +137,7 @@
 				085958EF2A0B6A3300C4BDDD /* ProtobufSource */,
 				69DA9A2729E18CB500A442DA /* Protobuf */,
 				69DA9A1129E0BF5100A442DA /* AppDelegate.swift */,
+				085958F62A0B7B0300C4BDDD /* Preferences.swift */,
 				69DA9A1329E0BF5200A442DA /* Assets.xcassets */,
 				69DA9A1E29E0C0B300A442DA /* NearbyConnectionManager.swift */,
 				69D2C33629E78DF400EC7E30 /* Localizable.stringsdict */,
@@ -142,6 +147,7 @@
 				698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */,
 				698DFAE529E2F91A0064F247 /* NearbyConnection.swift */,
 				69DA9A2029E0CC4E00A442DA /* Data+Extensions.swift */,
+				085958F82A0B7B8700C4BDDD /* UserDefault.swift */,
 				69DA9A1829E0BF5200A442DA /* NearDrop.entitlements */,
 				698DFB0029E362140064F247 /* NearDrop-Bridging-Header.h */,
 				69D2C32E29E7898C00EC7E30 /* MainMenu.xib */,
@@ -254,7 +260,9 @@
 				69DA9A3129E18CB500A442DA /* offline_wire_formats.pb.swift in Sources */,
 				69DA9A1229E0BF5100A442DA /* AppDelegate.swift in Sources */,
 				69DA9A2F29E18CB500A442DA /* wire_format.pb.swift in Sources */,
+				085958F92A0B7B8700C4BDDD /* UserDefault.swift in Sources */,
 				69DA9A3329E18CB500A442DA /* securemessage.pb.swift in Sources */,
+				085958F72A0B7B0300C4BDDD /* Preferences.swift in Sources */,
 				69DA9A2129E0CC4E00A442DA /* Data+Extensions.swift in Sources */,
 				69DA9A3229E18CB500A442DA /* securegcm.pb.swift in Sources */,
 				698DFAE629E2F91A0064F247 /* NearbyConnection.swift in Sources */,
