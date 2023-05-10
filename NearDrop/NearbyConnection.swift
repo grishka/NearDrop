@@ -13,6 +13,7 @@ import System
 
 import SwiftECC
 import BigInt
+import AppKit
 
 class NearbyConnection{
 	internal static let SANE_FRAME_LENGTH=5*1024*1024
@@ -268,8 +269,18 @@ class NearbyConnection{
 				}
 				if (chunk.flags & 1)==1 {
 					payloadBuffers.removeValue(forKey: payloadID)
-					let innerFrame=try Sharing_Nearby_Frame(serializedData: buffer as Data)
-					try processTransferSetupFrame(innerFrame)
+					if let innerFrame=try? Sharing_Nearby_Frame(serializedData: buffer as Data) {
+						try processTransferSetupFrame(innerFrame)
+					} else if let text = String(data: buffer as Data, encoding: .utf8) {
+						NSPasteboard.general.clearContents()
+						NSPasteboard.general.setString(text, forType: .string)
+						if Preferences.openLinksInBrowser, let url = URL(string: text) {
+							NSWorkspace.shared.open(url)
+						}
+						try sendDisconnectionAndDisconnect()
+					} else {
+						print("Bad data: \(buffer as Data)")
+					}
 				}
 			}else if case .file = header.type{
 				try processFileChunk(frame: payloadTransfer)
@@ -437,8 +448,13 @@ struct RemoteDeviceInfo{
 	}
 }
 
-struct TransferMetadata{
-	let files:[FileMetadata]
+enum TransferMetadata{
+	case text(Sharing_Nearby_TextMetadata)
+	case files([FileMetadata])
+}
+
+struct TextMetadata{
+	let title: String
 }
 
 struct FileMetadata{

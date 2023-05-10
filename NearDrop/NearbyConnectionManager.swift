@@ -86,13 +86,18 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
 		let notificationContent=UNMutableNotificationContent()
 		notificationContent.title="NearDrop"
 		notificationContent.subtitle=String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [connection.pinCode!])
-		let fileStr:String
-		if transfer.files.count==1{
-			fileStr=transfer.files[0].name
-		}else{
-			fileStr=String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
+		switch transfer {
+		case .text(let metadata):
+			notificationContent.body=String(format: NSLocalizedString("DeviceSendingText", value: "%1$@ is sending you \"%2$@\"", comment: ""), arguments: [device.name, metadata.textTitle])
+		case .files(let files):
+			let fileStr:String
+			if files.count==1{
+				fileStr=files[0].name
+			}else{
+				fileStr=String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), files.count)
+			}
+			notificationContent.body=String(format: NSLocalizedString("DeviceSendingFiles", value: "%1$@ is sending you %2$@", comment: ""), arguments: [device.name, fileStr])
 		}
-		notificationContent.body=String(format: NSLocalizedString("DeviceSendingFiles", value: "%1$@ is sending you %2$@", comment: ""), arguments: [device.name, fileStr])
 		notificationContent.sound = .default
 		notificationContent.categoryIdentifier="INCOMING_TRANSFERS"
 		notificationContent.userInfo=["transferID": connection.id]

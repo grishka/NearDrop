@@ -19,6 +19,13 @@ class AppDelegate: NSObject, NSApplicationDelegate{
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
+		let copyToClipboardItem = menu.addItem(withTitle: NSLocalizedString("CopyToClipboardWithoutConsent", value: "Copy to clipboard without consent", comment: ""), action: #selector(toggleOption(_:)), keyEquivalent: "")
+		copyToClipboardItem.state = Preferences.copyToClipboardWithoutConsent ? .on : .off
+		copyToClipboardItem.tag = .copyToClipboard
+		let openLinksItem = menu.addItem(withTitle: NSLocalizedString("OpenLinksInBrowser", value: "Open links in default browser", comment: ""), action: #selector(toggleOption(_:)), keyEquivalent: "")
+		openLinksItem.state = Preferences.openLinksInBrowser ? .on : .off
+		openLinksItem.tag = .openLinks
+		menu.addItem(NSMenuItem.separator())
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image=NSImage(named: "MenuBarIcon")
@@ -60,5 +67,23 @@ class AppDelegate: NSObject, NSApplicationDelegate{
 			NSApplication.shared.terminate(nil)
 		}
 	}
+	
+	@objc func toggleOption(_ sender: NSMenuItem) {
+		let shouldBeOn = sender.state != .on
+		sender.state = shouldBeOn ? .on : .off
+		switch sender.tag {
+		case .copyToClipboard:
+			Preferences.copyToClipboardWithoutConsent = shouldBeOn
+		case .openLinks:
+			Preferences.openLinksInBrowser = shouldBeOn
+		default:
+			print("Unhandled toggle menu action")
+		}
+	}
 }
 
+// MARK: - Menu item tags
+fileprivate extension Int {
+	static let copyToClipboard = 1
+	static let openLinks = 2
+}
