@@ -13,16 +13,9 @@ class AppDelegate: NSObject, NSApplicationDelegate{
 
     private var connectionManager:NearbyConnectionManager?
 	private var statusItem:NSStatusItem?
-
+    let menu=NSMenu()
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-		let menu=NSMenu()
-		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
-		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
-		menu.addItem(NSMenuItem.separator())
-		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
-		statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-		statusItem?.button?.image=NSImage(named: "MenuBarIcon")
-		statusItem?.menu=menu
 		
 		let nc=UNUserNotificationCenter.current()
 		nc.requestAuthorization(options: [.alert, .sound]) { granted, err in
@@ -36,6 +29,37 @@ class AppDelegate: NSObject, NSApplicationDelegate{
 		let errorsCategory=UNNotificationCategory(identifier: "ERRORS", actions: [], intentIdentifiers: [])
 		nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
         connectionManager=NearbyConnectionManager()
+        menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
+        menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(withTitle: NSLocalizedString("Enable", value: "Enable", comment: ""),
+                     action: #selector(enableNearDrop)  , keyEquivalent: "").target = self
+        menu.addItem(withTitle: NSLocalizedString("Disable", value: "Disable", comment: ""), action: #selector(disableNearDrop), keyEquivalent: "").target = self
+        menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+        statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem?.button?.image=NSImage(named: "MenuBarIcon")
+        statusItem?.menu=menu
+        setMenuItemState()
+    }
+    
+    func setMenuItemState() {
+        if connectionManager!.getListenerStatus() {
+            menu.item(at: 3)?.isHidden = true
+            menu.item(at: 4)?.isHidden = false
+        } else {
+            menu.item(at: 3)?.isHidden = false
+            menu.item(at: 4)?.isHidden = true
+        }
+    }
+    @objc
+    func enableNearDrop() {
+        connectionManager?.restartTCPListener()
+        setMenuItemState()
+    }
+    @objc
+    func disableNearDrop() {
+        connectionManager?.stopTCPListener()
+        setMenuItemState()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

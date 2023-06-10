@@ -11,32 +11,54 @@ import UserNotifications
 
 class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConnectionDelegate, UNUserNotificationCenterDelegate{
 	
-    private var tcpListener:NWListener;
+    private var tcpListener:NWListener?;
 	private let endpointID:[UInt8]=generateEndpointID()
 	private var mdnsService:NetService?
 	private var activeConnections:[String:InboundNearbyConnection]=[:]
+    private var listenerStatus:Bool = false
     
 	override init() {
-        tcpListener=try! NWListener(using: NWParameters(tls: .none))
-		super.init()
+        super.init()
+        setTCPListener()
 		UNUserNotificationCenter.current().delegate=self
 		startTCPListener()
     }
+    
+    public func stopTCPListener() {
+        tcpListener?.cancel()
+        tcpListener = nil
+        self.mdnsService?.stop()
+        listenerStatus = false
+    }
+    
+    public func restartTCPListener() {
+        setTCPListener()
+        startTCPListener()
+    }
+    
+    public func getListenerStatus() -> Bool {
+        return listenerStatus
+    }
+    
+    private func setTCPListener() {
+        tcpListener=try! NWListener(using: NWParameters(tls: .none))
+    }
 	
 	private func startTCPListener(){
-        tcpListener.stateUpdateHandler={(state:NWListener.State) in
+        tcpListener?.stateUpdateHandler={(state:NWListener.State) in
 			if case .ready = state {
 				self.initMDNS()
 			}
         }
-        tcpListener.newConnectionHandler={(connection:NWConnection) in
+        tcpListener?.newConnectionHandler={(connection:NWConnection) in
 			let id=UUID().uuidString
 			let conn=InboundNearbyConnection(connection: connection, id: id)
 			self.activeConnections[id]=conn
 			conn.delegate=self
 			conn.start()
         }
-        tcpListener.start(queue: .global(qos: .utility))
+        tcpListener?.start(queue: .global(qos: .utility))
+        listenerStatus = true
 	}
 	
 	private static func generateEndpointID()->[UInt8]{
@@ -72,7 +94,7 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
 			endpointInfo.append(UInt8(ch))
 		}
 		
-		let port:Int32=Int32(tcpListener.port!.rawValue)
+        let port:Int32=Int32((tcpListener?.port!.rawValue)!)
 		mdnsService=NetService(domain: "", type: "_FC9F5ED42C8A._tcp.", name: name, port: port)
 		mdnsService?.delegate=self
 		mdnsService?.includesPeerToPeer=true
