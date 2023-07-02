@@ -41,6 +41,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3226184D2A51E10600B06FD1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		3226184E2A51E10600B06FD1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		322618502A51EB8A00B06FD1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		322618512A51EB8A00B06FD1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		698DFAE529E2F91A0064F247 /* NearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnection.swift; sourceTree = "<group>"; };
 		698DFAED29E353220064F247 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		698DFAEF29E353220064F247 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -192,6 +196,8 @@
 				en,
 				it,
 				ru,
+				de,
+				es,
 			);
 			mainGroup = 69DA9A0529E0BF5100A442DA;
 			packageReferences = (
@@ -250,6 +256,8 @@
 				69D2C32C29E77F2200EC7E30 /* Base */,
 				A3930F0629EAB2D1008F891D /* it */,
 				69D2C33029E789AF00EC7E30 /* ru */,
+				3226184E2A51E10600B06FD1 /* de */,
+				322618512A51EB8A00B06FD1 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -260,6 +268,8 @@
 				69D2C33729E78DF400EC7E30 /* Base */,
 				A3930F0529EAB2D1008F891D /* it */,
 				69D2C33929E78DFD00EC7E30 /* ru */,
+				3226184D2A51E10600B06FD1 /* de */,
+				322618502A51EB8A00B06FD1 /* es */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
