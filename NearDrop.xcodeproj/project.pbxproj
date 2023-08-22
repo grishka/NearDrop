@@ -25,6 +25,7 @@
 		69DA9A3229E18CB500A442DA /* securegcm.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2C29E18CB500A442DA /* securegcm.pb.swift */; };
 		69DA9A3329E18CB500A442DA /* securemessage.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA9A2D29E18CB500A442DA /* securemessage.pb.swift */; };
 		69DA9A3629E1994C00A442DA /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 69DA9A3529E1994C00A442DA /* SwiftECC */; };
+		E1D53EB42A9507640007E1E0 /* Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D53EB32A9507640007E1E0 /* Values.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,9 @@
 		69DA9A2D29E18CB500A442DA /* securemessage.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = securemessage.pb.swift; sourceTree = "<group>"; };
 		A3930F0529EAB2D1008F891D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A3930F0629EAB2D1008F891D /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E1D53EB12A9503D90007E1E0 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ko; path = ko.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		E1D53EB22A9503D90007E1E0 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E1D53EB32A9507640007E1E0 /* Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Values.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 				69DA9A1129E0BF5100A442DA /* AppDelegate.swift */,
 				69DA9A1329E0BF5200A442DA /* Assets.xcassets */,
 				69DA9A1E29E0C0B300A442DA /* NearbyConnectionManager.swift */,
+				E1D53EB32A9507640007E1E0 /* Values.swift */,
 				69D2C33629E78DF400EC7E30 /* Localizable.stringsdict */,
 				69D2C32B29E77F2200EC7E30 /* Localizable.strings */,
 				69DA9A2229E17F0400A442DA /* InboundNearbyConnection.swift */,
@@ -198,6 +203,7 @@
 				ru,
 				de,
 				es,
+				ko,
 			);
 			mainGroup = 69DA9A0529E0BF5100A442DA;
 			packageReferences = (
@@ -240,6 +246,7 @@
 				69DA9A3129E18CB500A442DA /* offline_wire_formats.pb.swift in Sources */,
 				69DA9A1229E0BF5100A442DA /* AppDelegate.swift in Sources */,
 				69DA9A2F29E18CB500A442DA /* wire_format.pb.swift in Sources */,
+				E1D53EB42A9507640007E1E0 /* Values.swift in Sources */,
 				69DA9A3329E18CB500A442DA /* securemessage.pb.swift in Sources */,
 				69DA9A2129E0CC4E00A442DA /* Data+Extensions.swift in Sources */,
 				69DA9A3229E18CB500A442DA /* securegcm.pb.swift in Sources */,
@@ -258,6 +265,7 @@
 				69D2C33029E789AF00EC7E30 /* ru */,
 				3226184E2A51E10600B06FD1 /* de */,
 				322618512A51EB8A00B06FD1 /* es */,
+				E1D53EB22A9503D90007E1E0 /* ko */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -270,6 +278,7 @@
 				69D2C33929E78DFD00EC7E30 /* ru */,
 				3226184D2A51E10600B06FD1 /* de */,
 				322618502A51EB8A00B06FD1 /* es */,
+				E1D53EB12A9503D90007E1E0 /* ko */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
