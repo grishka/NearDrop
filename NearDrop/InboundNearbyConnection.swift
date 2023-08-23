@@ -17,6 +17,7 @@ import BigInt
 class InboundNearbyConnection: NearbyConnection{
 	
 	private var currentState:State = .initial
+    public var endpointIp: String?
 	public var delegate:InboundNearbyConnectionDelegate?
 	private var cipherCommitment:Data?
 	

@@ -39,6 +39,8 @@ class AppDelegate: NSObject, NSApplicationDelegate{
         let errorsCategory=UNNotificationCategory(identifier: "ERRORS", actions: [], intentIdentifiers: [])
         nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
         connectionManager=NearbyConnectionManager()
+        
+        MacAddressManager().startUpdating()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

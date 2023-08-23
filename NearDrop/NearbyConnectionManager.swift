@@ -32,7 +32,10 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
         }
         tcpListener.newConnectionHandler={(connection:NWConnection) in
             let id=UUID().uuidString
+            let ip=String(connection.endpoint.debugDescription.split(separator: ":")[0])
+            MacAddressManager.shared.update()
             let conn=InboundNearbyConnection(connection: connection, id: id)
+            conn.endpointIp = ip
             self.activeConnections[id]=conn
             conn.delegate=self
             conn.start()
@@ -90,7 +93,9 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
         }else{
             fileStr=String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
         }
-        if isSavedDevice(name: device.name) {
+        let ip = connection.endpointIp
+        let deviceMac: String? = ip != nil ? MacAddressManager.shared.addresses[ip!] : nil
+        if let mac = deviceMac, isSavedDevice(macAddress: mac) {
             // show file is accepted user notification
             let notificationContent = UNMutableNotificationContent()
             notificationContent.title = "NearDrop"
@@ -109,8 +114,11 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
         notificationContent.categoryIdentifier="INCOMING_TRANSFERS"
         notificationContent.userInfo=[
             "transferID": connection.id,
-            "deviceName": device.name
+            "deviceName": device.name,
         ]
+        if let mac = deviceMac {
+            notificationContent.userInfo["deviceMac"] = mac
+        }
         NDNotificationCenterHackery.removeDefaultAction(notificationContent)
         let notificationReq=UNNotificationRequest(identifier: "transfer_"+connection.id, content: notificationContent, trigger: nil)
         UNUserNotificationCenter.current().add(notificationReq)
@@ -144,17 +152,17 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         var accepted = response.actionIdentifier == "ACCEPT" || response.actionIdentifier == "ALWAYS_ACCEPT"
         if response.actionIdentifier == "ALWAYS_ACCEPT" {
-            let safetyCheck  = alwaysAcceptSafetyCheck()
-            switch safetyCheck {
-            case .proceed:
-                if let name = response.notification.request.content.userInfo["deviceName"]! as? String {
-                    saveAcceptedDevice(name: name)
+            if let mac = response.notification.request.content.userInfo["deviceMac"] as? String {
+                let safetyCheck  = alwaysAcceptSafetyCheck()
+                switch safetyCheck {
+                case .proceed:
+                    saveAcceptedDevice(macAddress: mac)
+                case .acceptOnce:
+                    break;
+                case .cancel:
+                    accepted = false
+                    return
                 }
-            case .acceptOnce:
-                break;
-            case .cancel:
-                accepted = false
-                return
             }
         }
         acceptActiveConnection(
@@ -184,18 +192,20 @@ class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConne
         activeConnections[transferId]?.submitUserConsent(accepted: accepted)
     }
             
-    func saveAcceptedDevice(name: String) {
+    func saveAcceptedDevice(macAddress: String) {
+        print("saveAcceptedDevice \(macAddress)")
         let defaults = UserDefaults.standard
         var alwaysAcceptedDevices = defaults.value(forKey: "alwaysAcceptedDevices") as? [String] ?? []
-        alwaysAcceptedDevices.append(name)
+        alwaysAcceptedDevices.append(macAddress)
         defaults.set(alwaysAcceptedDevices, forKey: "alwaysAcceptedDevices")
         defaults.synchronize()
     }
     
-    func isSavedDevice(name: String) -> Bool {
+    func isSavedDevice(macAddress: String) -> Bool {
+        print("isSavedDevice \(macAddress)")
         let defaults = UserDefaults.standard
         let alwaysAcceptedDevices = defaults.value(forKey: "alwaysAcceptedDevices") as? [String] ?? []
-        return alwaysAcceptedDevices.contains(name)
+        return alwaysAcceptedDevices.contains(macAddress)
     }
 
 }
