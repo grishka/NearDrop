@@ -146,7 +146,7 @@ The signature is a HMAC-SHA256 of the header-and-body fields using one of the ke
 
 The body inside header-and-body is encrypted using AES-CBC with PKCS7 padding. After decryption it should be a valid device to device message (see securegcm.proto). If it isn't, you did something wrong. Go back and debug your key exchange code. Cryptography is messy, don't worry, no one gets it right on the first try ¯\\\_(ツ)\_/¯
 
-The device to device message contains a sequence number and a message. The message is always a serialized offline frame. The sequence number starts at 0 and is incremented with each message. Client and server have their own independent sequence numbers.
+The device to device message contains a sequence number and a message. The message is always a serialized offline frame. The sequence number is 1 for the first message, and is incremented with each message. Client and server have their own independent sequence numbers.
 
 ### The payload layer
 
