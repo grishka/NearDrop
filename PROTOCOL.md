@@ -26,6 +26,8 @@ Since a file transfer is unidirectional, the peers are assigned roles:
 
 To become visible in the sheet on Android devices, a *server* advertises an MDNS service. The **domain** is empty. The **type** is `_FC9F5ED42C8A._tcp.`. The **port** is an arbitrary TCP port on which the server accepts incoming connections.
 
+The string `FC9F5ED42C8A` comes from the first 12 characters of `sha256("NearbySharing")`.
+
 The **name** is the following 10 bytes encoded in URL-safe base64:
 
 * `0x23`, Google calls this "PCP" but I have no idea what it is
