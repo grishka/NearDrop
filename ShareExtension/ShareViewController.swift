@@ -116,7 +116,7 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	private func urlsReady(){
 		for url in urls{
 			if url.isFileURL{
-				var isDirectory=UnsafeMutablePointer<ObjCBool>.allocate(capacity: 1)
+				let isDirectory=UnsafeMutablePointer<ObjCBool>.allocate(capacity: 1)
 				if FileManager.default.fileExists(atPath: url.path, isDirectory: isDirectory) && isDirectory.pointee.boolValue{
 					print("Canceling share request because URL \(url) is a directory")
 					let cancelError = NSError(domain: NSCocoaErrorDomain, code: NSUserCancelledError, userInfo: nil)

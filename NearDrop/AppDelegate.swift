@@ -77,7 +77,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		notificationContent.title="NearDrop"
 		notificationContent.subtitle=String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [transfer.pinCode!])
 		let fileStr:String
-		if transfer.files.count==1{
+		if let textTitle=transfer.textDescription{
+			fileStr=textTitle
+		}else if transfer.files.count==1{
 			fileStr=transfer.files[0].name
 		}else{
 			fileStr=String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)

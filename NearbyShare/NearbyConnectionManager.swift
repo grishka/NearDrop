@@ -65,6 +65,14 @@ public struct TransferMetadata{
 	public let files:[FileMetadata]
 	public let id:String
 	public let pinCode:String?
+	public let textDescription:String?
+	
+	init(files: [FileMetadata], id: String, pinCode: String?, textDescription: String?=nil){
+		self.files = files
+		self.id = id
+		self.pinCode = pinCode
+		self.textDescription = textDescription
+	}
 }
 
 public struct FileMetadata{

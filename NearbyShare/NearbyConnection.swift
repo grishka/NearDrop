@@ -91,6 +91,10 @@ class NearbyConnection{
 		protocolError()
 	}
 	
+	internal func processBytesPayload(payload:Data, id:Int64)throws ->Bool{
+		return false
+	}
+	
 	private func receiveFrameAsync(){
 		connection.receive(minimumIncompleteLength: 4, maximumLength: 4) { content, contentContext, isComplete, error in
 			if self.connectionClosed{
@@ -278,8 +282,10 @@ class NearbyConnection{
 				}
 				if (chunk.flags & 1)==1 {
 					payloadBuffers.removeValue(forKey: payloadID)
-					let innerFrame=try Sharing_Nearby_Frame(serializedData: buffer as Data)
-					try processTransferSetupFrame(innerFrame)
+					if !(try processBytesPayload(payload: Data(buffer), id: payloadID)){
+						let innerFrame=try Sharing_Nearby_Frame(serializedData: buffer as Data)
+						try processTransferSetupFrame(innerFrame)
+					}
 				}
 			}else if case .file = header.type{
 				try processFileChunk(frame: payloadTransfer)
