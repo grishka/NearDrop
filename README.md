@@ -15,6 +15,12 @@ Download the latest build from the releases section, unzip, move to your applica
 
 If you want the app to start on boot, [follow thesee steps to add NearDrop as a login item.](https://support.apple.com/guide/mac-help/open-items-automatically-when-you-log-in-mh15189/mac)
 
+#### Installation with Homebrew
+
+```
+brew install grishka/grishka/NearDrop
+```
+
 ## Contributing
 
 Pull requests that change the readme will not be accepted.
