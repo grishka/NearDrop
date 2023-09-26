@@ -1,0 +1,12 @@
+/* Class = "NSTextFieldCell"; title = "NearDrop"; ObjectID = "0xp-rC-2gr"; */
+"0xp-rC-2gr.title" = "NearDrop";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "6Up-t3-mwm"; */
+"6Up-t3-mwm.title" = "取消";
+
+/* Class = "NSTextFieldCell"; title = "Looking for devices..."; ObjectID = "NaJ-Wx-Pim"; */
+"NaJ-Wx-Pim.title" = "正在查找附近设备...";
+
+/* Class = "NSTextFieldCell"; title = "If you don't see your device, open \"Google Files\" app and tap \"Receive\" on the Nearby Share tab."; ObjectID = "vla-gF-eJo"; */
+"vla-gF-eJo.title" = "如果您没有看到您的设备，请打开 “文件极客” App，然后点击 “附近共享” 选项卡上的 “接收”。";
+
