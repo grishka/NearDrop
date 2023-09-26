@@ -59,6 +59,10 @@ To make it more easily accessible and/or if you don't want to install Google Fil
 
 Yes. Drag the icon off the menu bar while holding cmd. To bring it back, launch the app a second time, while it's already running.
 
+#### I'm sending something to my Mac, the Android device displays a PIN code, but nothing happens on the Mac
+
+Make sure you have "do not disturb" off. The notification may also sometimes (rarely) end up in the notification center without being shown as a popup first — I'm not sure why this happens.
+
 #### Why is the app not notarized?
 
 Because I don't want to pay Apple $99 a year for the privilege of developing macOS apps and I oppose their idea of security. The slightly less scary security warning isn't worth $99/year IMO.
