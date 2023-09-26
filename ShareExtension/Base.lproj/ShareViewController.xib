@@ -129,7 +129,7 @@ Gw
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="V5W-Rm-YVM">
                     <rect key="frame" x="-2" y="0.0" width="525" height="32"/>
-                    <textFieldCell key="cell" alignment="center" title="If you don't see your device, open &quot;Files by Google&quot; app and tap &quot;Receive&quot; on the Nearby Share tab." id="vla-gF-eJo">
+                    <textFieldCell key="cell" alignment="center" title="If you don't see your device, open &quot;Google Files&quot; app and tap &quot;Receive&quot; on the Nearby Share tab." id="vla-gF-eJo">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
