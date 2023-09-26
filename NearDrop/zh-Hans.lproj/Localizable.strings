@@ -1,0 +1,42 @@
+/* No comment provided by engineer. */
+"Accept" = "接受";
+
+/* No comment provided by engineer. */
+"Decline" = "拒绝";
+
+/* No comment provided by engineer. */
+"DeviceName" = "设备名称: %@";
+
+/* No comment provided by engineer. */
+"DeviceSendingFiles" = "%1$@ 正向你发送 %2$@";
+
+/* No comment provided by engineer. */
+"Error.Crypto" = "加密出错";
+
+/* No comment provided by engineer. */
+"Error.Protocol" = "通信出错";
+
+/* No comment provided by engineer. */
+"NFiles" = "%d files";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Message" = "NearDrop 需显示是否接收文件传输的通知。请在 系统设置 中允许通知。";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.OpenSettings" = "打开设置";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Title" = "需要通知权限";
+
+/* No comment provided by engineer. */
+"PinCode" = "PIN: %@";
+
+/* No comment provided by engineer. */
+"Quit" = "退出 NearDrop";
+
+/* No comment provided by engineer. */
+"TransferError" = "无法从 %@ 接收文件";
+
+/* No comment provided by engineer. */
+"VisibleToEveryone" = "对所有人可见";
+

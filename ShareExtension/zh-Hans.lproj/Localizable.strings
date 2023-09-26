@@ -1,0 +1,30 @@
+/* No comment provided by engineer. */
+"Connecting" = "正在连接...";
+
+/* No comment provided by engineer. */
+"NFiles" = "%d files";
+
+/* No comment provided by engineer. */
+"NotEnoughSpace" = "空间不足";
+
+/* No comment provided by engineer. */
+"PinCode" = "PIN: %@";
+
+/* No comment provided by engineer. */
+"Sending" = "正在发送...";
+
+/* No comment provided by engineer. */
+"TransferCanceled" = "已取消";
+
+/* No comment provided by engineer. */
+"TransferDeclined" = "已拒绝";
+
+/* No comment provided by engineer. */
+"TransferFinished" = "传输完成";
+
+/* No comment provided by engineer. */
+"TransferTimedOut" = "超时";
+
+/* No comment provided by engineer. */
+"UnsupportedType" = "不支持的文件类型";
+
