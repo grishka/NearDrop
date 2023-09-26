@@ -349,7 +349,7 @@ class InboundNearbyConnection: NearbyConnection{
 			currentState = .receivingFiles
 			try sendTransferSetupFrame(frame)
 		}catch{
-			print("Error \(error)")
+			lastError=error
 			protocolError()
 		}
 	}
