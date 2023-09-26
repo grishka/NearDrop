@@ -45,7 +45,12 @@ The service also needs to have a TXT record with key `n` and the value of the fo
 * 16 bytes of unknown purpose. I set them to random.
 * User-visible device name in UTF-8, prefixed with 1-byte length.
 
-Android does not advertise the MDNS service all the time regardless of the visibility setting. It waits for some kind of signal to start it and also show the "A device nearby is sharing" notification. As of now, it is unknown what exactly is it that it's waiting for. Probably a broadcast packet of some kind over either WiFi or Bluetooth.
+Android does not advertise the MDNS service all the time regardless of the visibility setting. It waits for a BLE advertisement with the following parameters:
+
+* Service UUID = `fe 2c`
+* Service data = `fc 12 8e 01 42 00 00 00 00 00 00 00 00 00 [10 random bytes]`
+
+This can't be sent from macOS because there's no API I could find that would allow setting the service data. As far as I can tell, the Android side is hardcoded to look for that prefix in the service data so there really is no way to make it work on macOS. Android sends these BLE advertisements periodically while searching for Nearby Share targets; these are also what makes the "device nearby is sharing" notification pop up.
 
 The service ID (FC9F...) comes from SHA256("NearbySharing") = `fc9f5ed42c8a5e9e94684076ef3bf938a809c60ad354992b0435aebbdc58b97b`.
 
@@ -195,3 +200,11 @@ Do the same but set `status` to `REJECT`. There are also other status codes, lik
 ### Keep-alive frames
 
 Android sends offline frames of type `KEEP_ALIVE` every 10 seconds and expects the server to do the same. If you don't, it will terminate the connection after a while thinking your app crashed or something. This especially comes into play when sending large files. No, TCP's built-in acknowledgements are not enough. There are so many abstraction layers that whoever came up with this forgot about them.
+
+### The "mediums"
+
+Nearby Connections, the underlying layer of Nearby Share, supports running over different "mediums" as Google calls them. Wi-Fi LAN is one of them. Bluetooth, BLE, Wi-Fi Direct, to name a few, are others.
+
+The server is in charge of choosing the medium. The client specifies its supported mediums in its "connection request" packet. The server then intersects that with its own set of supported mediums. After the transfer is accepted, the server may ask the client for a "bandwidth upgrade" by sending a corresponding packet with its chosen medium and authentication credentials, if any.
+
+It is still not clear how the actual medium switch occurs.
