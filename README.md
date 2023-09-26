@@ -6,7 +6,6 @@ The app lives in your menu bar and saves files to your downloads folder. It's th
 
 ## Limitations
 
-* **Receive only**. For now. I haven't yet figured out how to make Android turn on the MDNS service and/or show the "a device nearby is sharing" notification.
 * **Wi-Fi LAN only**. Your Android device and your Mac need to be on the same network for this app to work. Google's implementation supports multiple mediums, including Wi-Fi Direct, Wi-Fi hotspot, Bluetooth, some kind of 5G peer-to-peer connection, and even a WebRTC-based protocol that goes over the internet through Google servers. Wi-Fi direct isn't supported on macOS (Apple has their own, incompatible, AWDL thing, used in AirDrop). Bluetooth needs further reverse engineering.
 * **Visible to everyone on your network at all times** while the app is running. Limited visibility (contacts etc) requires talking to Google servers, and becoming temporarily visible requires listening for whatever triggers the "device nearby is sharing" notification.
 
@@ -14,7 +13,7 @@ The app lives in your menu bar and saves files to your downloads folder. It's th
 
 Download the latest build from the releases section, unzip, move to your applications folder. When running for the first time, right-click the app and select "Open", then confirm running an app from unidentified developer.
 
-If you want the app to start on boot, add it manually to login objects in System Preferences.
+If you want the app to start on boot, [follow thesee steps to add NearDrop as a login item.](https://support.apple.com/guide/mac-help/open-items-automatically-when-you-log-in-mh15189/mac)
 
 ## Contributing
 
@@ -22,9 +21,41 @@ Pull requests that change the readme will not be accepted.
 
 ## FAQ
 
+#### The app would not open because "Apple cannot check it for malicious software", you gotta fix your shit
+
+Right-click the app in Finder and select "Open". Or, open System Settings -> Privacy and security, scroll down and allow the app to run.
+
+#### My Android device doesn't see my Mac
+
+Make sure both devices are on the same Wi-Fi network. Local network communication may not work on some public networks — for example, in coffee shops or hotels. If you're on your own network, check your router settings to make sure it's not blocking local devices from talking to each other.
+
+#### How do I send files?
+
+Right-click a file in Finder, select Share, then select NearDrop.
+
+#### How do I send links?
+
+From the menu bar: File -> Share -> NearDrop. Safari also has a share button on the toolbar.
+
+#### My Mac doesn't see my Android device
+
+Unfortunately, Android listens for specific BLE (Bluetooth Low Energy) broadcasts to automatically become visible, and macOS doesn't allow apps to send them. As a workaround, you have to open the "Google Files" and tap "Receive" on the "Nearby Share" tab.
+
+To make it more easily accessible and/or if you don't want to install Google Files, you can use an app like [one of these](https://forum.xda-developers.com/t/how-to-manually-create-a-homescreen-shortcut-to-a-known-unique-android-activity.4336833/) to create a shortcut to launch one of these activity intents:
+
+- Option 1:
+  - Action: `com.google.android.gms.RECEIVE_NEARBY`
+  - Mime type: `*/*`
+- Option 2:
+  - Component name: `com.google.android.gms/.nearby.sharing.ReceiveSurfaceActivity`
+
+#### Can the menu bar icon be removed?
+
+Yes. Drag the icon off the menu bar while holding cmd. To bring it back, launch the app a second time, while it's already running.
+
 #### Why is the app not notarized?
 
-Because I don't want to pay Apple $99 a year for the privilege of developing macOS apps and oppose their idea of security.
+Because I don't want to pay Apple $99 a year for the privilege of developing macOS apps and I oppose their idea of security. The slightly less scary security warning isn't worth $99/year IMO.
 
 #### Why is this not on the app store?
 
