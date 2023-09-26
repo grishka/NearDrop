@@ -16,6 +16,7 @@ import BigInt
 
 class NearbyConnection{
 	internal static let SANE_FRAME_LENGTH=5*1024*1024
+	private static let dispatchQueue=DispatchQueue(label: "me.grishka.NearDrop.queue", qos: .utility) // FIFO (non-concurrent) queue to avoid those exciting concurrency bugs
 	
 	internal let connection:NWConnection
 	internal var remoteDeviceInfo:RemoteDeviceInfo?
@@ -52,6 +53,7 @@ class NearbyConnection{
 	func start(){
 		connection.stateUpdateHandler={state in
 			if case .ready = state {
+				self.connectionReady()
 				self.receiveFrameAsync()
 			} else if case .failed(let err) = state {
 				self.lastError=err
@@ -59,8 +61,11 @@ class NearbyConnection{
 				self.handleConnectionClosure()
 			}
 		}
-		connection.start(queue: .global(qos: .utility))
+		//connection.start(queue: .global(qos: .utility))
+		connection.start(queue: NearbyConnection.dispatchQueue)
 	}
+	
+	func connectionReady(){}
 	
 	internal func handleConnectionClosure(){
 		print("Connection closed")
@@ -132,22 +137,27 @@ class NearbyConnection{
 		}
 	}
 	
-	internal func sendFrameAsync(_ frame:Data){
+	internal func sendFrameAsync(_ frame:Data, completion:(()->Void)?=nil){
+		if connectionClosed{
+			return
+		}
 		var lengthPrefixedData=Data(capacity: frame.count+4)
 		let length:Int=frame.count
 		lengthPrefixedData.append(contentsOf: [
-			UInt8(length >> 24),
-			UInt8(length >> 16),
-			UInt8(length >> 8),
-			UInt8(length)
+			UInt8(truncatingIfNeeded: length >> 24),
+			UInt8(truncatingIfNeeded: length >> 16),
+			UInt8(truncatingIfNeeded: length >> 8),
+			UInt8(truncatingIfNeeded: length)
 		])
 		lengthPrefixedData.append(frame)
 		connection.send(content: lengthPrefixedData, completion: .contentProcessed({ error in
-			
+			if let completion=completion{
+				completion()
+			}
 		}))
 	}
 	
-	internal func encryptAndSendOfflineFrame(_ frame:Location_Nearby_Connections_OfflineFrame) throws{
+	internal func encryptAndSendOfflineFrame(_ frame:Location_Nearby_Connections_OfflineFrame, completion:(()->Void)?=nil) throws{
 		var d2dMsg=Securegcm_DeviceToDeviceMessage()
 		serverSeq+=1
 		d2dMsg.sequenceNumber=serverSeq
@@ -185,7 +195,7 @@ class NearbyConnection{
 		var smsg=Securemessage_SecureMessage()
 		smsg.headerAndBody=try hb.serializedData()
 		smsg.signature=Data(HMAC<SHA256>.authenticationCode(for: smsg.headerAndBody, using: sendHmacKey!))
-		sendFrameAsync(try smsg.serializedData())
+		sendFrameAsync(try smsg.serializedData(), completion: completion)
 	}
 	
 	internal func sendTransferSetupFrame(_ frame:Sharing_Nearby_Frame) throws{
@@ -275,6 +285,9 @@ class NearbyConnection{
 				try processFileChunk(frame: payloadTransfer)
 			}
 		}else if case .keepAlive = offlineFrame.v1.type{
+			#if DEBUG
+			print("Sent keep-alive")
+			#endif
 			sendKeepAlive(ack: true)
 		}else{
 			print("Unhandled offline frame encrypted: \(offlineFrame)")
@@ -400,51 +413,6 @@ class NearbyConnection{
 			print("Error sending KEEP_ALIVE: \(error)")
 		}
 	}
-}
-
-enum NearbyError:Error{
-	case protocolError(_ message:String)
-	case requiredFieldMissing
-	case ukey2
-	case inputOutput(cause:Errno)
-}
-
-
-struct RemoteDeviceInfo{
-	let name:String
-	let type:DeviceType
-	
-	enum DeviceType{
-		case unknown
-		case phone
-		case tablet
-		case computer
-		
-		static func fromRawValue(value:Int) -> DeviceType{
-			switch value {
-			case 0:
-				return .unknown
-			case 1:
-				return .phone
-			case 2:
-				return .tablet
-			case 3:
-				return .computer
-			default:
-				return .unknown
-			}
-		}
-	}
-}
-
-struct TransferMetadata{
-	let files:[FileMetadata]
-}
-
-struct FileMetadata{
-	let name:String
-	let size:Int64
-	let mimeType:String
 }
 
 struct InternalFileInfo{

@@ -59,6 +59,7 @@ sequenceDiagram
     Server->>Client: UKEY2 ServerInit
     Client->>Server: UKEY2 ClientFinish
     Server->>Client: Connection response
+    Client->>Server: Connection response
     Note over Server, Client: All following packets are encrypted
     Server->>Client: Paired key encryption
     Client->>Server: Paired key encryption
@@ -134,7 +135,7 @@ The **authentication string** is used for out-of-band key verification. Nearby S
 
 #### Connection response
 
-After the key exchange is complete, the server sends one last plaintext message to the client: a connection response. It's a subtype of offline frame saying that the server has accepted the connection. All the following communication is encrypted and wrapped in the payload layer.
+After the key exchange is complete, the server and client send each other one last plaintext message: a connection response. It's a subtype of offline frame saying that the other party has accepted the connection. All the following communication is encrypted and wrapped in the payload layer.
 
 ### The encryption layer
 

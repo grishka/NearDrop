@@ -28,4 +28,20 @@ extension Data{
 		}
 		return data
 	}
+	
+	static func dataFromUrlSafeBase64(_ str:String)->Data?{
+		var regularB64=String(str.map{
+			if $0=="_"{
+				return "/"
+			}else if $0=="-"{
+				return "+"
+			}else{
+				return $0
+			}
+		})
+		while (regularB64.count%4) != 0{
+			regularB64=regularB64+"="
+		}
+		return Data(base64Encoded: regularB64, options: .ignoreUnknownCharacters)
+	}
 }
