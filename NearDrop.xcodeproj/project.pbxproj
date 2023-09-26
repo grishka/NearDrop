@@ -111,6 +111,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C284C432AB9FFA200F8D624 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		2C284C442AB9FFA200F8D624 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3226184D2A51E10600B06FD1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		3226184E2A51E10600B06FD1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		322618502A51EB8A00B06FD1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				de,
 				es,
 				th,
+				"pt-BR",
 				hu,
 			);
 			mainGroup = 69DA9A0529E0BF5100A442DA;
@@ -528,6 +531,7 @@
 				3226184E2A51E10600B06FD1 /* de */,
 				322618512A51EB8A00B06FD1 /* es */,
 				B670906F2A6D237600DB8273 /* th */,
+				2C284C442AB9FFA200F8D624 /* pt-BR */,
 				AE37AC282ABB62E400F0FF91 /* hu */,
 			);
 			name = Localizable.strings;
@@ -542,6 +546,7 @@
 				3226184D2A51E10600B06FD1 /* de */,
 				322618502A51EB8A00B06FD1 /* es */,
 				B670906E2A6D234D00DB8273 /* th */,
+				2C284C432AB9FFA200F8D624 /* pt-BR */,
 				AE37AC272ABB62E400F0FF91 /* hu */,
 			);
 			name = Localizable.stringsdict;
