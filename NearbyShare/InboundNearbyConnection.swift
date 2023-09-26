@@ -63,8 +63,10 @@ class InboundNearbyConnection: NearbyConnection{
 			}
 		}catch{
 			lastError=error
-			print("Deserialization error: \(error)")
+			print("Deserialization error: \(error) in state \(currentState)")
+#if !DEBUG
 			protocolError()
+#endif
 		}
 	}
 	
@@ -279,7 +281,7 @@ class InboundNearbyConnection: NearbyConnection{
 									  destinationURL: dest)
 			transferredFiles[file.payloadID]=info
 		}
-		let metadata=TransferMetadata(files: transferredFiles.map({$0.value.meta}))
+		let metadata=TransferMetadata(files: transferredFiles.map({$0.value.meta}), id: id, pinCode: pinCode)
 		DispatchQueue.main.async {
 			self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
 		}
