@@ -25,6 +25,7 @@ class OutboundNearbyConnection:NearbyConnection{
 	private var totalBytesToSend:Int64=0
 	private var totalBytesSent:Int64=0
 	private var cancelled:Bool=false
+	private var textPayloadID:Int64=0
 	
 	enum State{
 		case initial, sentUkeyClientInit, sentUkeyClientFinish, sentPairedKeyEncryption, sentPairedKeyResult, sentIntroduction, sendingFiles
@@ -33,6 +34,9 @@ class OutboundNearbyConnection:NearbyConnection{
 	init(connection: NWConnection, id: String, urlsToSend:[URL]){
 		self.urlsToSend=urlsToSend
 		super.init(connection: connection, id: id)
+		if urlsToSend.count==1 && !urlsToSend[0].isFileURL{
+			textPayloadID=Int64.random(in: Int64.min...Int64.max)
+		}
 	}
 	
 	deinit {
@@ -256,16 +260,16 @@ class OutboundNearbyConnection:NearbyConnection{
 		var introduction=Sharing_Nearby_Frame()
 		introduction.version = .v1
 		introduction.v1.type = .introduction
-		if urlsToSend.count==1 && urlsToSend[0].scheme != "file"{
+		if urlsToSend.count==1 && !urlsToSend[0].isFileURL{
 			var meta=Sharing_Nearby_TextMetadata()
 			meta.type = .url
 			meta.textTitle=urlsToSend[0].host ?? "URL"
 			meta.size=Int64(urlsToSend[0].absoluteString.utf8.count)
-			meta.payloadID=Int64.random(in: Int64.min...Int64.max)
+			meta.payloadID=textPayloadID
 			introduction.v1.introduction.textMetadata.append(meta)
 		}else{
 			for url in urlsToSend{
-				guard url.scheme=="file" else {continue}
+				guard url.isFileURL else {continue}
 				var meta=Sharing_Nearby_FileMetadata()
 				meta.name=OutboundNearbyConnection.sanitizeFileName(name: url.lastPathComponent)
 				let attrs=try FileManager.default.attributesOfItem(atPath: url.path)
@@ -309,7 +313,11 @@ class OutboundNearbyConnection:NearbyConnection{
 		case .accept:
 			currentState = .sendingFiles
 			delegate?.outboundConnectionTransferAccepted(connection: self)
-			try sendNextFileChunk()
+			if urlsToSend.count==1 && !urlsToSend[0].isFileURL{
+				try sendURL()
+			}else{
+				try sendNextFileChunk()
+			}
 		case .reject, .unknown:
 			delegate?.outboundConnection(connection: self, failedWithError: NearbyError.canceled(reason: .userRejected))
 			try sendDisconnectionAndDisconnect()
@@ -325,8 +333,13 @@ class OutboundNearbyConnection:NearbyConnection{
 		}
 	}
 	
+	private func sendURL() throws{
+		try sendBytesPayload(data: Data(urlsToSend[0].absoluteString.utf8), id: textPayloadID)
+		delegate?.outboundConnectionTransferFinished(connection: self)
+		try sendDisconnectionAndDisconnect()
+	}
+	
 	private func sendNextFileChunk() throws{
-		print("SEND NEXT: \(Thread.current)")
 		if cancelled{
 			return
 		}

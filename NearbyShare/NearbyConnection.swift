@@ -203,12 +203,16 @@ class NearbyConnection{
 	}
 	
 	internal func sendTransferSetupFrame(_ frame:Sharing_Nearby_Frame) throws{
+		try sendBytesPayload(data: try frame.serializedData(), id: Int64.random(in: Int64.min...Int64.max))
+	}
+	
+	internal func sendBytesPayload(data:Data, id:Int64) throws{
 		var transfer=Location_Nearby_Connections_PayloadTransferFrame()
 		transfer.packetType = .data
 		transfer.payloadChunk.offset=0
 		transfer.payloadChunk.flags=0
-		transfer.payloadChunk.body=try frame.serializedData()
-		transfer.payloadHeader.id=Int64.random(in: Int64.min...Int64.max)
+		transfer.payloadChunk.body=data
+		transfer.payloadHeader.id=id
 		transfer.payloadHeader.type = .bytes
 		transfer.payloadHeader.totalSize=Int64(transfer.payloadChunk.body.count)
 		transfer.payloadHeader.isSensitive=false
