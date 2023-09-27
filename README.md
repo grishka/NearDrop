@@ -18,7 +18,7 @@ If you want the app to start on boot, [follow thesee steps to add NearDrop as a 
 #### Installation with Homebrew
 
 ```
-brew install grishka/grishka/NearDrop
+brew install grishka/grishka/neardrop
 ```
 
 ## Contributing
