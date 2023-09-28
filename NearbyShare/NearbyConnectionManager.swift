@@ -211,7 +211,6 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 		let port:Int32=Int32(tcpListener.port!.rawValue)
 		mdnsService=NetService(domain: "", type: "_FC9F5ED42C8A._tcp.", name: name, port: port)
 		mdnsService?.delegate=self
-		mdnsService?.includesPeerToPeer=true
 		mdnsService?.setTXTRecord(NetService.data(fromTXTRecord: [
 			"n": endpointInfo.serialize().urlSafeBase64EncodedString().data(using: .utf8)!
 		]))
