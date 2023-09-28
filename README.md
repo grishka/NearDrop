@@ -13,7 +13,7 @@ The app lives in your menu bar and saves files to your downloads folder. It's th
 
 Download the latest build from the releases section, unzip, move to your applications folder. When running for the first time, right-click the app and select "Open", then confirm running an app from unidentified developer.
 
-If you want the app to start on boot, [follow thesee steps to add NearDrop as a login item.](https://support.apple.com/guide/mac-help/open-items-automatically-when-you-log-in-mh15189/mac)
+If you want the app to start on boot, [follow these steps to add NearDrop as a login item.](https://support.apple.com/guide/mac-help/open-items-automatically-when-you-log-in-mh15189/mac)
 
 #### Installation with Homebrew
 
