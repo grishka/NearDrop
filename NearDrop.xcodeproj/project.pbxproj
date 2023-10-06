@@ -131,6 +131,11 @@
 		3226184E2A51E10600B06FD1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		322618502A51EB8A00B06FD1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		322618512A51EB8A00B06FD1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		500BD4FD2AD09973002BAB1A /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/ShareViewController.strings; sourceTree = "<group>"; };
+		500BD4FE2AD09973002BAB1A /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		500BD4FF2AD09973002BAB1A /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		500BD5002AD09973002BAB1A /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		500BD5012AD09973002BAB1A /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		691F53B92ABB70840089FD92 /* DeviceListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListCell.swift; sourceTree = "<group>"; };
 		691F53BA2ABB70840089FD92 /* DeviceListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceListCell.xib; sourceTree = "<group>"; };
 		691F53BD2ABF03820089FD92 /* OutboundNearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutboundNearbyConnection.swift; sourceTree = "<group>"; };
@@ -424,6 +429,7 @@
 				"zh-Hans",
 				ko,
 				ja,
+				uk,
 			);
 			mainGroup = 69DA9A0529E0BF5100A442DA;
 			packageReferences = (
@@ -553,6 +559,7 @@
 				1884486E2AC294C3003EC2A3 /* zh-Hans */,
 				B59C7B442AC5EC0600B2CC15 /* ko */,
 				B5AC98B72AC831F500351A5D /* ja */,
+				500BD5012AD09973002BAB1A /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -566,6 +573,7 @@
 				1884486D2AC294C3003EC2A3 /* zh-Hans */,
 				B59C7B432AC5EC0600B2CC15 /* ko */,
 				B5AC98B62AC831F500351A5D /* ja */,
+				500BD5002AD09973002BAB1A /* uk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -579,6 +587,7 @@
 				1884486A2AC294C3003EC2A3 /* zh-Hans */,
 				B59C7B402AC5EC0600B2CC15 /* ko */,
 				B5AC98B32AC831F500351A5D /* ja */,
+				500BD4FD2AD09973002BAB1A /* uk */,
 			);
 			name = ShareViewController.xib;
 			sourceTree = "<group>";
@@ -598,6 +607,7 @@
 				1884486C2AC294C3003EC2A3 /* zh-Hans */,
 				B59C7B422AC5EC0600B2CC15 /* ko */,
 				B5AC98B52AC831F500351A5D /* ja */,
+				500BD4FF2AD09973002BAB1A /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -617,6 +627,7 @@
 				1884486B2AC294C3003EC2A3 /* zh-Hans */,
 				B59C7B412AC5EC0600B2CC15 /* ko */,
 				B5AC98B42AC831F500351A5D /* ja */,
+				500BD4FE2AD09973002BAB1A /* uk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
