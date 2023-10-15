@@ -13,9 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%dつのファイル</string>
+			<string>%d ファイル</string>
 			<key>other</key>
-			<string>%dつのファイル</string>
+			<string>%d ファイル</string>
 		</dict>
 	</dict>
 </dict>

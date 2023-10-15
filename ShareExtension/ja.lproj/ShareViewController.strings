@@ -6,7 +6,7 @@
 "6Up-t3-mwm.title" = "キャンセル";
 
 /* Class = "NSTextFieldCell"; title = "Looking for devices..."; ObjectID = "NaJ-Wx-Pim"; */
-"NaJ-Wx-Pim.title" = "機器を探す中...";
+"NaJ-Wx-Pim.title" = "デバイスを検索しています...";
 
 /* Class = "NSTextFieldCell"; title = "If you don't see your device, open \"Google Files\" app and tap \"Receive\" on the Nearby Share tab."; ObjectID = "vla-gF-eJo"; */
-"vla-gF-eJo.title" = "もしデバイスが表示されない場合は、「Files by Google」アプリを開き、右下にある「Nearby Share」から「受信」をタップしてください。";
+"vla-gF-eJo.title" = "デバイスが表示されない場合は、「Files」アプリを開き、右下タブから「ニアバイシェア」を選択し、「受信」ボタンをタップしてください。";
