@@ -55,10 +55,12 @@ class NearbyConnection{
 			if case .ready = state {
 				self.connectionReady()
 				self.receiveFrameAsync()
+				SleepManager.shared.disableSleep()
 			} else if case .failed(let err) = state {
 				self.lastError=err
 				print("Error opening socket: \(err)")
 				self.handleConnectionClosure()
+				SleepManager.shared.enableSleep()
 			}
 		}
 		//connection.start(queue: .global(qos: .utility))
