@@ -40,3 +40,8 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "对所有人可见";
 
+/* No comment provided by engineer. */
+"Enable" = "启用NearDrop";
+
+/* No comment provided by engineer. */
+"Disable" = "禁用NearDrop";
