@@ -150,7 +150,8 @@ public protocol ShareExtensionDelegate:AnyObject{
 
 public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConnectionDelegate, OutboundNearbyConnectionDelegate{
 	
-	private var tcpListener:NWListener;
+	private var tcpListener:NWListener?;
+    private var listenerStatus:Bool = false
 	public let endpointID:[UInt8]=generateEndpointID()
 	private var mdnsService:NetService?
 	private var activeConnections:[String:InboundNearbyConnection]=[:]
@@ -165,29 +166,49 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 	public static let shared=NearbyConnectionManager()
 	
 	override init() {
-		tcpListener=try! NWListener(using: NWParameters(tls: .none))
 		super.init()
 	}
 	
 	public func becomeVisible(){
+        setTCPListener()
 		startTCPListener()
 	}
+    
+    public func becomeInvisible(){
+        stopTCPListener()
+    }
+    
+    public func getVisibilityStatus() -> Bool {
+             return listenerStatus
+    }
+
+    private func setTCPListener() {
+             tcpListener=try! NWListener(using: NWParameters(tls: .none))
+    }
 	
 	private func startTCPListener(){
-		tcpListener.stateUpdateHandler={(state:NWListener.State) in
+		tcpListener?.stateUpdateHandler={(state:NWListener.State) in
 			if case .ready = state {
 				self.initMDNS()
 			}
 		}
-		tcpListener.newConnectionHandler={(connection:NWConnection) in
+		tcpListener?.newConnectionHandler={(connection:NWConnection) in
 			let id=UUID().uuidString
 			let conn=InboundNearbyConnection(connection: connection, id: id)
 			self.activeConnections[id]=conn
 			conn.delegate=self
 			conn.start()
 		}
-		tcpListener.start(queue: .global(qos: .utility))
+		tcpListener?.start(queue: .global(qos: .utility))
+        listenerStatus = true
 	}
+    
+    private func stopTCPListener() {
+             tcpListener?.cancel()
+             tcpListener = nil
+             self.mdnsService?.stop()
+             listenerStatus = false
+         }
 	
 	private static func generateEndpointID()->[UInt8]{
 		var id:[UInt8]=[]
@@ -208,7 +229,7 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 		let name=Data(nameBytes).urlSafeBase64EncodedString()
 		let endpointInfo=EndpointInfo(name: Host.current().localizedName!, deviceType: .computer)
 		
-		let port:Int32=Int32(tcpListener.port!.rawValue)
+		let port:Int32=Int32((tcpListener?.port!.rawValue)!)
 		mdnsService=NetService(domain: "", type: "_FC9F5ED42C8A._tcp.", name: name, port: port)
 		mdnsService?.delegate=self
 		mdnsService?.setTXTRecord(NetService.data(fromTXTRecord: [

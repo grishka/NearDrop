@@ -13,18 +13,9 @@ import NearbyShare
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate, MainAppDelegate{
 	private var statusItem:NSStatusItem?
 	private var activeIncomingTransfers:[String:TransferInfo]=[:]
+    let menu=NSMenu()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-		let menu=NSMenu()
-		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
-		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
-		menu.addItem(NSMenuItem.separator())
-		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
-		statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-		statusItem?.button?.image=NSImage(named: "MenuBarIcon")
-		statusItem?.menu=menu
-		statusItem?.behavior = .removalAllowed
-		
 		let nc=UNUserNotificationCenter.current()
 		nc.requestAuthorization(options: [.alert, .sound]) { granted, err in
 			if !granted{
@@ -38,8 +29,41 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		let errorsCategory=UNNotificationCategory(identifier: "ERRORS", actions: [], intentIdentifiers: [])
 		nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
 		NearbyConnectionManager.shared.mainAppDelegate=self
-		NearbyConnectionManager.shared.becomeVisible()
+        menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
+        menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(withTitle: NSLocalizedString("Enable", value: "Enable", comment: ""),
+                              action: #selector(enableNearDrop)  , keyEquivalent: "").target = self
+                 menu.addItem(withTitle: NSLocalizedString("Disable", value: "Disable", comment: ""), action: #selector(disableNearDrop), keyEquivalent: "").target = self
+        menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+        statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem?.button?.image=NSImage(named: "MenuBarIcon")
+        statusItem?.menu=menu
+        statusItem?.behavior = .removalAllowed
+        enableNearDrop()
 	}
+    
+    func setMenuItemState() {
+        if NearbyConnectionManager.shared.getVisibilityStatus() {
+            menu.item(at: 0)?.isHidden = false
+            menu.item(at: 3)?.isHidden = true
+            menu.item(at: 4)?.isHidden = false
+        } else {
+            menu.item(at: 0)?.isHidden = true
+            menu.item(at: 3)?.isHidden = false
+            menu.item(at: 4)?.isHidden = true
+        }
+    }
+    @objc
+    func enableNearDrop() {
+        NearbyConnectionManager.shared.becomeVisible()
+        setMenuItemState()
+    }
+    @objc
+    func disableNearDrop() {
+        NearbyConnectionManager.shared.becomeInvisible()
+        setMenuItemState()
+    }
 	
 	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
 		statusItem?.isVisible=true
