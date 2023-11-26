@@ -62,11 +62,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         alert.alertStyle = .informational
         alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDrop Current Version", comment: "")
         if let appVersion = appVersion {
-            alert.informativeText =  appVersion
+            alert.informativeText = appVersion
         } else {
-            alert.informativeText =  NSLocalizedString("NotificationVersion.Error", value: "Can't find a version.", comment: "")
+            alert.informativeText = NSLocalizedString("NotificationVersion.Error", value: "Can't find a version.", comment: "")
         }
-        
         
         alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
         alert.runModal()
