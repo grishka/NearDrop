@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "수락";
 
 /* No comment provided by engineer. */
@@ -40,3 +40,10 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "모든 사용자에게 공개";
 
+"About" = "NearDrop 버전";
+
+"NotificationsVersion.Title" = "NearDrop 현재 버전";
+
+"NotificationVersion.Error"="버전 확인 불가.";
+
+"OK" = "확인";

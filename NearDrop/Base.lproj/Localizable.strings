@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Accept";
 
 /* No comment provided by engineer. */
@@ -40,3 +40,10 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visible to everyone";
 
+"About" = "NearDrop Version";
+
+"NotificationsVersion.Title" = "NearDrop Current Version";
+
+"NotificationVersion.Error"="Can't find a version.";
+
+"OK" = "OK";
