@@ -24,7 +24,7 @@ class InboundNearbyConnection: NearbyConnection{
 	private var textPayloadID:Int64=0
 	
 	enum State{
-		case initial, receivedConnectionRequest, sentUkeyServerInit, receivedUkeyClientFinish, sentConnectionResponse, sentPairedKeyResult, receivedPairedKeyResult, waitingForUserConsent, receivingFiles, disconnected
+		case initial, receivedConnectionRequest, sentUkeyServerInit, receivedUkeyClientFinish, sentConnectionResponse, sentPairedKeyResult, receivedPairedKeyResult, waitingForUserConsent, receivingFiles, receivingText, disconnected
 	}
 	
 	override init(connection: NWConnection, id:String) {
@@ -118,9 +118,19 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	override func processBytesPayload(payload: Data, id: Int64) throws -> Bool {
-		if id==textPayloadID{
-			if let urlStr=String(data: payload, encoding: .utf8), let url=URL(string: urlStr){
-				NSWorkspace.shared.open(url)
+		if id == textPayloadID {
+			if currentState == .receivingText {
+				if let text=String(data: payload, encoding: .utf8) {
+					let pasteboard = NSPasteboard.general
+					pasteboard.clearContents() // Clear the clipboard
+					if !pasteboard.setString(text, forType: .string) {
+						print("Could not setString in pasteboard")
+					}
+				}
+			} else {
+				if let urlStr=String(data: payload, encoding: .utf8), let url=URL(string: urlStr){
+					NSWorkspace.shared.open(url)
+				}
 			}
 			try sendDisconnectionAndDisconnect()
 			return true
@@ -308,7 +318,19 @@ class InboundNearbyConnection: NearbyConnection{
 				DispatchQueue.main.async {
 					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
 				}
-			}else{
+			} else if case .phoneNumber=meta.type{
+				let metadata=TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: meta.textTitle)
+				textPayloadID=meta.payloadID
+				DispatchQueue.main.async {
+					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
+				}
+			} else if case .text=meta.type{
+				let metadata=TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: meta.textTitle)
+				textPayloadID=meta.payloadID
+				DispatchQueue.main.async {
+					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
+				}
+			} else{
 				rejectTransfer(with: .unsupportedAttachmentType)
 			}
 		}else{
@@ -346,7 +368,11 @@ class InboundNearbyConnection: NearbyConnection{
 			frame.version = .v1
 			frame.v1.type = .response
 			frame.v1.connectionResponse.status = .accept
-			currentState = .receivingFiles
+			if (transferredFiles.isEmpty) {
+				currentState = .receivingText
+			} else {
+				currentState = .receivingFiles
+			}
 			try sendTransferSetupFrame(frame)
 		}catch{
 			lastError=error
