@@ -1,4 +1,4 @@
-**NearDrop** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/) for macOS.
+**NearDrop** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
 
 [Protocol documentation](/PROTOCOL.md) is available separately.
 
@@ -45,7 +45,15 @@ From the menu bar: File -> Share -> NearDrop. Safari also has a share button on 
 
 #### My Mac doesn't see my Android device
 
-Unfortunately, Android listens for specific BLE (Bluetooth Low Energy) broadcasts to automatically become visible, and macOS doesn't allow apps to send them. As a workaround, you have to open the "Google Files" and tap "Receive" on the "Nearby Share" tab.
+Unfortunately, Android listens for specific BLE (Bluetooth Low Energy) broadcasts to automatically become visible, and macOS doesn't allow apps to send them.
+
+##### Samsung devices
+
+After the Quick Share update, [there's currently no known workaround for this problem](https://github.com/grishka/NearDrop/issues/152). Subscribe to that issue to get notified if/when one becomes available.
+
+##### Non-Samsung devices
+
+As a workaround, you have to open the "Google Files" and tap "Receive" on the "Nearby Share" tab.
 
 To make it more easily accessible and/or if you don't want to install Google Files, you can use an app like [one of these](https://forum.xda-developers.com/t/how-to-manually-create-a-homescreen-shortcut-to-a-known-unique-android-activity.4336833/) to create a shortcut to launch one of these activity intents:
 
