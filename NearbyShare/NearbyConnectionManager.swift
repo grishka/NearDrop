@@ -385,5 +385,9 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 		}
 		outgoingTransfers.removeValue(forKey: connection.id)
 	}
+	
+	public func getActiveConnectionsCount() -> Int {
+		return activeConnections.count
+	}
 }
 
