@@ -1,0 +1,42 @@
+/* No comment provided by engineer. */
+"Accept" = "Aceitar";
+
+/* No comment provided by engineer. */
+"Decline" = "Recusar";
+
+/* No comment provided by engineer. */
+"DeviceName" = "Nome do dispositivo: %@";
+
+/* No comment provided by engineer. */
+"DeviceSendingFiles" = "%1$@ está a enviar %2$@";
+
+/* No comment provided by engineer. */
+"Error.Crypto" = "Erro de encriptação";
+
+/* No comment provided by engineer. */
+"Error.Protocol" = "Erro de comunicação";
+
+/* No comment provided by engineer. */
+"NFiles" = "%d ficheiros";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Message" = "O NearDrop precisa ser capaz de mostrar notificações para receber ficheiros. Por favor, active as notificações em Definições do Sistema.";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.OpenSettings" = "Abrir definições";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Title" = "Necessário permissão de notificações";
+
+/* No comment provided by engineer. */
+"PinCode" = "PIN: %@";
+
+/* No comment provided by engineer. */
+"Quit" = "Sair do NearDrop";
+
+/* No comment provided by engineer. */
+"TransferError" = "Falha ao receber ficheiros de %@";
+
+/* No comment provided by engineer. */
+"VisibleToEveryone" = "Visível para todos";
+
