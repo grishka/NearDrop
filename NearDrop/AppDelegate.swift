@@ -34,7 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 			}
 		}
 		nc.delegate=self
-		let incomingTransfersCategory=NDNotificationCenterHackery.hackedNotificationCategory()
+		let incomingTransfersCategory=UNNotificationCategory(identifier: "INCOMING_TRANSFERS", actions: [
+			UNNotificationAction(identifier: "ACCEPT", title: NSLocalizedString("Accept", comment: ""), options: UNNotificationActionOptions.authenticationRequired),
+			UNNotificationAction(identifier: "DECLINE", title: NSLocalizedString("Decline", comment: ""))
+		], intentIdentifiers: [])
 		let errorsCategory=UNNotificationCategory(identifier: "ERRORS", actions: [], intentIdentifiers: [])
 		nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
 		NearbyConnectionManager.shared.mainAppDelegate=self
@@ -79,9 +82,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	}
 	
 	func obtainUserConsent(for transfer: TransferMetadata, from device: RemoteDeviceInfo) {
-		let notificationContent=UNMutableNotificationContent()
-		notificationContent.title="NearDrop"
-		notificationContent.subtitle=String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [transfer.pinCode!])
 		let fileStr:String
 		if let textTitle=transfer.textDescription{
 			fileStr=textTitle
@@ -90,14 +90,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		}else{
 			fileStr=String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
 		}
+		let notificationContent=UNMutableNotificationContent()
+		notificationContent.title="NearDrop"
+		notificationContent.subtitle=String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [transfer.pinCode!])
 		notificationContent.body=String(format: NSLocalizedString("DeviceSendingFiles", value: "%1$@ is sending you %2$@", comment: ""), arguments: [device.name, fileStr])
 		notificationContent.sound = .default
 		notificationContent.categoryIdentifier="INCOMING_TRANSFERS"
 		notificationContent.userInfo=["transferID": transfer.id]
-		NDNotificationCenterHackery.removeDefaultAction(notificationContent)
+		if #available(macOS 11.0, *){
+			NDNotificationCenterHackery.removeDefaultAction(notificationContent)
+		}
 		let notificationReq=UNNotificationRequest(identifier: "transfer_"+transfer.id, content: notificationContent, trigger: nil)
-		self.activeIncomingTransfers[transfer.id]=TransferInfo(device: device, transfer: transfer)
 		UNUserNotificationCenter.current().add(notificationReq)
+		self.activeIncomingTransfers[transfer.id]=TransferInfo(device: device, transfer: transfer)
 	}
 	
 	func incomingTransfer(id: String, didFinishWith error: Error?) {
@@ -107,8 +112,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 			notificationContent.title=String(format: NSLocalizedString("TransferError", value: "Failed to receive files from %@", comment: ""), arguments: [transfer.device.name])
 			if let ne=(error as? NearbyError){
 				switch ne{
-				case .inputOutput(let er):
-					notificationContent.body=er.localizedDescription
+				case .inputOutput:
+					notificationContent.body="I/O Error";
 				case .protocolError(_):
 					notificationContent.body=NSLocalizedString("Error.Protocol", value: "Communication error", comment: "")
 				case .requiredFieldMissing:

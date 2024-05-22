@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,9 +32,6 @@
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NVE-vN-dkz">
                     <rect key="frame" x="325" y="3" width="76" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="cP1-hK-9ZX"/>
-                    </constraints>
                     <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6Up-t3-mwm">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -42,6 +39,9 @@
 Gw
 </string>
                     </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="cP1-hK-9ZX"/>
+                    </constraints>
                     <connections>
                         <action selector="cancel:" target="-2" id="Qav-AK-DGt"/>
                     </connections>
@@ -57,7 +57,7 @@ Gw
                             </constraints>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NearDropIcon" id="q3u-Am-ZIA"/>
                         </imageView>
-                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNc-0i-CWK">
+                        <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aNc-0i-CWK">
                             <rect key="frame" x="19" y="0.0" width="67" height="16"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="NearDrop" allowsEditingTextAttributes="YES" id="0xp-rC-2gr">
                                 <font key="font" metaFont="systemBold"/>
@@ -83,7 +83,7 @@ Gw
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="jOq-9r-V1W"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEz-QK-nem">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEz-QK-nem">
                     <rect key="frame" x="29" y="196" width="367" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" id="opy-Bj-x6u">
                         <font key="font" metaFont="system"/>
@@ -116,10 +116,10 @@ Gw
             <rect key="frame" x="0.0" y="0.0" width="521" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <progressIndicator maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="fCj-wF-rEj">
+                <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="fCj-wF-rEj">
                     <rect key="frame" x="245" y="68" width="32" height="32"/>
                 </progressIndicator>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="27P-yf-gUd">
+                <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="27P-yf-gUd">
                     <rect key="frame" x="189" y="42" width="144" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Looking for devices..." id="NaJ-Wx-Pim">
                         <font key="font" textStyle="headline" name=".SFNS-Bold"/>
@@ -127,7 +127,7 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="V5W-Rm-YVM">
+                <textField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="V5W-Rm-YVM">
                     <rect key="frame" x="-2" y="0.0" width="525" height="32"/>
                     <textFieldCell key="cell" alignment="center" title="If you don't see your device, open &quot;Google Files&quot; app and tap &quot;Receive&quot; on the Nearby Share tab." id="vla-gF-eJo">
                         <font key="font" metaFont="system"/>
@@ -185,7 +185,7 @@ Gw
                         <constraint firstAttribute="bottom" secondItem="84U-lB-SRB" secondAttribute="bottom" id="uh8-T1-Vd8"/>
                     </constraints>
                 </customView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-gw-4ux">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJc-gw-4ux">
                     <rect key="frame" x="-2" y="56" width="388" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="QzI-qQ-OBb">
                         <font key="font" metaFont="system"/>
@@ -199,7 +199,7 @@ Gw
                         <constraint firstAttribute="width" constant="200" id="bM2-Ih-2UC"/>
                     </constraints>
                 </progressIndicator>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-D3-scQ">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="y8I-D3-scQ">
                     <rect key="frame" x="165" y="0.0" width="54" height="16"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" id="Iin-UY-IE5">
                         <font key="font" metaFont="system"/>

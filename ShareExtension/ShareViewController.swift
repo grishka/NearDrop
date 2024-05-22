@@ -44,8 +44,17 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 			for attachment in attachments as NSArray{
 				let provider=attachment as! NSItemProvider
 				provider.loadItem(forTypeIdentifier: kUTTypeURL as String) { data, err in
-					if let url=URL(dataRepresentation: data as! Data, relativeTo: nil, isAbsolute: false){
-						self.urls.append(url)
+					if let urlData=data as? Data{
+						if let url=URL(dataRepresentation: urlData, relativeTo: nil, isAbsolute: false){
+							self.urls.append(url)
+							if self.urls.count==attachments.count{
+								DispatchQueue.main.async {
+									self.urlsReady()
+								}
+							}
+						}
+					}else if let url=data as? NSURL{
+						self.urls.append(url as URL)
 						if self.urls.count==attachments.count{
 							DispatchQueue.main.async {
 								self.urlsReady()

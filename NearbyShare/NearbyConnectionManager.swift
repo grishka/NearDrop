@@ -53,7 +53,7 @@ public enum NearbyError:Error{
 	case protocolError(_ message:String)
 	case requiredFieldMissing(_ message:String)
 	case ukey2
-	case inputOutput(cause:Errno)
+	case inputOutput
 	case canceled(reason:CancellationReason)
 	
 	public enum CancellationReason{

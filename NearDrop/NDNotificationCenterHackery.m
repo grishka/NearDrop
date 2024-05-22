@@ -35,13 +35,6 @@
 
 @implementation NDNotificationCenterHackery
 
-+ (UNNotificationCategory*)hackedNotificationCategory{
-	UNNotificationAction *accept=[UNNotificationAction actionWithIdentifier:@"ACCEPT" title:NSLocalizedString(@"Accept", nil) options:0];
-	UNNotificationAction *decline=[UNNotificationAction actionWithIdentifier:@"DECLINE" title:NSLocalizedString(@"Decline", nil) options:0];
-	UNMutableNotificationCategory *category=[UNMutableNotificationCategory categoryWithIdentifier:@"INCOMING_TRANSFERS" actions:@[accept, decline] intentIdentifiers:@[] hiddenPreviewsBodyPlaceholder:@"" options: UNNotificationCategoryOptionCustomDismissAction];
-	return category;
-}
-
 + (void)removeDefaultAction:(UNMutableNotificationContent*) content{
 	content.hasDefaultAction=false;
 }

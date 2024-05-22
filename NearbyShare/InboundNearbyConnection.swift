@@ -103,7 +103,7 @@ class InboundNearbyConnection: NearbyConnection{
 		guard frame.payloadChunk.offset==currentOffset else { throw NearbyError.protocolError("Invalid offset into file \(frame.payloadChunk.offset), expected \(currentOffset)") }
 		guard currentOffset+Int64(frame.payloadChunk.body.count)<=fileInfo.meta.size else { throw NearbyError.protocolError("Transferred file size exceeds previously specified value") }
 		if frame.payloadChunk.body.count>0{
-			try fileInfo.fileHandle?.write(contentsOf: frame.payloadChunk.body)
+			fileInfo.fileHandle?.write(frame.payloadChunk.body)
 			transferredFiles[id]!.bytesTransferred+=Int64(frame.payloadChunk.body.count)
 			fileInfo.progress?.completedUnitCount=transferredFiles[id]!.bytesTransferred
 		}else if (frame.payloadChunk.flags & 1)==1{

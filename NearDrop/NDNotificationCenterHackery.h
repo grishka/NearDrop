@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NDNotificationCenterHackery : NSObject
 
-+ (UNNotificationCategory*)hackedNotificationCategory;
 + (void)removeDefaultAction:(UNMutableNotificationContent*) content;
 
 @end
