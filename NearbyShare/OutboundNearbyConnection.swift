@@ -243,7 +243,7 @@ class OutboundNearbyConnection:NearbyConnection{
 	}
 	
 	private func processPairedKeyEncryption(frame:Sharing_Nearby_Frame) throws{
-		guard frame.hasV1, frame.v1.hasPairedKeyEncryption else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1, frame.v1.hasPairedKeyEncryption else { throw NearbyError.requiredFieldMissing("sharingNearbyFrame.v1.pairedKeyEncryption") }
 		var pairedResult=Sharing_Nearby_Frame()
 		pairedResult.version = .v1
 		pairedResult.v1=Sharing_Nearby_V1Frame()
@@ -255,7 +255,7 @@ class OutboundNearbyConnection:NearbyConnection{
 	}
 	
 	private func processPairedKeyResult(frame:Sharing_Nearby_Frame) throws{
-		guard frame.hasV1, frame.v1.hasPairedKeyResult else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1, frame.v1.hasPairedKeyResult else { throw NearbyError.requiredFieldMissing("sharingNearbyFrame.v1.pairedKeyResult") }
 		
 		var introduction=Sharing_Nearby_Frame()
 		introduction.version = .v1
@@ -308,7 +308,7 @@ class OutboundNearbyConnection:NearbyConnection{
 	}
 	
 	private func processConsent(frame:Sharing_Nearby_Frame) throws{
-		guard frame.version == .v1, frame.v1.type == .response else {throw NearbyError.requiredFieldMissing}
+		guard frame.version == .v1, frame.v1.type == .response else {throw NearbyError.requiredFieldMissing("sharingNearbyFrame.v1.type==response")}
 		switch frame.v1.connectionResponse.status{
 		case .accept:
 			currentState = .sendingFiles

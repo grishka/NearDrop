@@ -129,7 +129,7 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	private func processConnectionRequestFrame(_ frame:Location_Nearby_Connections_OfflineFrame) throws{
-		guard frame.hasV1 && frame.v1.hasConnectionRequest && frame.v1.connectionRequest.hasEndpointInfo else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1 && frame.v1.hasConnectionRequest && frame.v1.connectionRequest.hasEndpointInfo else { throw NearbyError.requiredFieldMissing("connectionRequest.endpointInfo") }
 		guard case .connectionRequest = frame.v1.type else { throw NearbyError.protocolError("Unexpected frame type \(frame.v1.type)") }
 		let endpointInfo=frame.v1.connectionRequest.endpointInfo
 		guard endpointInfo.count>17 else { throw NearbyError.protocolError("Endpoint info too short") }
@@ -142,7 +142,7 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	private func processUkey2ClientInit(_ msg:Securegcm_Ukey2Message) throws{
-		guard msg.hasMessageType, msg.hasMessageData else { throw NearbyError.requiredFieldMissing }
+		guard msg.hasMessageType, msg.hasMessageData else { throw NearbyError.requiredFieldMissing("clientInit ukey2message.type|data") }
 		guard case .clientInit = msg.messageType else{
 			sendUkey2Alert(type: .badMessageType)
 			throw NearbyError.ukey2
@@ -206,7 +206,7 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	private func processUkey2ClientFinish(_ msg:Securegcm_Ukey2Message, raw:Data) throws{
-		guard msg.hasMessageType, msg.hasMessageData else { throw NearbyError.requiredFieldMissing }
+		guard msg.hasMessageType, msg.hasMessageData else { throw NearbyError.requiredFieldMissing("clientFinish ukey2message.type|data") }
 		guard case .clientFinish = msg.messageType else { throw NearbyError.ukey2 }
 		
 		var sha=SHA512()
@@ -214,7 +214,7 @@ class InboundNearbyConnection: NearbyConnection{
 		guard cipherCommitment==Data(sha.finalize()) else { throw NearbyError.ukey2 }
 		
 		let clientFinish=try Securegcm_Ukey2ClientFinished(serializedData: msg.messageData)
-		guard clientFinish.hasPublicKey else {throw NearbyError.requiredFieldMissing }
+		guard clientFinish.hasPublicKey else {throw NearbyError.requiredFieldMissing("ukey2clientFinish.publicKey") }
 		let clientKey=try Securemessage_GenericPublicKey(serializedData: clientFinish.publicKey)
 		
 		try finalizeKeyExchange(peerKey: clientKey)
@@ -223,7 +223,7 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	private func processConnectionResponseFrame(_ frame:Location_Nearby_Connections_OfflineFrame) throws{
-		guard frame.hasV1, frame.v1.hasType else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1, frame.v1.hasType else { throw NearbyError.requiredFieldMissing("offlineFrame.v1.type") }
 		if case .connectionResponse = frame.v1.type {
 			var resp=Location_Nearby_Connections_OfflineFrame()
 			resp.version = .v1
@@ -254,7 +254,7 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	private func processPairedKeyEncryptionFrame(_ frame:Sharing_Nearby_Frame) throws{
-		guard frame.hasV1, frame.v1.hasPairedKeyEncryption else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1, frame.v1.hasPairedKeyEncryption else { throw NearbyError.requiredFieldMissing("shareNearbyFrame.v1.pairedKeyEncryption") }
 		var pairedResult=Sharing_Nearby_Frame()
 		pairedResult.version = .v1
 		pairedResult.v1=Sharing_Nearby_V1Frame()
@@ -266,12 +266,12 @@ class InboundNearbyConnection: NearbyConnection{
 	}
 	
 	private func processPairedKeyResultFrame(_ frame:Sharing_Nearby_Frame) throws{
-		guard frame.hasV1, frame.v1.hasPairedKeyResult else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1, frame.v1.hasPairedKeyResult else { throw NearbyError.requiredFieldMissing("shareNearbyFrame.v1.pairedKeyResult") }
 		currentState = .receivedPairedKeyResult
 	}
 	
 	private func processIntroductionFrame(_ frame:Sharing_Nearby_Frame) throws{
-		guard frame.hasV1, frame.v1.hasIntroduction else { throw NearbyError.requiredFieldMissing }
+		guard frame.hasV1, frame.v1.hasIntroduction else { throw NearbyError.requiredFieldMissing("shareNearbyFrame.v1.introduction") }
 		currentState = .waitingForUserConsent
 		if frame.v1.introduction.fileMetadata.count>0 && frame.v1.introduction.textMetadata.isEmpty{
 			let downloadsDirectory=(try FileManager.default.url(for: .downloadsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).resolvingSymlinksInPath()

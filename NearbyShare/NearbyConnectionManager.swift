@@ -51,7 +51,7 @@ public struct RemoteDeviceInfo{
 
 public enum NearbyError:Error{
 	case protocolError(_ message:String)
-	case requiredFieldMissing
+	case requiredFieldMissing(_ message:String)
 	case ukey2
 	case inputOutput(cause:Errno)
 	case canceled(reason:CancellationReason)

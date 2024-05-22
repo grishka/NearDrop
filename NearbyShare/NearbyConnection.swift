@@ -232,7 +232,7 @@ class NearbyConnection{
 	}
 	
 	internal func decryptAndProcessReceivedSecureMessage(_ smsg:Securemessage_SecureMessage) throws{
-		guard smsg.hasSignature, smsg.hasHeaderAndBody else { throw NearbyError.requiredFieldMissing }
+		guard smsg.hasSignature, smsg.hasHeaderAndBody else { throw NearbyError.requiredFieldMissing("secureMessage.signature|headerAndBody") }
 		let hmac=Data(HMAC<SHA256>.authenticationCode(for: smsg.headerAndBody, using: recvHmacKey!))
 		guard hmac==smsg.signature else { throw NearbyError.protocolError("hmac!=signature") }
 		let headerAndBody=try Securemessage_HeaderAndBody(serializedData: smsg.headerAndBody)
@@ -254,19 +254,18 @@ class NearbyConnection{
 		})
 		decryptedData=decryptedData.prefix(decryptedLength)
 		let d2dMsg=try Securegcm_DeviceToDeviceMessage(serializedData: decryptedData)
-		guard d2dMsg.hasMessage, d2dMsg.hasSequenceNumber else { throw NearbyError.requiredFieldMissing }
+		guard d2dMsg.hasMessage, d2dMsg.hasSequenceNumber else { throw NearbyError.requiredFieldMissing("d2dMessage.message|sequenceNumber") }
 		clientSeq+=1
 		guard d2dMsg.sequenceNumber==clientSeq else { throw NearbyError.protocolError("Wrong sequence number. Expected \(clientSeq), got \(d2dMsg.sequenceNumber)") }
 		let offlineFrame=try Location_Nearby_Connections_OfflineFrame(serializedData: d2dMsg.message)
-		guard offlineFrame.hasV1, offlineFrame.v1.hasType else { throw NearbyError.requiredFieldMissing }
 		
-		if case .payloadTransfer = offlineFrame.v1.type {
-			guard offlineFrame.v1.hasPayloadTransfer else { throw NearbyError.requiredFieldMissing }
+		if offlineFrame.hasV1 && offlineFrame.v1.hasType, case .payloadTransfer = offlineFrame.v1.type {
+			guard offlineFrame.v1.hasPayloadTransfer else { throw NearbyError.requiredFieldMissing("offlineFrame.v1.payloadTransfer") }
 			let payloadTransfer=offlineFrame.v1.payloadTransfer
 			let header=payloadTransfer.payloadHeader;
 			let chunk=payloadTransfer.payloadChunk;
-			guard header.hasType, header.hasID else { throw NearbyError.requiredFieldMissing }
-			guard payloadTransfer.hasPayloadChunk, chunk.hasOffset, chunk.hasFlags else { throw NearbyError.requiredFieldMissing }
+			guard header.hasType, header.hasID else { throw NearbyError.requiredFieldMissing("payloadHeader.type|id") }
+			guard payloadTransfer.hasPayloadChunk, chunk.hasOffset, chunk.hasFlags else { throw NearbyError.requiredFieldMissing("payloadTransfer.payloadChunk|offset|flags") }
 			if case .bytes = header.type{
 				let payloadID=header.id
 				if header.totalSize>InboundNearbyConnection.SANE_FRAME_LENGTH{
@@ -294,7 +293,7 @@ class NearbyConnection{
 			}else if case .file = header.type{
 				try processFileChunk(frame: payloadTransfer)
 			}
-		}else if case .keepAlive = offlineFrame.v1.type{
+		}else if offlineFrame.hasV1 && offlineFrame.v1.hasType, case .keepAlive = offlineFrame.v1.type{
 			#if DEBUG
 			print("Sent keep-alive")
 			#endif
@@ -321,7 +320,7 @@ class NearbyConnection{
 	}
 	
 	internal func finalizeKeyExchange(peerKey:Securemessage_GenericPublicKey) throws{
-		guard peerKey.hasEcP256PublicKey else { throw NearbyError.requiredFieldMissing }
+		guard peerKey.hasEcP256PublicKey else { throw NearbyError.requiredFieldMissing("peerKey.ecP256PublicKey") }
 		
 		let domain=Domain.instance(curve: .EC256r1)
 		var clientX=peerKey.ecP256PublicKey.x
