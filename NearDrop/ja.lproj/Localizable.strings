@@ -1,14 +1,14 @@
 ﻿/* No comment provided by engineer. */
-"Accept" = "受諾";
+"Accept" = "受け入れる";
 
 /* No comment provided by engineer. */
-"Decline" = "お断り";
+"Decline" = "拒否する";
 
 /* No comment provided by engineer. */
 "DeviceName" = "機器名: %@";
 
 /* No comment provided by engineer. */
-"DeviceSendingFiles" = "1$@があなたに%2$@を送信しています";
+"DeviceSendingFiles" = "%1$@が%2$@を送信しています";
 
 /* No comment provided by engineer. */
 "Error.Crypto" = "暗号化エラー";
@@ -32,10 +32,10 @@
 "PinCode" = "PIN: %@";
 
 /* No comment provided by engineer. */
-"Quit" = "NearDropを出る";
+"Quit" = "NearDropを終了";
 
 /* No comment provided by engineer. */
-"TransferError" = "%@からのファイル受信に失敗";
+"TransferError" = "%@からのファイル受信に失敗しました。";
 
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "すべてのユーザーに公開";
