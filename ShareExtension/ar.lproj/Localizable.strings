@@ -1,0 +1,29 @@
+/* No comment provided by engineer. */
+"Connecting" = "جارٍ الاتصال...";
+
+/* No comment provided by engineer. */
+"NFiles" = "%d ملفات";
+
+/* No comment provided by engineer. */
+"NotEnoughSpace" = "لا توجد مساحة كافية على القرص";
+
+/* No comment provided by engineer. */
+"PinCode" = "الرمز السري: %@";
+
+/* No comment provided by engineer. */
+"Sending" = "جارٍ الإرسال...";
+
+/* No comment provided by engineer. */
+"TransferCanceled" = "تم الإلغاء";
+
+/* No comment provided by engineer. */
+"TransferDeclined" = "مرفوض";
+
+/* No comment provided by engineer. */
+"TransferFinished" = "تم النقل";
+
+/* No comment provided by engineer. */
+"TransferTimedOut" = "انتهت المهلة";
+
+/* No comment provided by engineer. */
+"UnsupportedType" = "نوع المرفق غير مدعوم";

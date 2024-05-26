@@ -1,0 +1,42 @@
+/* No comment provided by engineer. */
+"Accept" = "قبول";
+
+/* No comment provided by engineer. */
+"Decline" = "رفض";
+
+/* No comment provided by engineer. */
+"DeviceName" = "اسم الجهاز: %@";
+
+/* No comment provided by engineer. */
+"DeviceSendingFiles" = "%1$@ يرسل لك %2$@";
+
+/* No comment provided by engineer. */
+"Error.Crypto" = "خطأ في التشفير";
+
+/* No comment provided by engineer. */
+"Error.Protocol" = "خطأ في الاتصال";
+
+/* No comment provided by engineer. */
+"NFiles" = "%d ملفات";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Message" = "يحتاج NearDrop إلى القدرة على عرض الإشعارات لنقل الملفات الواردة. يرجى السماح بالإشعارات في إعدادات النظام.";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.OpenSettings" = "افتح الإعدادات";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Title" = "مطلوب إذن الإشعارات";
+
+/* No comment provided by engineer. */
+"PinCode" = "الرمز السري: %@";
+
+/* No comment provided by engineer. */
+"Quit" = "إنهاء NearDrop";
+
+/* No comment provided by engineer. */
+"TransferError" = "فشل في استقبال الملفات من %@";
+
+/* No comment provided by engineer. */
+"VisibleToEveryone" = "مرئي للجميع";
+
