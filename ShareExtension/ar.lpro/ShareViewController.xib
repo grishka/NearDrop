@@ -1,0 +1,11 @@
+/* Class = "NSTextFieldCell"; title = "NearDrop"; ObjectID = "0xp-rC-2gr"; */
+"0xp-rC-2gr.title" = "NearDrop";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "6Up-t3-mwm"; */
+"6Up-t3-mwm.title" = "إلغاء";
+
+/* Class = "NSTextFieldCell"; title = "Looking for devices..."; ObjectID = "NaJ-Wx-Pim"; */
+"NaJ-Wx-Pim.title" = "البحث عن الأجهزة...";
+
+/* Class = "NSTextFieldCell"; title = "If you don't see your device, open \"Google Files\" app and tap \"Receive\" on the Nearby Share tab."; ObjectID = "vla-gF-eJo"; */
+"vla-gF-eJo.title" = "إذا لم تر جهازك، افتح تطبيق \"Google Files\" واضغط على \"استلام\" في علامة التبويب مشاركة قريبة.";
