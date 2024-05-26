@@ -22,7 +22,8 @@ class InboundNearbyConnection: NearbyConnection{
 	private var cipherCommitment:Data?
 	
 	private var textPayloadID:Int64=0
-	
+    private var textType:Sharing_Nearby_TextMetadata.TypeEnum = .unknown
+
 	enum State{
 		case initial, receivedConnectionRequest, sentUkeyServerInit, receivedUkeyClientFinish, sentConnectionResponse, sentPairedKeyResult, receivedPairedKeyResult, waitingForUserConsent, receivingFiles, disconnected
 	}
@@ -119,9 +120,14 @@ class InboundNearbyConnection: NearbyConnection{
 	
 	override func processBytesPayload(payload: Data, id: Int64) throws -> Bool {
 		if id==textPayloadID{
-			if let urlStr=String(data: payload, encoding: .utf8), let url=URL(string: urlStr){
-				NSWorkspace.shared.open(url)
-			}
+            if let textStr=String(data: payload, encoding: .utf8) {
+                if case .url=textType, let url=URL(string: textStr){
+                    NSWorkspace.shared.open(url)
+                }else{
+                    NSPasteboard.general.clearContents()
+                    NSPasteboard.general.setString(textStr, forType: .string)
+                }
+            }
 			try sendDisconnectionAndDisconnect()
 			return true
 		}
@@ -302,15 +308,12 @@ class InboundNearbyConnection: NearbyConnection{
 			}
 		}else if frame.v1.introduction.textMetadata.count==1{
 			let meta=frame.v1.introduction.textMetadata[0]
-			if case .url=meta.type{
-				let metadata=TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: meta.textTitle)
-				textPayloadID=meta.payloadID
-				DispatchQueue.main.async {
-					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
-				}
-			}else{
-				rejectTransfer(with: .unsupportedAttachmentType)
-			}
+            let metadata=TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: meta.textTitle)
+            textPayloadID=meta.payloadID
+            textType=meta.type
+            DispatchQueue.main.async {
+                self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
+            }
 		}else{
 			rejectTransfer(with: .unsupportedAttachmentType)
 		}
