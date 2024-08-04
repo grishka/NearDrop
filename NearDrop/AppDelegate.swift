@@ -19,6 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
+        menu.addItem(withTitle: NSLocalizedString("About", value: "NearDrop Version", comment: ""), action: #selector(showVersionAlert), keyEquivalent: "")
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image=NSImage(named: "MenuBarIcon")
@@ -55,6 +56,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
+    }
+    
+    @objc
+    func showVersionAlert() {
+        let alert = NSAlert()
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        alert.alertStyle = .informational
+        alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDrop Current Version", comment: "")
+        if let appVersion = appVersion {
+            alert.informativeText = appVersion
+        } else {
+            alert.informativeText = NSLocalizedString("NotificationVersion.Error", value: "Can't find a version.", comment: "")
+        }
+        
+        alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
+        alert.runModal()
     }
 	
 	func showNotificationsDeniedAlert(){
