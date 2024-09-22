@@ -124,6 +124,16 @@ class InboundNearbyConnection: NearbyConnection{
 			}
 			try sendDisconnectionAndDisconnect()
 			return true
+		}else if let fileInfo=transferredFiles[id]{
+			fileInfo.fileHandle?.write(payload)
+			transferredFiles[id]!.bytesTransferred+=Int64(payload.count)
+			fileInfo.progress?.completedUnitCount=transferredFiles[id]!.bytesTransferred
+			try fileInfo.fileHandle?.close()
+			transferredFiles[id]!.fileHandle=nil
+			fileInfo.progress?.unpublish()
+			transferredFiles.removeValue(forKey: id)
+			try sendDisconnectionAndDisconnect()
+			return true
 		}
 		return false
 	}
@@ -270,27 +280,32 @@ class InboundNearbyConnection: NearbyConnection{
 		currentState = .receivedPairedKeyResult
 	}
 	
+	private func makeFileDestinationURL(_ initialDest:URL) -> URL{
+		var dest=initialDest
+		if FileManager.default.fileExists(atPath: dest.path){
+			var counter=1
+			var path:String
+			let ext=dest.pathExtension
+			let baseUrl=dest.deletingPathExtension()
+			repeat{
+				path="\(baseUrl.path) (\(counter))"
+				if !ext.isEmpty{
+					path+=".\(ext)"
+				}
+				counter+=1
+			}while FileManager.default.fileExists(atPath: path)
+			dest=URL(fileURLWithPath: path)
+		}
+		return dest
+	}
+	
 	private func processIntroductionFrame(_ frame:Sharing_Nearby_Frame) throws{
 		guard frame.hasV1, frame.v1.hasIntroduction else { throw NearbyError.requiredFieldMissing("shareNearbyFrame.v1.introduction") }
 		currentState = .waitingForUserConsent
 		if frame.v1.introduction.fileMetadata.count>0 && frame.v1.introduction.textMetadata.isEmpty{
 			let downloadsDirectory=(try FileManager.default.url(for: .downloadsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).resolvingSymlinksInPath()
 			for file in frame.v1.introduction.fileMetadata{
-				var dest=downloadsDirectory.appendingPathComponent(file.name)
-				if FileManager.default.fileExists(atPath: dest.path){
-					var counter=1
-					var path:String
-					let ext=dest.pathExtension
-					let baseUrl=dest.deletingPathExtension()
-					repeat{
-						path="\(baseUrl.path) (\(counter))"
-						if !ext.isEmpty{
-							path+=".\(ext)"
-						}
-						counter+=1
-					}while FileManager.default.fileExists(atPath: path)
-					dest=URL(fileURLWithPath: path)
-				}
+				let dest=makeFileDestinationURL(downloadsDirectory.appendingPathComponent(file.name))
 				let info=InternalFileInfo(meta: FileMetadata(name: file.name, size: file.size, mimeType: file.mimeType),
 										  payloadID: file.payloadID,
 										  destinationURL: dest)
@@ -307,6 +322,18 @@ class InboundNearbyConnection: NearbyConnection{
 				textPayloadID=meta.payloadID
 				DispatchQueue.main.async {
 					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
+				}
+			}else if case .text=meta.type{
+				let downloadsDirectory=(try FileManager.default.url(for: .downloadsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).resolvingSymlinksInPath()
+				let dateFormatter=DateFormatter()
+				dateFormatter.dateFormat="yyyy-MM-dd HH.mm.ss"
+				let dest=makeFileDestinationURL(downloadsDirectory.appendingPathComponent("\(dateFormatter.string(from: Date())).txt"))
+				let info=InternalFileInfo(meta: FileMetadata(name: dest.lastPathComponent, size: meta.size, mimeType: "text/plain"),
+										  payloadID: meta.payloadID,
+										  destinationURL: dest)
+				transferredFiles[meta.payloadID]=info
+				DispatchQueue.main.async {
+					self.delegate?.obtainUserConsent(for: TransferMetadata(files: [info.meta], id: self.id, pinCode: self.pinCode), from: self.remoteDeviceInfo!, connection: self)
 				}
 			}else{
 				rejectTransfer(with: .unsupportedAttachmentType)
