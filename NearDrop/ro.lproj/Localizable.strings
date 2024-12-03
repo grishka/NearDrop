@@ -1,0 +1,41 @@
+﻿/* No comment provided by engineer. */
+"Accept" = "Acceptă";
+
+/* No comment provided by engineer. */
+"Decline" = "Refuză";
+
+/* No comment provided by engineer. */
+"DeviceName" = "Nume dispozitiv : %@";
+
+/* No comment provided by engineer. */
+"DeviceSendingFiles" = "%1$@ vă trimite %2$@";
+
+/* No comment provided by engineer. */
+"Error.Crypto" = "Eroare de criptare";
+
+/* No comment provided by engineer. */
+"Error.Protocol" = "Eroare de comunicare";
+
+/* No comment provided by engineer. */
+"NFiles" = "%d fișiere";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Message" = "NearDrop trebuie să poată afișa notificări pentru transferurile de fișiere primite. Vă rugăm să permiteți notificările în Setările Sistemului.";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.OpenSettings" = "Deschide setările";
+
+/* No comment provided by engineer. */
+"NotificationsDenied.Title" = "Permisiunea pentru notificări este necesară";
+
+/* No comment provided by engineer. */
+"PinCode" = "COD PIN : %@";
+
+/* No comment provided by engineer. */
+"Quit" = "Închide NearDrop";
+
+/* No comment provided by engineer. */
+"TransferError" = "Recepționarea fișierelor de la %@ a eșuat";
+
+/* No comment provided by engineer. */
+"VisibleToEveryone" = "Vizibil pentru toată lumea";
