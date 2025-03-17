@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import NearbyShare
+import SwiftUI
 
 class ShareViewController: NSViewController, ShareExtensionDelegate{
 	
@@ -15,6 +16,9 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	private var foundDevices:[RemoteDeviceInfo]=[]
 	private var chosenDevice:RemoteDeviceInfo?
 	private var lastError:Error?
+    
+    private var connectionEstablished = false
+    private var timeoutDispatchWorkItem: DispatchWorkItem? = nil
 	
 	@IBOutlet var filesIcon:NSImageView?
 	@IBOutlet var filesLabel:NSTextField?
@@ -30,6 +34,10 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	@IBOutlet var progressState:NSTextField?
 	@IBOutlet var progressDeviceIconWrap:NSView?
 	@IBOutlet var progressDeviceSecondaryIcon:NSImageView?
+    @IBOutlet var dontSeeDeviceButton: NSButton?
+    
+    private var qrCodeSheetView: NSPanel? = nil
+    private var sheetAttachedWindow: NSWindow? = nil
 	
 	override var nibName: NSNib.Name? {
 		return NSNib.Name("ShareViewController")
@@ -105,22 +113,73 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		super.viewDidLoad()
 		NearbyConnectionManager.shared.startDeviceDiscovery()
 		NearbyConnectionManager.shared.addShareExtensionDelegate(self)
+        
+        self.scheduleAutomaticQrCodeView()
 	}
 	
 	override func viewWillDisappear() {
+        
+        timeoutDispatchWorkItem?.cancel()
+        
 		if chosenDevice==nil{
 			NearbyConnectionManager.shared.stopDeviceDiscovery()
 		}
 		NearbyConnectionManager.shared.removeShareExtensionDelegate(self)
 	}
 
-	@IBAction func cancel(_ sender: AnyObject?) {
-		if let device=chosenDevice{
-			NearbyConnectionManager.shared.cancelOutgoingTransfer(id: device.id!)
-		}
-		let cancelError = NSError(domain: NSCocoaErrorDomain, code: NSUserCancelledError, userInfo: nil)
-		self.extensionContext!.cancelRequest(withError: cancelError)
-	}
+    @IBAction func cancel(_ sender: AnyObject?) {
+        if let device=chosenDevice{
+            NearbyConnectionManager.shared.cancelOutgoingTransfer(id: device.id!)
+        }
+        let cancelError = NSError(domain: NSCocoaErrorDomain, code: NSUserCancelledError, userInfo: nil)
+        self.extensionContext!.cancelRequest(withError: cancelError)
+    }
+    
+    @IBAction func dontSeeDeviceButton(_ sender: AnyObject?) {
+        openQrCodeView()
+    }
+    
+    private func openQrCodeView() {
+        if qrCodeSheetView == nil {
+            let contentView = QrCodeView {
+                self.closeQrCodeView()
+            }
+            
+            let hostingView = NSHostingView(rootView: contentView)
+            
+            let panel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: qrCodeViewSize.width, height: qrCodeViewSize.height),
+                                styleMask: [.titled, .closable, .utilityWindow],
+                                backing: .buffered,
+                                defer: false)
+            
+            panel.contentView = hostingView
+            
+            self.qrCodeSheetView = panel
+            
+            if let mainWindow = NSApp.mainWindow {
+                
+                self.sheetAttachedWindow = mainWindow
+                mainWindow.beginSheet(panel) { _ in }
+            }
+        }
+    }
+    
+    private func closeQrCodeView() {
+        if let mainWindow = sheetAttachedWindow, let qrCodeView = self.qrCodeSheetView {
+            mainWindow.endSheet(qrCodeView)
+            
+            self.qrCodeSheetView = nil
+            self.sheetAttachedWindow = nil
+        }
+    }
+    
+    private func scheduleAutomaticQrCodeView() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            if self.foundDevices.isEmpty {
+                self.openQrCodeView()
+            }
+        }
+    }
 	
 	private func urlsReady(){
 		for url in urls{
@@ -154,6 +213,8 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		}
 		foundDevices.append(device)
 		listView?.animator().insertItems(at: [[0, foundDevices.count-1]])
+        
+        closeQrCodeView()
 	}
 	
 	func removeDevice(id: String){
@@ -173,6 +234,9 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	}
 	
 	func connectionWasEstablished(pinCode: String) {
+        
+        connectionEstablished = true
+        
 		progressState?.stringValue=String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [pinCode])
 		progressProgressBar?.isIndeterminate=false
 		progressProgressBar?.maxValue=1000
@@ -221,15 +285,34 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	}
 	
 	func selectDevice(device:RemoteDeviceInfo){
-		NearbyConnectionManager.shared.stopDeviceDiscovery()
+        
+        NearbyConnectionManager.shared.stopDeviceDiscovery()
 		listViewWrapper?.animator().isHidden=true
 		progressView?.animator().isHidden=false
-		progressDeviceName?.stringValue=device.name
+		progressDeviceName?.stringValue=getDeviceName(device: device)
 		progressDeviceIcon?.image=imageForDeviceType(type: device.type)
 		progressProgressBar?.startAnimation(nil)
 		progressState?.stringValue=NSLocalizedString("Connecting", value: "Connecting...", comment: "")
 		chosenDevice=device
 		NearbyConnectionManager.shared.startOutgoingTransfer(deviceID: device.id!, delegate: self, urls: urls)
+        
+        
+        let timeoutAlert = DispatchWorkItem {
+            if !self.connectionEstablished {
+                
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                
+                alert.messageText = "TimeoutTitle".localized()
+                alert.informativeText = "TimeoutDescription".localized()
+                alert.addButton(withTitle: "TimeoutButton".localized())
+                
+                alert.beginSheetModal(for: self.view.window!) { _ in }
+            }
+        }
+        
+        self.timeoutDispatchWorkItem = timeoutAlert
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: timeoutAlert)
 	}
 	
 	private func dismissDelayed(){
@@ -269,7 +352,7 @@ extension ShareViewController:NSCollectionViewDataSource{
 		let item=collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "DeviceListCell"), for: indexPath)
 		guard let collectionViewItem = item as? DeviceListCell else {return item}
 		let device=foundDevices[indexPath[1]]
-		collectionViewItem.textField?.stringValue=device.name
+		collectionViewItem.textField?.stringValue=getDeviceName(device: device)
 		collectionViewItem.imageView?.image=imageForDeviceType(type: device.type)
 		// TODO maybe there's a better way to handle clicks on collection view items? I'm still new to Apple's way of doing UIs so I may do dumb shit occasionally
 		collectionViewItem.clickHandler={
@@ -277,4 +360,11 @@ extension ShareViewController:NSCollectionViewDataSource{
 		}
 		return collectionViewItem
 	}
+    
+    func getDeviceName(device: RemoteDeviceInfo) -> String {
+        if device.name.count <= 1 {
+            return "Android"
+        }
+        return device.name
+    }
 }

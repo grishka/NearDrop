@@ -40,6 +40,8 @@
 		69DCF49C2AB8C58500CBE2CC /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 69DCF49B2AB8C58500CBE2CC /* SwiftECC */; };
 		69DCF49D2AB8C9A500CBE2CC /* libNearbyShare.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DCF4812AB70D0600CBE2CC /* libNearbyShare.dylib */; };
 		69DCF49E2AB8C9A500CBE2CC /* libNearbyShare.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 69DCF4812AB70D0600CBE2CC /* libNearbyShare.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		EB36CCC02D88999F00835FC5 /* QrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36CCBF2D88999F00835FC5 /* QrCodeView.swift */; };
+		EB36CCC12D889B6400835FC5 /* QrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB36CCBF2D88999F00835FC5 /* QrCodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +210,7 @@
 		E9C8C6D42CFF66650053474D /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9C8C6D52CFF66650053474D /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ro; path = ro.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		E9C8C6D62CFF66650053474D /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EB36CCBF2D88999F00835FC5 /* QrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				699DEBA52AB0573200115D22 /* ShareViewController.swift */,
+				EB36CCBF2D88999F00835FC5 /* QrCodeView.swift */,
 				691F53B92ABB70840089FD92 /* DeviceListCell.swift */,
 				691F53BA2ABB70840089FD92 /* DeviceListCell.xib */,
 				699DEBA72AB0573200115D22 /* ShareViewController.xib */,
@@ -503,6 +507,7 @@
 			files = (
 				699DEBA62AB0573200115D22 /* ShareViewController.swift in Sources */,
 				691F53BB2ABB70840089FD92 /* DeviceListCell.swift in Sources */,
+				EB36CCC02D88999F00835FC5 /* QrCodeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +517,7 @@
 			files = (
 				698DFB0329E362140064F247 /* NDNotificationCenterHackery.m in Sources */,
 				69DA9A1229E0BF5100A442DA /* AppDelegate.swift in Sources */,
+				EB36CCC12D889B6400835FC5 /* QrCodeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

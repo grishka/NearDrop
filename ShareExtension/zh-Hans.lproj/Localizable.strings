@@ -28,3 +28,15 @@
 /* No comment provided by engineer. */
 "UnsupportedType" = "不支持的文件类型";
 
+/* No comment provided by engineer. */
+"QrCodeInstructions" = "使用您的 Android 设备扫描二维码，将其连接到您的 Mac。请确保您的手机连接到同一网络。\n\n或者，安装并打开 'Files by Google' 应用程序，然后点击右下角的 '接收'。";
+
+/* No comment provided by engineer. */
+"TimeoutTitle" = "出现问题";
+
+/* No comment provided by engineer. */
+"TimeoutDescription" = "NearDrop 无法连接到您的手机。请打开 Android 设备的设置并搜索“快速分享”（Quick Share）。将“谁可以与您分享”更改为“所有人”，然后重试。";
+
+/* No comment provided by engineer. */
+"TimeoutButton" = "确定";
+

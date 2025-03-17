@@ -27,3 +27,15 @@
 
 /* No comment provided by engineer. */
 "UnsupportedType" = "نوع المرفق غير مدعوم";
+
+/* No comment provided by engineer. */
+"QrCodeInstructions" = " QR ضوئيًا باستخدام جهاز Android الخاص بك لتوصيله بجهاز Mac. تأكد من أن هاتفك متصل بنفس الشبكة.\n\nبدلاً من ذلك، قم بتثبيت وفتح تطبيق 'Files by Google' ثم اضغط على 'استقبال' في الزاوية السفلية اليمنى.";
+
+/* No comment provided by engineer. */
+"TimeoutTitle" = "حدث خطأ ما";
+
+/* No comment provided by engineer. */
+"TimeoutDescription" = "تعذر على NearDrop الاتصال بهاتفك. يرجى فتح إعدادات جهاز Android والبحث عن 'Quick Share'. قم بتغيير الإعداد 'من يمكنه المشاركة معك' إلى 'الجميع' ثم حاول مرة أخرى.";
+
+/* No comment provided by engineer. */
+"TimeoutButton" = "موافق";
