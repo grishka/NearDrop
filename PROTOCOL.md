@@ -124,7 +124,7 @@ The **next protocol secret** is further processed to obtain the two 32-byte AES 
 
 Derive two 32-byte "device to device" keys using HKDF-SHA256:
 
-* **D2D client key**, using the **next protocol secret** for input key material, `82AA55A0D397F88346CA1CEE8D3909B95F13FA7DEB1D4AB38376B8256DA85510` for salt, and the string `client` for info
+* **D2D client key**, using the **next protocol secret** for input key material, `82AA55A0D397F88346CA1CEE8D3909B95F13FA7DEB1D4AB38376B8256DA85510` (`SHA256("D2D")`) for salt, and the string `client` for info
 * **D2D server key**, using the same parameters, except **info** is `server`
 
 Next, derive the four keys you will use for the actual encryption. All four use the same value of salt, which is `SHA256("SecureMessage")`, or `BF9D2A53C63616D75DB0A7165B91C1EF73E537F2427405FA23610A4BE657642E`. These keys are from the server POV; if you're the client, they need to be swapped around (decrypt/receive shoud use the server key and vice versa).
