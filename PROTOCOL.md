@@ -11,7 +11,7 @@ If you want to build your own Nearby Share *thing*, you will need:
 1. An implementation of multicast DNS (most modern OSes have it built-in)
 2. A cryptography library that is capable of ECDSA key exchange, AES-CBC, HMAC, and SHA256. OpenSSL will do but is definitely an overkill.
 3. A Protobuf library
-4. [These Protobuf files](/NearDrop/ProtobufSource) I collected from the Chromium sources so you don't have to
+4. [These Protobuf files](/NearbyShare/ProtobufSource) I collected from the Chromium sources so you don't have to
 
 It is also very helpful to read logcat on your Android device if you're having any trouble. The logging of the Android implementation of Nearby Share is very verbose.
 
