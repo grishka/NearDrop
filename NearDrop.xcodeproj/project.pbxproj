@@ -14,6 +14,7 @@
 		691F53BE2ABF03820089FD92 /* OutboundNearbyConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691F53BD2ABF03820089FD92 /* OutboundNearbyConnection.swift */; };
 		691F53C72AC2594E0089FD92 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 691F53C52AC2594E0089FD92 /* Localizable.strings */; };
 		691F53CB2AC2599B0089FD92 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 691F53C92AC2599B0089FD92 /* Localizable.stringsdict */; };
+		693D8DC92E41325300E8E7F4 /* sharing_enums.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693D8DC82E41325300E8E7F4 /* sharing_enums.pb.swift */; };
 		698DFB0329E362140064F247 /* NDNotificationCenterHackery.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */; };
 		699B03452AB5FBA300E0D718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699B03442AB5FBA300E0D718 /* Assets.xcassets */; };
 		699DEBA62AB0573200115D22 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699DEBA52AB0573200115D22 /* ShareViewController.swift */; };
@@ -144,6 +145,7 @@
 		691F53C82AC259630089FD92 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		691F53CA2AC2599B0089FD92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		691F53CC2AC259A20089FD92 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		693D8DC82E41325300E8E7F4 /* sharing_enums.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharing_enums.pb.swift; sourceTree = "<group>"; };
 		6978D5392BFE97E100A6100C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		6978D53A2BFE97E900A6100C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		698DFAE529E2F91A0064F247 /* NearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnection.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				69DA9A2829E18CB500A442DA /* ukey.pb.swift */,
+				693D8DC82E41325300E8E7F4 /* sharing_enums.pb.swift */,
 				69DA9A2929E18CB500A442DA /* wire_format.pb.swift */,
 				69DA9A2A29E18CB500A442DA /* device_to_device_messages.pb.swift */,
 				69DA9A2B29E18CB500A442DA /* offline_wire_formats.pb.swift */,
@@ -523,6 +526,7 @@
 				69DCF48F2AB70E8C00CBE2CC /* securemessage.pb.swift in Sources */,
 				69DCF4912AB70E9700CBE2CC /* NearbyConnection.swift in Sources */,
 				69DCF4922AB70E9700CBE2CC /* NearbyConnectionManager.swift in Sources */,
+				693D8DC92E41325300E8E7F4 /* sharing_enums.pb.swift in Sources */,
 				69DCF48E2AB70E8C00CBE2CC /* securegcm.pb.swift in Sources */,
 				691F53BE2ABF03820089FD92 /* OutboundNearbyConnection.swift in Sources */,
 				69DCF48C2AB70E8C00CBE2CC /* device_to_device_messages.pb.swift in Sources */,

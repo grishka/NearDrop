@@ -295,7 +295,7 @@ class OutboundNearbyConnection:NearbyConnection{
 				}else if(meta.mimeType.starts(with: "audio/")){
 					meta.type = .audio
 				}else if(url.pathExtension.lowercased()=="apk"){
-					meta.type = .app
+					meta.type = .androidApp
 				}else{
 					meta.type = .unknown
 				}

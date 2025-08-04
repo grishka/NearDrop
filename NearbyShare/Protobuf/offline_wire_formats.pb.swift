@@ -34,6 +34,43 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum Location_Nearby_Connections_EndpointType: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case unknownEndpoint // = 0
+  case connectionsEndpoint // = 1
+  case presenceEndpoint // = 2
+
+  init() {
+    self = .unknownEndpoint
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unknownEndpoint
+    case 1: self = .connectionsEndpoint
+    case 2: self = .presenceEndpoint
+    default: return nil
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .unknownEndpoint: return 0
+    case .connectionsEndpoint: return 1
+    case .presenceEndpoint: return 2
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Location_Nearby_Connections_EndpointType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 struct Location_Nearby_Connections_OfflineFrame {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -179,6 +216,51 @@ struct Location_Nearby_Connections_V1Frame {
   /// Clears the value of `pairedKeyEncryption`. Subsequent reads from it will return its default value.
   mutating func clearPairedKeyEncryption() {_uniqueStorage()._pairedKeyEncryption = nil}
 
+  var authenticationMessage: Location_Nearby_Connections_AuthenticationMessageFrame {
+    get {return _storage._authenticationMessage ?? Location_Nearby_Connections_AuthenticationMessageFrame()}
+    set {_uniqueStorage()._authenticationMessage = newValue}
+  }
+  /// Returns true if `authenticationMessage` has been explicitly set.
+  var hasAuthenticationMessage: Bool {return _storage._authenticationMessage != nil}
+  /// Clears the value of `authenticationMessage`. Subsequent reads from it will return its default value.
+  mutating func clearAuthenticationMessage() {_uniqueStorage()._authenticationMessage = nil}
+
+  var authenticationResult: Location_Nearby_Connections_AuthenticationResultFrame {
+    get {return _storage._authenticationResult ?? Location_Nearby_Connections_AuthenticationResultFrame()}
+    set {_uniqueStorage()._authenticationResult = newValue}
+  }
+  /// Returns true if `authenticationResult` has been explicitly set.
+  var hasAuthenticationResult: Bool {return _storage._authenticationResult != nil}
+  /// Clears the value of `authenticationResult`. Subsequent reads from it will return its default value.
+  mutating func clearAuthenticationResult() {_uniqueStorage()._authenticationResult = nil}
+
+  var autoResume: Location_Nearby_Connections_AutoResumeFrame {
+    get {return _storage._autoResume ?? Location_Nearby_Connections_AutoResumeFrame()}
+    set {_uniqueStorage()._autoResume = newValue}
+  }
+  /// Returns true if `autoResume` has been explicitly set.
+  var hasAutoResume: Bool {return _storage._autoResume != nil}
+  /// Clears the value of `autoResume`. Subsequent reads from it will return its default value.
+  mutating func clearAutoResume() {_uniqueStorage()._autoResume = nil}
+
+  var autoReconnect: Location_Nearby_Connections_AutoReconnectFrame {
+    get {return _storage._autoReconnect ?? Location_Nearby_Connections_AutoReconnectFrame()}
+    set {_uniqueStorage()._autoReconnect = newValue}
+  }
+  /// Returns true if `autoReconnect` has been explicitly set.
+  var hasAutoReconnect: Bool {return _storage._autoReconnect != nil}
+  /// Clears the value of `autoReconnect`. Subsequent reads from it will return its default value.
+  mutating func clearAutoReconnect() {_uniqueStorage()._autoReconnect = nil}
+
+  var bandwidthUpgradeRetry: Location_Nearby_Connections_BandwidthUpgradeRetryFrame {
+    get {return _storage._bandwidthUpgradeRetry ?? Location_Nearby_Connections_BandwidthUpgradeRetryFrame()}
+    set {_uniqueStorage()._bandwidthUpgradeRetry = newValue}
+  }
+  /// Returns true if `bandwidthUpgradeRetry` has been explicitly set.
+  var hasBandwidthUpgradeRetry: Bool {return _storage._bandwidthUpgradeRetry != nil}
+  /// Clears the value of `bandwidthUpgradeRetry`. Subsequent reads from it will return its default value.
+  mutating func clearBandwidthUpgradeRetry() {_uniqueStorage()._bandwidthUpgradeRetry = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum FrameType: SwiftProtobuf.Enum {
@@ -191,6 +273,11 @@ struct Location_Nearby_Connections_V1Frame {
     case keepAlive // = 5
     case disconnection // = 6
     case pairedKeyEncryption // = 7
+    case authenticationMessage // = 8
+    case authenticationResult // = 9
+    case autoResume // = 10
+    case autoReconnect // = 11
+    case bandwidthUpgradeRetry // = 12
 
     init() {
       self = .unknownFrameType
@@ -206,6 +293,11 @@ struct Location_Nearby_Connections_V1Frame {
       case 5: self = .keepAlive
       case 6: self = .disconnection
       case 7: self = .pairedKeyEncryption
+      case 8: self = .authenticationMessage
+      case 9: self = .authenticationResult
+      case 10: self = .autoResume
+      case 11: self = .autoReconnect
+      case 12: self = .bandwidthUpgradeRetry
       default: return nil
       }
     }
@@ -220,6 +312,11 @@ struct Location_Nearby_Connections_V1Frame {
       case .keepAlive: return 5
       case .disconnection: return 6
       case .pairedKeyEncryption: return 7
+      case .authenticationMessage: return 8
+      case .authenticationResult: return 9
+      case .autoResume: return 10
+      case .autoReconnect: return 11
+      case .bandwidthUpgradeRetry: return 12
       }
     }
 
@@ -346,7 +443,72 @@ struct Location_Nearby_Connections_ConnectionRequestFrame {
   /// Clears the value of `deviceInfo`. Subsequent reads from it will return its default value.
   mutating func clearDeviceInfo() {_uniqueStorage()._deviceInfo = nil}
 
+  /// Represents the {@link Device} that invokes the request.
+  var device: OneOf_Device? {
+    get {return _storage._device}
+    set {_uniqueStorage()._device = newValue}
+  }
+
+  var connectionsDevice: Location_Nearby_Connections_ConnectionsDevice {
+    get {
+      if case .connectionsDevice(let v)? = _storage._device {return v}
+      return Location_Nearby_Connections_ConnectionsDevice()
+    }
+    set {_uniqueStorage()._device = .connectionsDevice(newValue)}
+  }
+
+  var presenceDevice: Location_Nearby_Connections_PresenceDevice {
+    get {
+      if case .presenceDevice(let v)? = _storage._device {return v}
+      return Location_Nearby_Connections_PresenceDevice()
+    }
+    set {_uniqueStorage()._device = .presenceDevice(newValue)}
+  }
+
+  var connectionMode: Location_Nearby_Connections_ConnectionRequestFrame.ConnectionMode {
+    get {return _storage._connectionMode ?? .legacy}
+    set {_uniqueStorage()._connectionMode = newValue}
+  }
+  /// Returns true if `connectionMode` has been explicitly set.
+  var hasConnectionMode: Bool {return _storage._connectionMode != nil}
+  /// Clears the value of `connectionMode`. Subsequent reads from it will return its default value.
+  mutating func clearConnectionMode() {_uniqueStorage()._connectionMode = nil}
+
+  var locationHint: Location_Nearby_Connections_LocationHint {
+    get {return _storage._locationHint ?? Location_Nearby_Connections_LocationHint()}
+    set {_uniqueStorage()._locationHint = newValue}
+  }
+  /// Returns true if `locationHint` has been explicitly set.
+  var hasLocationHint: Bool {return _storage._locationHint != nil}
+  /// Clears the value of `locationHint`. Subsequent reads from it will return its default value.
+  mutating func clearLocationHint() {_uniqueStorage()._locationHint = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Represents the {@link Device} that invokes the request.
+  enum OneOf_Device: Equatable {
+    case connectionsDevice(Location_Nearby_Connections_ConnectionsDevice)
+    case presenceDevice(Location_Nearby_Connections_PresenceDevice)
+
+  #if !swift(>=4.1)
+    static func ==(lhs: Location_Nearby_Connections_ConnectionRequestFrame.OneOf_Device, rhs: Location_Nearby_Connections_ConnectionRequestFrame.OneOf_Device) -> Bool {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch (lhs, rhs) {
+      case (.connectionsDevice, .connectionsDevice): return {
+        guard case .connectionsDevice(let l) = lhs, case .connectionsDevice(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.presenceDevice, .presenceDevice): return {
+        guard case .presenceDevice(let l) = lhs, case .presenceDevice(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      default: return false
+      }
+    }
+  #endif
+  }
 
   /// Should always match cs/symbol:location.nearby.proto.connections.Medium
   /// LINT.IfChange
@@ -364,6 +526,8 @@ struct Location_Nearby_Connections_ConnectionRequestFrame {
     case webRtc // = 9
     case bleL2Cap // = 10
     case usb // = 11
+    case webRtcNonCellular // = 12
+    case awdl // = 13
 
     init() {
       self = .unknownMedium
@@ -383,6 +547,8 @@ struct Location_Nearby_Connections_ConnectionRequestFrame {
       case 9: self = .webRtc
       case 10: self = .bleL2Cap
       case 11: self = .usb
+      case 12: self = .webRtcNonCellular
+      case 13: self = .awdl
       default: return nil
       }
     }
@@ -401,6 +567,35 @@ struct Location_Nearby_Connections_ConnectionRequestFrame {
       case .webRtc: return 9
       case .bleL2Cap: return 10
       case .usb: return 11
+      case .webRtcNonCellular: return 12
+      case .awdl: return 13
+      }
+    }
+
+  }
+
+  /// LINT.IfChange
+  enum ConnectionMode: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case legacy // = 0
+    case instant // = 1
+
+    init() {
+      self = .legacy
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .legacy
+      case 1: self = .instant
+      default: return nil
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .legacy: return 0
+      case .instant: return 1
       }
     }
 
@@ -414,6 +609,10 @@ struct Location_Nearby_Connections_ConnectionRequestFrame {
 #if swift(>=4.2)
 
 extension Location_Nearby_Connections_ConnectionRequestFrame.Medium: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+extension Location_Nearby_Connections_ConnectionRequestFrame.ConnectionMode: CaseIterable {
   // Support synthesized by the compiler.
 }
 
@@ -490,6 +689,33 @@ struct Location_Nearby_Connections_ConnectionResponseFrame {
   /// Clears the value of `nearbyConnectionsVersion`. Subsequent reads from it will return its default value.
   mutating func clearNearbyConnectionsVersion() {self._nearbyConnectionsVersion = nil}
 
+  var safeToDisconnectVersion: Int32 {
+    get {return _safeToDisconnectVersion ?? 0}
+    set {_safeToDisconnectVersion = newValue}
+  }
+  /// Returns true if `safeToDisconnectVersion` has been explicitly set.
+  var hasSafeToDisconnectVersion: Bool {return self._safeToDisconnectVersion != nil}
+  /// Clears the value of `safeToDisconnectVersion`. Subsequent reads from it will return its default value.
+  mutating func clearSafeToDisconnectVersion() {self._safeToDisconnectVersion = nil}
+
+  var locationHint: Location_Nearby_Connections_LocationHint {
+    get {return _locationHint ?? Location_Nearby_Connections_LocationHint()}
+    set {_locationHint = newValue}
+  }
+  /// Returns true if `locationHint` has been explicitly set.
+  var hasLocationHint: Bool {return self._locationHint != nil}
+  /// Clears the value of `locationHint`. Subsequent reads from it will return its default value.
+  mutating func clearLocationHint() {self._locationHint = nil}
+
+  var keepAliveTimeoutMillis: Int32 {
+    get {return _keepAliveTimeoutMillis ?? 0}
+    set {_keepAliveTimeoutMillis = newValue}
+  }
+  /// Returns true if `keepAliveTimeoutMillis` has been explicitly set.
+  var hasKeepAliveTimeoutMillis: Bool {return self._keepAliveTimeoutMillis != nil}
+  /// Clears the value of `keepAliveTimeoutMillis`. Subsequent reads from it will return its default value.
+  mutating func clearKeepAliveTimeoutMillis() {self._keepAliveTimeoutMillis = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Used to replace the status integer parameter with a meaningful enum item.
@@ -533,6 +759,9 @@ struct Location_Nearby_Connections_ConnectionResponseFrame {
   fileprivate var _osInfo: Location_Nearby_Connections_OsInfo? = nil
   fileprivate var _multiplexSocketBitmask: Int32? = nil
   fileprivate var _nearbyConnectionsVersion: Int32? = nil
+  fileprivate var _safeToDisconnectVersion: Int32? = nil
+  fileprivate var _locationHint: Location_Nearby_Connections_LocationHint? = nil
+  fileprivate var _keepAliveTimeoutMillis: Int32? = nil
 }
 
 #if swift(>=4.2)
@@ -592,6 +821,7 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
     case unknownPacketType // = 0
     case data // = 1
     case control // = 2
+    case payloadAck // = 3
 
     init() {
       self = .unknownPacketType
@@ -602,6 +832,7 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
       case 0: self = .unknownPacketType
       case 1: self = .data
       case 2: self = .control
+      case 3: self = .payloadAck
       default: return nil
       }
     }
@@ -611,6 +842,7 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
       case .unknownPacketType: return 0
       case .data: return 1
       case .control: return 2
+      case .payloadAck: return 3
       }
     }
 
@@ -675,6 +907,16 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
     /// Clears the value of `parentFolder`. Subsequent reads from it will return its default value.
     mutating func clearParentFolder() {self._parentFolder = nil}
 
+    /// Time since the epoch in milliseconds.
+    var lastModifiedTimestampMillis: Int64 {
+      get {return _lastModifiedTimestampMillis ?? 0}
+      set {_lastModifiedTimestampMillis = newValue}
+    }
+    /// Returns true if `lastModifiedTimestampMillis` has been explicitly set.
+    var hasLastModifiedTimestampMillis: Bool {return self._lastModifiedTimestampMillis != nil}
+    /// Clears the value of `lastModifiedTimestampMillis`. Subsequent reads from it will return its default value.
+    mutating func clearLastModifiedTimestampMillis() {self._lastModifiedTimestampMillis = nil}
+
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
     enum PayloadType: SwiftProtobuf.Enum {
@@ -717,6 +959,7 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
     fileprivate var _isSensitive: Bool? = nil
     fileprivate var _fileName: String? = nil
     fileprivate var _parentFolder: String? = nil
+    fileprivate var _lastModifiedTimestampMillis: Int64? = nil
   }
 
   /// Accompanies DATA packets.
@@ -752,6 +995,15 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
     /// Clears the value of `body`. Subsequent reads from it will return its default value.
     mutating func clearBody() {self._body = nil}
 
+    var index: Int32 {
+      get {return _index ?? 0}
+      set {_index = newValue}
+    }
+    /// Returns true if `index` has been explicitly set.
+    var hasIndex: Bool {return self._index != nil}
+    /// Clears the value of `index`. Subsequent reads from it will return its default value.
+    mutating func clearIndex() {self._index = nil}
+
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
     enum Flags: SwiftProtobuf.Enum {
@@ -782,6 +1034,7 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
     fileprivate var _flags: Int32? = nil
     fileprivate var _offset: Int64? = nil
     fileprivate var _body: Data? = nil
+    fileprivate var _index: Int32? = nil
   }
 
   /// Accompanies CONTROL packets.
@@ -815,6 +1068,8 @@ struct Location_Nearby_Connections_PayloadTransferFrame {
       case unknownEventType // = 0
       case payloadError // = 1
       case payloadCanceled // = 2
+
+      /// Use PacketType.PAYLOAD_ACK instead
       case payloadReceivedAck // = 3
 
       init() {
@@ -918,6 +1173,15 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
   /// Clears the value of `clientIntroductionAck`. Subsequent reads from it will return its default value.
   mutating func clearClientIntroductionAck() {self._clientIntroductionAck = nil}
 
+  var safeToClosePriorChannel: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel {
+    get {return _safeToClosePriorChannel ?? Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel()}
+    set {_safeToClosePriorChannel = newValue}
+  }
+  /// Returns true if `safeToClosePriorChannel` has been explicitly set.
+  var hasSafeToClosePriorChannel: Bool {return self._safeToClosePriorChannel != nil}
+  /// Clears the value of `safeToClosePriorChannel`. Subsequent reads from it will return its default value.
+  mutating func clearSafeToClosePriorChannel() {self._safeToClosePriorChannel = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum EventType: SwiftProtobuf.Enum {
@@ -929,6 +1193,10 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
     case clientIntroduction // = 4
     case upgradeFailure // = 5
     case clientIntroductionAck // = 6
+
+    /// The event type that requires the remote device to send the available
+    /// upgrade path.
+    case upgradePathRequest // = 7
 
     init() {
       self = .unknownEventType
@@ -943,6 +1211,7 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
       case 4: self = .clientIntroduction
       case 5: self = .upgradeFailure
       case 6: self = .clientIntroductionAck
+      case 7: self = .upgradePathRequest
       default: return nil
       }
     }
@@ -956,6 +1225,7 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
       case .clientIntroduction: return 4
       case .upgradeFailure: return 5
       case .clientIntroductionAck: return 6
+      case .upgradePathRequest: return 7
       }
     }
 
@@ -1031,6 +1301,15 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
     /// Clears the value of `webRtcCredentials`. Subsequent reads from it will return its default value.
     mutating func clearWebRtcCredentials() {_uniqueStorage()._webRtcCredentials = nil}
 
+    var awdlCredentials: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials {
+      get {return _storage._awdlCredentials ?? Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials()}
+      set {_uniqueStorage()._awdlCredentials = newValue}
+    }
+    /// Returns true if `awdlCredentials` has been explicitly set.
+    var hasAwdlCredentials: Bool {return _storage._awdlCredentials != nil}
+    /// Clears the value of `awdlCredentials`. Subsequent reads from it will return its default value.
+    mutating func clearAwdlCredentials() {_uniqueStorage()._awdlCredentials = nil}
+
     /// Disable Encryption for this upgrade medium to improve throughput.
     var supportsDisablingEncryption: Bool {
       get {return _storage._supportsDisablingEncryption ?? false}
@@ -1051,6 +1330,15 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
     /// Clears the value of `supportsClientIntroductionAck`. Subsequent reads from it will return its default value.
     mutating func clearSupportsClientIntroductionAck() {_uniqueStorage()._supportsClientIntroductionAck = nil}
 
+    var upgradePathRequest: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest {
+      get {return _storage._upgradePathRequest ?? Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest()}
+      set {_uniqueStorage()._upgradePathRequest = newValue}
+    }
+    /// Returns true if `upgradePathRequest` has been explicitly set.
+    var hasUpgradePathRequest: Bool {return _storage._upgradePathRequest != nil}
+    /// Clears the value of `upgradePathRequest`. Subsequent reads from it will return its default value.
+    mutating func clearUpgradePathRequest() {_uniqueStorage()._upgradePathRequest = nil}
+
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
     /// Should always match cs/symbol:location.nearby.proto.connections.Medium
@@ -1069,6 +1357,8 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
 
       /// 10 is reserved.
       case usb // = 11
+      case webRtcNonCellular // = 12
+      case awdl // = 13
 
       init() {
         self = .unknownMedium
@@ -1087,6 +1377,8 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
         case 8: self = .wifiDirect
         case 9: self = .webRtc
         case 11: self = .usb
+        case 12: self = .webRtcNonCellular
+        case 13: self = .awdl
         default: return nil
         }
       }
@@ -1104,6 +1396,8 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
         case .wifiDirect: return 8
         case .webRtc: return 9
         case .usb: return 11
+        case .webRtcNonCellular: return 12
+        case .awdl: return 13
         }
       }
 
@@ -1329,6 +1623,18 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
       /// Clears the value of `gateway`. Subsequent reads from it will return its default value.
       mutating func clearGateway() {self._gateway = nil}
 
+      /// IPv6 link-local address, network order (128bits).
+      /// The GO should listen on both IPv4 and IPv6 addresses.
+      /// https://en.wikipedia.org/wiki/Link-local_address#IPv6
+      var ipV6Address: Data {
+        get {return _ipV6Address ?? Data()}
+        set {_ipV6Address = newValue}
+      }
+      /// Returns true if `ipV6Address` has been explicitly set.
+      var hasIpV6Address: Bool {return self._ipV6Address != nil}
+      /// Clears the value of `ipV6Address`. Subsequent reads from it will return its default value.
+      mutating func clearIpV6Address() {self._ipV6Address = nil}
+
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
       init() {}
@@ -1338,6 +1644,7 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
       fileprivate var _port: Int32? = nil
       fileprivate var _frequency: Int32? = nil
       fileprivate var _gateway: String? = nil
+      fileprivate var _ipV6Address: Data? = nil
     }
 
     /// Accompanies Medium.WEB_RTC
@@ -1372,9 +1679,97 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
       fileprivate var _locationHint: Location_Nearby_Connections_LocationHint? = nil
     }
 
+    /// Accompanies Medium.AWDL.
+    struct AwdlCredentials {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var serviceName: String {
+        get {return _serviceName ?? String()}
+        set {_serviceName = newValue}
+      }
+      /// Returns true if `serviceName` has been explicitly set.
+      var hasServiceName: Bool {return self._serviceName != nil}
+      /// Clears the value of `serviceName`. Subsequent reads from it will return its default value.
+      mutating func clearServiceName() {self._serviceName = nil}
+
+      var serviceType: String {
+        get {return _serviceType ?? String()}
+        set {_serviceType = newValue}
+      }
+      /// Returns true if `serviceType` has been explicitly set.
+      var hasServiceType: Bool {return self._serviceType != nil}
+      /// Clears the value of `serviceType`. Subsequent reads from it will return its default value.
+      mutating func clearServiceType() {self._serviceType = nil}
+
+      var password: String {
+        get {return _password ?? String()}
+        set {_password = newValue}
+      }
+      /// Returns true if `password` has been explicitly set.
+      var hasPassword: Bool {return self._password != nil}
+      /// Clears the value of `password`. Subsequent reads from it will return its default value.
+      mutating func clearPassword() {self._password = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _serviceName: String? = nil
+      fileprivate var _serviceType: String? = nil
+      fileprivate var _password: String? = nil
+    }
+
+    struct UpgradePathRequest {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      /// Supported mediums on the advertiser device.
+      var mediums: [Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.Medium] = []
+
+      var mediumMetaData: Location_Nearby_Connections_MediumMetadata {
+        get {return _mediumMetaData ?? Location_Nearby_Connections_MediumMetadata()}
+        set {_mediumMetaData = newValue}
+      }
+      /// Returns true if `mediumMetaData` has been explicitly set.
+      var hasMediumMetaData: Bool {return self._mediumMetaData != nil}
+      /// Clears the value of `mediumMetaData`. Subsequent reads from it will return its default value.
+      mutating func clearMediumMetaData() {self._mediumMetaData = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _mediumMetaData: Location_Nearby_Connections_MediumMetadata? = nil
+    }
+
     init() {}
 
     fileprivate var _storage = _StorageClass.defaultInstance
+  }
+
+  /// Accompanies SAFE_TO_CLOSE_PRIOR_CHANNEL events.
+  struct SafeToClosePriorChannel {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var staFrequency: Int32 {
+      get {return _staFrequency ?? 0}
+      set {_staFrequency = newValue}
+    }
+    /// Returns true if `staFrequency` has been explicitly set.
+    var hasStaFrequency: Bool {return self._staFrequency != nil}
+    /// Clears the value of `staFrequency`. Subsequent reads from it will return its default value.
+    mutating func clearStaFrequency() {self._staFrequency = nil}
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+
+    fileprivate var _staFrequency: Int32? = nil
   }
 
   /// Accompanies CLIENT_INTRODUCTION events.
@@ -1401,12 +1796,22 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
     /// Clears the value of `supportsDisablingEncryption`. Subsequent reads from it will return its default value.
     mutating func clearSupportsDisablingEncryption() {self._supportsDisablingEncryption = nil}
 
+    var lastEndpointID: String {
+      get {return _lastEndpointID ?? String()}
+      set {_lastEndpointID = newValue}
+    }
+    /// Returns true if `lastEndpointID` has been explicitly set.
+    var hasLastEndpointID: Bool {return self._lastEndpointID != nil}
+    /// Clears the value of `lastEndpointID`. Subsequent reads from it will return its default value.
+    mutating func clearLastEndpointID() {self._lastEndpointID = nil}
+
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
     init() {}
 
     fileprivate var _endpointID: String? = nil
     fileprivate var _supportsDisablingEncryption: Bool? = nil
+    fileprivate var _lastEndpointID: String? = nil
   }
 
   /// Accompanies CLIENT_INTRODUCTION_ACK events.
@@ -1426,6 +1831,7 @@ struct Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame {
   fileprivate var _upgradePathInfo: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo? = nil
   fileprivate var _clientIntroduction: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroduction? = nil
   fileprivate var _clientIntroductionAck: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroductionAck? = nil
+  fileprivate var _safeToClosePriorChannel: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel? = nil
 }
 
 #if swift(>=4.2)
@@ -1435,6 +1841,104 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.EventType
 }
 
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.Medium: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
+struct Location_Nearby_Connections_BandwidthUpgradeRetryFrame {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The mediums this device supports upgrading to. This list should be filtered
+  /// by both the strategy and this device's individual limitations.
+  var supportedMedium: [Location_Nearby_Connections_BandwidthUpgradeRetryFrame.Medium] = []
+
+  /// If true, expect the remote endpoint to send back the latest
+  /// supported_medium.
+  var isRequest: Bool {
+    get {return _isRequest ?? false}
+    set {_isRequest = newValue}
+  }
+  /// Returns true if `isRequest` has been explicitly set.
+  var hasIsRequest: Bool {return self._isRequest != nil}
+  /// Clears the value of `isRequest`. Subsequent reads from it will return its default value.
+  mutating func clearIsRequest() {self._isRequest = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Should always match cs/symbol:location.nearby.proto.connections.Medium
+  /// LINT.IfChange
+  enum Medium: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case unknownMedium // = 0
+
+    /// 1 is reserved.
+    case bluetooth // = 2
+    case wifiHotspot // = 3
+    case ble // = 4
+    case wifiLan // = 5
+    case wifiAware // = 6
+    case nfc // = 7
+    case wifiDirect // = 8
+    case webRtc // = 9
+    case bleL2Cap // = 10
+    case usb // = 11
+    case webRtcNonCellular // = 12
+    case awdl // = 13
+
+    init() {
+      self = .unknownMedium
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknownMedium
+      case 2: self = .bluetooth
+      case 3: self = .wifiHotspot
+      case 4: self = .ble
+      case 5: self = .wifiLan
+      case 6: self = .wifiAware
+      case 7: self = .nfc
+      case 8: self = .wifiDirect
+      case 9: self = .webRtc
+      case 10: self = .bleL2Cap
+      case 11: self = .usb
+      case 12: self = .webRtcNonCellular
+      case 13: self = .awdl
+      default: return nil
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknownMedium: return 0
+      case .bluetooth: return 2
+      case .wifiHotspot: return 3
+      case .ble: return 4
+      case .wifiLan: return 5
+      case .wifiAware: return 6
+      case .nfc: return 7
+      case .wifiDirect: return 8
+      case .webRtc: return 9
+      case .bleL2Cap: return 10
+      case .usb: return 11
+      case .webRtcNonCellular: return 12
+      case .awdl: return 13
+      }
+    }
+
+  }
+
+  init() {}
+
+  fileprivate var _isRequest: Bool? = nil
+}
+
+#if swift(>=4.2)
+
+extension Location_Nearby_Connections_BandwidthUpgradeRetryFrame.Medium: CaseIterable {
   // Support synthesized by the compiler.
 }
 
@@ -1455,11 +1959,22 @@ struct Location_Nearby_Connections_KeepAliveFrame {
   /// Clears the value of `ack`. Subsequent reads from it will return its default value.
   mutating func clearAck() {self._ack = nil}
 
+  /// The sequence number
+  var seqNum: UInt32 {
+    get {return _seqNum ?? 0}
+    set {_seqNum = newValue}
+  }
+  /// Returns true if `seqNum` has been explicitly set.
+  var hasSeqNum: Bool {return self._seqNum != nil}
+  /// Clears the value of `seqNum`. Subsequent reads from it will return its default value.
+  mutating func clearSeqNum() {self._seqNum = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _ack: Bool? = nil
+  fileprivate var _seqNum: UInt32? = nil
 }
 
 /// Informs the remote side to immediately severe the socket connection.
@@ -1524,6 +2039,221 @@ struct Location_Nearby_Connections_PairedKeyEncryptionFrame {
   fileprivate var _signedData: Data? = nil
 }
 
+/// Nearby Connections authentication frame, contains the bytes format of a
+/// DeviceProvider's authentication message.
+struct Location_Nearby_Connections_AuthenticationMessageFrame {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// An auth message generated by DeviceProvider.
+  /// To be sent to the remote device for verification during connection setups.
+  var authMessage: Data {
+    get {return _authMessage ?? Data()}
+    set {_authMessage = newValue}
+  }
+  /// Returns true if `authMessage` has been explicitly set.
+  var hasAuthMessage: Bool {return self._authMessage != nil}
+  /// Clears the value of `authMessage`. Subsequent reads from it will return its default value.
+  mutating func clearAuthMessage() {self._authMessage = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _authMessage: Data? = nil
+}
+
+/// Nearby Connections authentication result frame.
+struct Location_Nearby_Connections_AuthenticationResultFrame {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The authentication result. Non null if this frame is used to exchange
+  /// authentication result.
+  var result: Int32 {
+    get {return _result ?? 0}
+    set {_result = newValue}
+  }
+  /// Returns true if `result` has been explicitly set.
+  var hasResult: Bool {return self._result != nil}
+  /// Clears the value of `result`. Subsequent reads from it will return its default value.
+  mutating func clearResult() {self._result = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _result: Int32? = nil
+}
+
+struct Location_Nearby_Connections_AutoResumeFrame {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var eventType: Location_Nearby_Connections_AutoResumeFrame.EventType {
+    get {return _eventType ?? .unknownAutoResumeEventType}
+    set {_eventType = newValue}
+  }
+  /// Returns true if `eventType` has been explicitly set.
+  var hasEventType: Bool {return self._eventType != nil}
+  /// Clears the value of `eventType`. Subsequent reads from it will return its default value.
+  mutating func clearEventType() {self._eventType = nil}
+
+  var pendingPayloadID: Int64 {
+    get {return _pendingPayloadID ?? 0}
+    set {_pendingPayloadID = newValue}
+  }
+  /// Returns true if `pendingPayloadID` has been explicitly set.
+  var hasPendingPayloadID: Bool {return self._pendingPayloadID != nil}
+  /// Clears the value of `pendingPayloadID`. Subsequent reads from it will return its default value.
+  mutating func clearPendingPayloadID() {self._pendingPayloadID = nil}
+
+  var nextPayloadChunkIndex: Int32 {
+    get {return _nextPayloadChunkIndex ?? 0}
+    set {_nextPayloadChunkIndex = newValue}
+  }
+  /// Returns true if `nextPayloadChunkIndex` has been explicitly set.
+  var hasNextPayloadChunkIndex: Bool {return self._nextPayloadChunkIndex != nil}
+  /// Clears the value of `nextPayloadChunkIndex`. Subsequent reads from it will return its default value.
+  mutating func clearNextPayloadChunkIndex() {self._nextPayloadChunkIndex = nil}
+
+  var version: Int32 {
+    get {return _version ?? 0}
+    set {_version = newValue}
+  }
+  /// Returns true if `version` has been explicitly set.
+  var hasVersion: Bool {return self._version != nil}
+  /// Clears the value of `version`. Subsequent reads from it will return its default value.
+  mutating func clearVersion() {self._version = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum EventType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case unknownAutoResumeEventType // = 0
+    case payloadResumeTransferStart // = 1
+    case payloadResumeTransferAck // = 2
+
+    init() {
+      self = .unknownAutoResumeEventType
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknownAutoResumeEventType
+      case 1: self = .payloadResumeTransferStart
+      case 2: self = .payloadResumeTransferAck
+      default: return nil
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknownAutoResumeEventType: return 0
+      case .payloadResumeTransferStart: return 1
+      case .payloadResumeTransferAck: return 2
+      }
+    }
+
+  }
+
+  init() {}
+
+  fileprivate var _eventType: Location_Nearby_Connections_AutoResumeFrame.EventType? = nil
+  fileprivate var _pendingPayloadID: Int64? = nil
+  fileprivate var _nextPayloadChunkIndex: Int32? = nil
+  fileprivate var _version: Int32? = nil
+}
+
+#if swift(>=4.2)
+
+extension Location_Nearby_Connections_AutoResumeFrame.EventType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
+struct Location_Nearby_Connections_AutoReconnectFrame {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var endpointID: String {
+    get {return _endpointID ?? String()}
+    set {_endpointID = newValue}
+  }
+  /// Returns true if `endpointID` has been explicitly set.
+  var hasEndpointID: Bool {return self._endpointID != nil}
+  /// Clears the value of `endpointID`. Subsequent reads from it will return its default value.
+  mutating func clearEndpointID() {self._endpointID = nil}
+
+  var eventType: Location_Nearby_Connections_AutoReconnectFrame.EventType {
+    get {return _eventType ?? .unknownEventType}
+    set {_eventType = newValue}
+  }
+  /// Returns true if `eventType` has been explicitly set.
+  var hasEventType: Bool {return self._eventType != nil}
+  /// Clears the value of `eventType`. Subsequent reads from it will return its default value.
+  mutating func clearEventType() {self._eventType = nil}
+
+  var lastEndpointID: String {
+    get {return _lastEndpointID ?? String()}
+    set {_lastEndpointID = newValue}
+  }
+  /// Returns true if `lastEndpointID` has been explicitly set.
+  var hasLastEndpointID: Bool {return self._lastEndpointID != nil}
+  /// Clears the value of `lastEndpointID`. Subsequent reads from it will return its default value.
+  mutating func clearLastEndpointID() {self._lastEndpointID = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum EventType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case unknownEventType // = 0
+    case clientIntroduction // = 1
+    case clientIntroductionAck // = 2
+
+    init() {
+      self = .unknownEventType
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknownEventType
+      case 1: self = .clientIntroduction
+      case 2: self = .clientIntroductionAck
+      default: return nil
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknownEventType: return 0
+      case .clientIntroduction: return 1
+      case .clientIntroductionAck: return 2
+      }
+    }
+
+  }
+
+  init() {}
+
+  fileprivate var _endpointID: String? = nil
+  fileprivate var _eventType: Location_Nearby_Connections_AutoReconnectFrame.EventType? = nil
+  fileprivate var _lastEndpointID: String? = nil
+}
+
+#if swift(>=4.2)
+
+extension Location_Nearby_Connections_AutoReconnectFrame.EventType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 struct Location_Nearby_Connections_MediumMetadata {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1531,131 +2261,131 @@ struct Location_Nearby_Connections_MediumMetadata {
 
   /// True if local device supports 5GHz.
   var supports5Ghz: Bool {
-    get {return _supports5Ghz ?? false}
-    set {_supports5Ghz = newValue}
+    get {return _storage._supports5Ghz ?? false}
+    set {_uniqueStorage()._supports5Ghz = newValue}
   }
   /// Returns true if `supports5Ghz` has been explicitly set.
-  var hasSupports5Ghz: Bool {return self._supports5Ghz != nil}
+  var hasSupports5Ghz: Bool {return _storage._supports5Ghz != nil}
   /// Clears the value of `supports5Ghz`. Subsequent reads from it will return its default value.
-  mutating func clearSupports5Ghz() {self._supports5Ghz = nil}
+  mutating func clearSupports5Ghz() {_uniqueStorage()._supports5Ghz = nil}
 
   /// WiFi LAN BSSID, in the form of a six-byte MAC address: XX:XX:XX:XX:XX:XX
   var bssid: String {
-    get {return _bssid ?? String()}
-    set {_bssid = newValue}
+    get {return _storage._bssid ?? String()}
+    set {_uniqueStorage()._bssid = newValue}
   }
   /// Returns true if `bssid` has been explicitly set.
-  var hasBssid: Bool {return self._bssid != nil}
+  var hasBssid: Bool {return _storage._bssid != nil}
   /// Clears the value of `bssid`. Subsequent reads from it will return its default value.
-  mutating func clearBssid() {self._bssid = nil}
+  mutating func clearBssid() {_uniqueStorage()._bssid = nil}
 
   /// IP address, in network byte order: the highest order byte of the address is
   /// in byte[0].
   var ipAddress: Data {
-    get {return _ipAddress ?? Data()}
-    set {_ipAddress = newValue}
+    get {return _storage._ipAddress ?? Data()}
+    set {_uniqueStorage()._ipAddress = newValue}
   }
   /// Returns true if `ipAddress` has been explicitly set.
-  var hasIpAddress: Bool {return self._ipAddress != nil}
+  var hasIpAddress: Bool {return _storage._ipAddress != nil}
   /// Clears the value of `ipAddress`. Subsequent reads from it will return its default value.
-  mutating func clearIpAddress() {self._ipAddress = nil}
+  mutating func clearIpAddress() {_uniqueStorage()._ipAddress = nil}
 
   /// True if local device supports 6GHz.
   var supports6Ghz: Bool {
-    get {return _supports6Ghz ?? false}
-    set {_supports6Ghz = newValue}
+    get {return _storage._supports6Ghz ?? false}
+    set {_uniqueStorage()._supports6Ghz = newValue}
   }
   /// Returns true if `supports6Ghz` has been explicitly set.
-  var hasSupports6Ghz: Bool {return self._supports6Ghz != nil}
+  var hasSupports6Ghz: Bool {return _storage._supports6Ghz != nil}
   /// Clears the value of `supports6Ghz`. Subsequent reads from it will return its default value.
-  mutating func clearSupports6Ghz() {self._supports6Ghz = nil}
+  mutating func clearSupports6Ghz() {_uniqueStorage()._supports6Ghz = nil}
 
   /// True if local device has mobile radio.
   var mobileRadio: Bool {
-    get {return _mobileRadio ?? false}
-    set {_mobileRadio = newValue}
+    get {return _storage._mobileRadio ?? false}
+    set {_uniqueStorage()._mobileRadio = newValue}
   }
   /// Returns true if `mobileRadio` has been explicitly set.
-  var hasMobileRadio: Bool {return self._mobileRadio != nil}
+  var hasMobileRadio: Bool {return _storage._mobileRadio != nil}
   /// Clears the value of `mobileRadio`. Subsequent reads from it will return its default value.
-  mutating func clearMobileRadio() {self._mobileRadio = nil}
+  mutating func clearMobileRadio() {_uniqueStorage()._mobileRadio = nil}
 
   /// The frequency of the WiFi LAN AP(in MHz). Or -1 is not associated with an
   /// AP over WiFi, -2 represents the active network uses an Ethernet transport.
   var apFrequency: Int32 {
-    get {return _apFrequency ?? -1}
-    set {_apFrequency = newValue}
+    get {return _storage._apFrequency ?? -1}
+    set {_uniqueStorage()._apFrequency = newValue}
   }
   /// Returns true if `apFrequency` has been explicitly set.
-  var hasApFrequency: Bool {return self._apFrequency != nil}
+  var hasApFrequency: Bool {return _storage._apFrequency != nil}
   /// Clears the value of `apFrequency`. Subsequent reads from it will return its default value.
-  mutating func clearApFrequency() {self._apFrequency = nil}
+  mutating func clearApFrequency() {_uniqueStorage()._apFrequency = nil}
 
   /// Available channels on the local device.
   var availableChannels: Location_Nearby_Connections_AvailableChannels {
-    get {return _availableChannels ?? Location_Nearby_Connections_AvailableChannels()}
-    set {_availableChannels = newValue}
+    get {return _storage._availableChannels ?? Location_Nearby_Connections_AvailableChannels()}
+    set {_uniqueStorage()._availableChannels = newValue}
   }
   /// Returns true if `availableChannels` has been explicitly set.
-  var hasAvailableChannels: Bool {return self._availableChannels != nil}
+  var hasAvailableChannels: Bool {return _storage._availableChannels != nil}
   /// Clears the value of `availableChannels`. Subsequent reads from it will return its default value.
-  mutating func clearAvailableChannels() {self._availableChannels = nil}
+  mutating func clearAvailableChannels() {_uniqueStorage()._availableChannels = nil}
 
   /// Usable WiFi Direct client channels on the local device.
   var wifiDirectCliUsableChannels: Location_Nearby_Connections_WifiDirectCliUsableChannels {
-    get {return _wifiDirectCliUsableChannels ?? Location_Nearby_Connections_WifiDirectCliUsableChannels()}
-    set {_wifiDirectCliUsableChannels = newValue}
+    get {return _storage._wifiDirectCliUsableChannels ?? Location_Nearby_Connections_WifiDirectCliUsableChannels()}
+    set {_uniqueStorage()._wifiDirectCliUsableChannels = newValue}
   }
   /// Returns true if `wifiDirectCliUsableChannels` has been explicitly set.
-  var hasWifiDirectCliUsableChannels: Bool {return self._wifiDirectCliUsableChannels != nil}
+  var hasWifiDirectCliUsableChannels: Bool {return _storage._wifiDirectCliUsableChannels != nil}
   /// Clears the value of `wifiDirectCliUsableChannels`. Subsequent reads from it will return its default value.
-  mutating func clearWifiDirectCliUsableChannels() {self._wifiDirectCliUsableChannels = nil}
+  mutating func clearWifiDirectCliUsableChannels() {_uniqueStorage()._wifiDirectCliUsableChannels = nil}
 
   /// Usable WiFi LAN channels on the local device.
   var wifiLanUsableChannels: Location_Nearby_Connections_WifiLanUsableChannels {
-    get {return _wifiLanUsableChannels ?? Location_Nearby_Connections_WifiLanUsableChannels()}
-    set {_wifiLanUsableChannels = newValue}
+    get {return _storage._wifiLanUsableChannels ?? Location_Nearby_Connections_WifiLanUsableChannels()}
+    set {_uniqueStorage()._wifiLanUsableChannels = newValue}
   }
   /// Returns true if `wifiLanUsableChannels` has been explicitly set.
-  var hasWifiLanUsableChannels: Bool {return self._wifiLanUsableChannels != nil}
+  var hasWifiLanUsableChannels: Bool {return _storage._wifiLanUsableChannels != nil}
   /// Clears the value of `wifiLanUsableChannels`. Subsequent reads from it will return its default value.
-  mutating func clearWifiLanUsableChannels() {self._wifiLanUsableChannels = nil}
+  mutating func clearWifiLanUsableChannels() {_uniqueStorage()._wifiLanUsableChannels = nil}
 
   /// Usable WiFi Aware channels on the local device.
   var wifiAwareUsableChannels: Location_Nearby_Connections_WifiAwareUsableChannels {
-    get {return _wifiAwareUsableChannels ?? Location_Nearby_Connections_WifiAwareUsableChannels()}
-    set {_wifiAwareUsableChannels = newValue}
+    get {return _storage._wifiAwareUsableChannels ?? Location_Nearby_Connections_WifiAwareUsableChannels()}
+    set {_uniqueStorage()._wifiAwareUsableChannels = newValue}
   }
   /// Returns true if `wifiAwareUsableChannels` has been explicitly set.
-  var hasWifiAwareUsableChannels: Bool {return self._wifiAwareUsableChannels != nil}
+  var hasWifiAwareUsableChannels: Bool {return _storage._wifiAwareUsableChannels != nil}
   /// Clears the value of `wifiAwareUsableChannels`. Subsequent reads from it will return its default value.
-  mutating func clearWifiAwareUsableChannels() {self._wifiAwareUsableChannels = nil}
+  mutating func clearWifiAwareUsableChannels() {_uniqueStorage()._wifiAwareUsableChannels = nil}
 
   /// Usable WiFi Hotspot STA channels on the local device.
   var wifiHotspotStaUsableChannels: Location_Nearby_Connections_WifiHotspotStaUsableChannels {
-    get {return _wifiHotspotStaUsableChannels ?? Location_Nearby_Connections_WifiHotspotStaUsableChannels()}
-    set {_wifiHotspotStaUsableChannels = newValue}
+    get {return _storage._wifiHotspotStaUsableChannels ?? Location_Nearby_Connections_WifiHotspotStaUsableChannels()}
+    set {_uniqueStorage()._wifiHotspotStaUsableChannels = newValue}
   }
   /// Returns true if `wifiHotspotStaUsableChannels` has been explicitly set.
-  var hasWifiHotspotStaUsableChannels: Bool {return self._wifiHotspotStaUsableChannels != nil}
+  var hasWifiHotspotStaUsableChannels: Bool {return _storage._wifiHotspotStaUsableChannels != nil}
   /// Clears the value of `wifiHotspotStaUsableChannels`. Subsequent reads from it will return its default value.
-  mutating func clearWifiHotspotStaUsableChannels() {self._wifiHotspotStaUsableChannels = nil}
+  mutating func clearWifiHotspotStaUsableChannels() {_uniqueStorage()._wifiHotspotStaUsableChannels = nil}
+
+  /// The supported medium roles.
+  var mediumRole: Location_Nearby_Connections_MediumRole {
+    get {return _storage._mediumRole ?? Location_Nearby_Connections_MediumRole()}
+    set {_uniqueStorage()._mediumRole = newValue}
+  }
+  /// Returns true if `mediumRole` has been explicitly set.
+  var hasMediumRole: Bool {return _storage._mediumRole != nil}
+  /// Clears the value of `mediumRole`. Subsequent reads from it will return its default value.
+  mutating func clearMediumRole() {_uniqueStorage()._mediumRole = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _supports5Ghz: Bool? = nil
-  fileprivate var _bssid: String? = nil
-  fileprivate var _ipAddress: Data? = nil
-  fileprivate var _supports6Ghz: Bool? = nil
-  fileprivate var _mobileRadio: Bool? = nil
-  fileprivate var _apFrequency: Int32? = nil
-  fileprivate var _availableChannels: Location_Nearby_Connections_AvailableChannels? = nil
-  fileprivate var _wifiDirectCliUsableChannels: Location_Nearby_Connections_WifiDirectCliUsableChannels? = nil
-  fileprivate var _wifiLanUsableChannels: Location_Nearby_Connections_WifiLanUsableChannels? = nil
-  fileprivate var _wifiAwareUsableChannels: Location_Nearby_Connections_WifiAwareUsableChannels? = nil
-  fileprivate var _wifiHotspotStaUsableChannels: Location_Nearby_Connections_WifiHotspotStaUsableChannels? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Available channels on the local device.
@@ -1721,6 +2451,98 @@ struct Location_Nearby_Connections_WifiHotspotStaUsableChannels {
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+}
+
+/// The medium roles.
+struct Location_Nearby_Connections_MediumRole {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var supportWifiDirectGroupOwner: Bool {
+    get {return _supportWifiDirectGroupOwner ?? false}
+    set {_supportWifiDirectGroupOwner = newValue}
+  }
+  /// Returns true if `supportWifiDirectGroupOwner` has been explicitly set.
+  var hasSupportWifiDirectGroupOwner: Bool {return self._supportWifiDirectGroupOwner != nil}
+  /// Clears the value of `supportWifiDirectGroupOwner`. Subsequent reads from it will return its default value.
+  mutating func clearSupportWifiDirectGroupOwner() {self._supportWifiDirectGroupOwner = nil}
+
+  var supportWifiDirectGroupClient: Bool {
+    get {return _supportWifiDirectGroupClient ?? false}
+    set {_supportWifiDirectGroupClient = newValue}
+  }
+  /// Returns true if `supportWifiDirectGroupClient` has been explicitly set.
+  var hasSupportWifiDirectGroupClient: Bool {return self._supportWifiDirectGroupClient != nil}
+  /// Clears the value of `supportWifiDirectGroupClient`. Subsequent reads from it will return its default value.
+  mutating func clearSupportWifiDirectGroupClient() {self._supportWifiDirectGroupClient = nil}
+
+  var supportWifiHotspotHost: Bool {
+    get {return _supportWifiHotspotHost ?? false}
+    set {_supportWifiHotspotHost = newValue}
+  }
+  /// Returns true if `supportWifiHotspotHost` has been explicitly set.
+  var hasSupportWifiHotspotHost: Bool {return self._supportWifiHotspotHost != nil}
+  /// Clears the value of `supportWifiHotspotHost`. Subsequent reads from it will return its default value.
+  mutating func clearSupportWifiHotspotHost() {self._supportWifiHotspotHost = nil}
+
+  var supportWifiHotspotClient: Bool {
+    get {return _supportWifiHotspotClient ?? false}
+    set {_supportWifiHotspotClient = newValue}
+  }
+  /// Returns true if `supportWifiHotspotClient` has been explicitly set.
+  var hasSupportWifiHotspotClient: Bool {return self._supportWifiHotspotClient != nil}
+  /// Clears the value of `supportWifiHotspotClient`. Subsequent reads from it will return its default value.
+  mutating func clearSupportWifiHotspotClient() {self._supportWifiHotspotClient = nil}
+
+  var supportWifiAwarePublisher: Bool {
+    get {return _supportWifiAwarePublisher ?? false}
+    set {_supportWifiAwarePublisher = newValue}
+  }
+  /// Returns true if `supportWifiAwarePublisher` has been explicitly set.
+  var hasSupportWifiAwarePublisher: Bool {return self._supportWifiAwarePublisher != nil}
+  /// Clears the value of `supportWifiAwarePublisher`. Subsequent reads from it will return its default value.
+  mutating func clearSupportWifiAwarePublisher() {self._supportWifiAwarePublisher = nil}
+
+  var supportWifiAwareSubscriber: Bool {
+    get {return _supportWifiAwareSubscriber ?? false}
+    set {_supportWifiAwareSubscriber = newValue}
+  }
+  /// Returns true if `supportWifiAwareSubscriber` has been explicitly set.
+  var hasSupportWifiAwareSubscriber: Bool {return self._supportWifiAwareSubscriber != nil}
+  /// Clears the value of `supportWifiAwareSubscriber`. Subsequent reads from it will return its default value.
+  mutating func clearSupportWifiAwareSubscriber() {self._supportWifiAwareSubscriber = nil}
+
+  var supportAwdlPublisher: Bool {
+    get {return _supportAwdlPublisher ?? false}
+    set {_supportAwdlPublisher = newValue}
+  }
+  /// Returns true if `supportAwdlPublisher` has been explicitly set.
+  var hasSupportAwdlPublisher: Bool {return self._supportAwdlPublisher != nil}
+  /// Clears the value of `supportAwdlPublisher`. Subsequent reads from it will return its default value.
+  mutating func clearSupportAwdlPublisher() {self._supportAwdlPublisher = nil}
+
+  var supportAwdlSubscriber: Bool {
+    get {return _supportAwdlSubscriber ?? false}
+    set {_supportAwdlSubscriber = newValue}
+  }
+  /// Returns true if `supportAwdlSubscriber` has been explicitly set.
+  var hasSupportAwdlSubscriber: Bool {return self._supportAwdlSubscriber != nil}
+  /// Clears the value of `supportAwdlSubscriber`. Subsequent reads from it will return its default value.
+  mutating func clearSupportAwdlSubscriber() {self._supportAwdlSubscriber = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _supportWifiDirectGroupOwner: Bool? = nil
+  fileprivate var _supportWifiDirectGroupClient: Bool? = nil
+  fileprivate var _supportWifiHotspotHost: Bool? = nil
+  fileprivate var _supportWifiHotspotClient: Bool? = nil
+  fileprivate var _supportWifiAwarePublisher: Bool? = nil
+  fileprivate var _supportWifiAwareSubscriber: Bool? = nil
+  fileprivate var _supportAwdlPublisher: Bool? = nil
+  fileprivate var _supportAwdlSubscriber: Bool? = nil
 }
 
 /// LocationHint is used to specify a location as well as format.
@@ -1881,13 +2703,205 @@ extension Location_Nearby_Connections_OsInfo.OsType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+struct Location_Nearby_Connections_ConnectionsDevice {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var endpointID: String {
+    get {return _endpointID ?? String()}
+    set {_endpointID = newValue}
+  }
+  /// Returns true if `endpointID` has been explicitly set.
+  var hasEndpointID: Bool {return self._endpointID != nil}
+  /// Clears the value of `endpointID`. Subsequent reads from it will return its default value.
+  mutating func clearEndpointID() {self._endpointID = nil}
+
+  var endpointType: Location_Nearby_Connections_EndpointType {
+    get {return _endpointType ?? .unknownEndpoint}
+    set {_endpointType = newValue}
+  }
+  /// Returns true if `endpointType` has been explicitly set.
+  var hasEndpointType: Bool {return self._endpointType != nil}
+  /// Clears the value of `endpointType`. Subsequent reads from it will return its default value.
+  mutating func clearEndpointType() {self._endpointType = nil}
+
+  /// Data Elements.
+  var connectivityInfoList: Data {
+    get {return _connectivityInfoList ?? Data()}
+    set {_connectivityInfoList = newValue}
+  }
+  /// Returns true if `connectivityInfoList` has been explicitly set.
+  var hasConnectivityInfoList: Bool {return self._connectivityInfoList != nil}
+  /// Clears the value of `connectivityInfoList`. Subsequent reads from it will return its default value.
+  mutating func clearConnectivityInfoList() {self._connectivityInfoList = nil}
+
+  var endpointInfo: Data {
+    get {return _endpointInfo ?? Data()}
+    set {_endpointInfo = newValue}
+  }
+  /// Returns true if `endpointInfo` has been explicitly set.
+  var hasEndpointInfo: Bool {return self._endpointInfo != nil}
+  /// Clears the value of `endpointInfo`. Subsequent reads from it will return its default value.
+  mutating func clearEndpointInfo() {self._endpointInfo = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _endpointID: String? = nil
+  fileprivate var _endpointType: Location_Nearby_Connections_EndpointType? = nil
+  fileprivate var _connectivityInfoList: Data? = nil
+  fileprivate var _endpointInfo: Data? = nil
+}
+
+struct Location_Nearby_Connections_PresenceDevice {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var endpointID: String {
+    get {return _endpointID ?? String()}
+    set {_endpointID = newValue}
+  }
+  /// Returns true if `endpointID` has been explicitly set.
+  var hasEndpointID: Bool {return self._endpointID != nil}
+  /// Clears the value of `endpointID`. Subsequent reads from it will return its default value.
+  mutating func clearEndpointID() {self._endpointID = nil}
+
+  var endpointType: Location_Nearby_Connections_EndpointType {
+    get {return _endpointType ?? .unknownEndpoint}
+    set {_endpointType = newValue}
+  }
+  /// Returns true if `endpointType` has been explicitly set.
+  var hasEndpointType: Bool {return self._endpointType != nil}
+  /// Clears the value of `endpointType`. Subsequent reads from it will return its default value.
+  mutating func clearEndpointType() {self._endpointType = nil}
+
+  /// Data Elements.
+  var connectivityInfoList: Data {
+    get {return _connectivityInfoList ?? Data()}
+    set {_connectivityInfoList = newValue}
+  }
+  /// Returns true if `connectivityInfoList` has been explicitly set.
+  var hasConnectivityInfoList: Bool {return self._connectivityInfoList != nil}
+  /// Clears the value of `connectivityInfoList`. Subsequent reads from it will return its default value.
+  mutating func clearConnectivityInfoList() {self._connectivityInfoList = nil}
+
+  var deviceID: Int64 {
+    get {return _deviceID ?? 0}
+    set {_deviceID = newValue}
+  }
+  /// Returns true if `deviceID` has been explicitly set.
+  var hasDeviceID: Bool {return self._deviceID != nil}
+  /// Clears the value of `deviceID`. Subsequent reads from it will return its default value.
+  mutating func clearDeviceID() {self._deviceID = nil}
+
+  var deviceName: String {
+    get {return _deviceName ?? String()}
+    set {_deviceName = newValue}
+  }
+  /// Returns true if `deviceName` has been explicitly set.
+  var hasDeviceName: Bool {return self._deviceName != nil}
+  /// Clears the value of `deviceName`. Subsequent reads from it will return its default value.
+  mutating func clearDeviceName() {self._deviceName = nil}
+
+  var deviceType: Location_Nearby_Connections_PresenceDevice.DeviceType {
+    get {return _deviceType ?? .unknown}
+    set {_deviceType = newValue}
+  }
+  /// Returns true if `deviceType` has been explicitly set.
+  var hasDeviceType: Bool {return self._deviceType != nil}
+  /// Clears the value of `deviceType`. Subsequent reads from it will return its default value.
+  mutating func clearDeviceType() {self._deviceType = nil}
+
+  var deviceImageURL: String {
+    get {return _deviceImageURL ?? String()}
+    set {_deviceImageURL = newValue}
+  }
+  /// Returns true if `deviceImageURL` has been explicitly set.
+  var hasDeviceImageURL: Bool {return self._deviceImageURL != nil}
+  /// Clears the value of `deviceImageURL`. Subsequent reads from it will return its default value.
+  mutating func clearDeviceImageURL() {self._deviceImageURL = nil}
+
+  var discoveryMedium: [Location_Nearby_Connections_ConnectionRequestFrame.Medium] = []
+
+  var actions: [Int32] = []
+
+  var identityType: [Int64] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum DeviceType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case unknown // = 0
+    case phone // = 1
+    case tablet // = 2
+    case display // = 3
+    case laptop // = 4
+    case tv // = 5
+    case watch // = 6
+
+    init() {
+      self = .unknown
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 1: self = .phone
+      case 2: self = .tablet
+      case 3: self = .display
+      case 4: self = .laptop
+      case 5: self = .tv
+      case 6: self = .watch
+      default: return nil
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .phone: return 1
+      case .tablet: return 2
+      case .display: return 3
+      case .laptop: return 4
+      case .tv: return 5
+      case .watch: return 6
+      }
+    }
+
+  }
+
+  init() {}
+
+  fileprivate var _endpointID: String? = nil
+  fileprivate var _endpointType: Location_Nearby_Connections_EndpointType? = nil
+  fileprivate var _connectivityInfoList: Data? = nil
+  fileprivate var _deviceID: Int64? = nil
+  fileprivate var _deviceName: String? = nil
+  fileprivate var _deviceType: Location_Nearby_Connections_PresenceDevice.DeviceType? = nil
+  fileprivate var _deviceImageURL: String? = nil
+}
+
+#if swift(>=4.2)
+
+extension Location_Nearby_Connections_PresenceDevice.DeviceType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Location_Nearby_Connections_EndpointType: @unchecked Sendable {}
 extension Location_Nearby_Connections_OfflineFrame: @unchecked Sendable {}
 extension Location_Nearby_Connections_OfflineFrame.Version: @unchecked Sendable {}
 extension Location_Nearby_Connections_V1Frame: @unchecked Sendable {}
 extension Location_Nearby_Connections_V1Frame.FrameType: @unchecked Sendable {}
 extension Location_Nearby_Connections_ConnectionRequestFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_ConnectionRequestFrame.OneOf_Device: @unchecked Sendable {}
 extension Location_Nearby_Connections_ConnectionRequestFrame.Medium: @unchecked Sendable {}
+extension Location_Nearby_Connections_ConnectionRequestFrame.ConnectionMode: @unchecked Sendable {}
 extension Location_Nearby_Connections_ConnectionResponseFrame: @unchecked Sendable {}
 extension Location_Nearby_Connections_ConnectionResponseFrame.ResponseStatus: @unchecked Sendable {}
 extension Location_Nearby_Connections_PayloadTransferFrame: @unchecked Sendable {}
@@ -1908,27 +2922,50 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.WifiAwareCredentials: @unchecked Sendable {}
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.WifiDirectCredentials: @unchecked Sendable {}
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.WebRtcCredentials: @unchecked Sendable {}
+extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials: @unchecked Sendable {}
+extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest: @unchecked Sendable {}
+extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel: @unchecked Sendable {}
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroduction: @unchecked Sendable {}
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroductionAck: @unchecked Sendable {}
+extension Location_Nearby_Connections_BandwidthUpgradeRetryFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_BandwidthUpgradeRetryFrame.Medium: @unchecked Sendable {}
 extension Location_Nearby_Connections_KeepAliveFrame: @unchecked Sendable {}
 extension Location_Nearby_Connections_DisconnectionFrame: @unchecked Sendable {}
 extension Location_Nearby_Connections_PairedKeyEncryptionFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_AuthenticationMessageFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_AuthenticationResultFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_AutoResumeFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_AutoResumeFrame.EventType: @unchecked Sendable {}
+extension Location_Nearby_Connections_AutoReconnectFrame: @unchecked Sendable {}
+extension Location_Nearby_Connections_AutoReconnectFrame.EventType: @unchecked Sendable {}
 extension Location_Nearby_Connections_MediumMetadata: @unchecked Sendable {}
 extension Location_Nearby_Connections_AvailableChannels: @unchecked Sendable {}
 extension Location_Nearby_Connections_WifiDirectCliUsableChannels: @unchecked Sendable {}
 extension Location_Nearby_Connections_WifiLanUsableChannels: @unchecked Sendable {}
 extension Location_Nearby_Connections_WifiAwareUsableChannels: @unchecked Sendable {}
 extension Location_Nearby_Connections_WifiHotspotStaUsableChannels: @unchecked Sendable {}
+extension Location_Nearby_Connections_MediumRole: @unchecked Sendable {}
 extension Location_Nearby_Connections_LocationHint: @unchecked Sendable {}
 extension Location_Nearby_Connections_LocationStandard: @unchecked Sendable {}
 extension Location_Nearby_Connections_LocationStandard.Format: @unchecked Sendable {}
 extension Location_Nearby_Connections_OsInfo: @unchecked Sendable {}
 extension Location_Nearby_Connections_OsInfo.OsType: @unchecked Sendable {}
+extension Location_Nearby_Connections_ConnectionsDevice: @unchecked Sendable {}
+extension Location_Nearby_Connections_PresenceDevice: @unchecked Sendable {}
+extension Location_Nearby_Connections_PresenceDevice.DeviceType: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "location.nearby.connections"
+
+extension Location_Nearby_Connections_EndpointType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "UNKNOWN_ENDPOINT"),
+    1: .same(proto: "CONNECTIONS_ENDPOINT"),
+    2: .same(proto: "PRESENCE_ENDPOINT"),
+  ]
+}
 
 extension Location_Nearby_Connections_OfflineFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".OfflineFrame"
@@ -1990,6 +3027,11 @@ extension Location_Nearby_Connections_V1Frame: SwiftProtobuf.Message, SwiftProto
     6: .standard(proto: "keep_alive"),
     7: .same(proto: "disconnection"),
     8: .standard(proto: "paired_key_encryption"),
+    9: .standard(proto: "authentication_message"),
+    10: .standard(proto: "authentication_result"),
+    11: .standard(proto: "auto_resume"),
+    12: .standard(proto: "auto_reconnect"),
+    13: .standard(proto: "bandwidth_upgrade_retry"),
   ]
 
   fileprivate class _StorageClass {
@@ -2001,6 +3043,11 @@ extension Location_Nearby_Connections_V1Frame: SwiftProtobuf.Message, SwiftProto
     var _keepAlive: Location_Nearby_Connections_KeepAliveFrame? = nil
     var _disconnection: Location_Nearby_Connections_DisconnectionFrame? = nil
     var _pairedKeyEncryption: Location_Nearby_Connections_PairedKeyEncryptionFrame? = nil
+    var _authenticationMessage: Location_Nearby_Connections_AuthenticationMessageFrame? = nil
+    var _authenticationResult: Location_Nearby_Connections_AuthenticationResultFrame? = nil
+    var _autoResume: Location_Nearby_Connections_AutoResumeFrame? = nil
+    var _autoReconnect: Location_Nearby_Connections_AutoReconnectFrame? = nil
+    var _bandwidthUpgradeRetry: Location_Nearby_Connections_BandwidthUpgradeRetryFrame? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2015,6 +3062,11 @@ extension Location_Nearby_Connections_V1Frame: SwiftProtobuf.Message, SwiftProto
       _keepAlive = source._keepAlive
       _disconnection = source._disconnection
       _pairedKeyEncryption = source._pairedKeyEncryption
+      _authenticationMessage = source._authenticationMessage
+      _authenticationResult = source._authenticationResult
+      _autoResume = source._autoResume
+      _autoReconnect = source._autoReconnect
+      _bandwidthUpgradeRetry = source._bandwidthUpgradeRetry
     }
   }
 
@@ -2041,6 +3093,11 @@ extension Location_Nearby_Connections_V1Frame: SwiftProtobuf.Message, SwiftProto
         case 6: try { try decoder.decodeSingularMessageField(value: &_storage._keepAlive) }()
         case 7: try { try decoder.decodeSingularMessageField(value: &_storage._disconnection) }()
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._pairedKeyEncryption) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._authenticationMessage) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._authenticationResult) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._autoResume) }()
+        case 12: try { try decoder.decodeSingularMessageField(value: &_storage._autoReconnect) }()
+        case 13: try { try decoder.decodeSingularMessageField(value: &_storage._bandwidthUpgradeRetry) }()
         default: break
         }
       }
@@ -2077,6 +3134,21 @@ extension Location_Nearby_Connections_V1Frame: SwiftProtobuf.Message, SwiftProto
       try { if let v = _storage._pairedKeyEncryption {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
       } }()
+      try { if let v = _storage._authenticationMessage {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      } }()
+      try { if let v = _storage._authenticationResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      } }()
+      try { if let v = _storage._autoResume {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      } }()
+      try { if let v = _storage._autoReconnect {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+      } }()
+      try { if let v = _storage._bandwidthUpgradeRetry {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2094,6 +3166,11 @@ extension Location_Nearby_Connections_V1Frame: SwiftProtobuf.Message, SwiftProto
         if _storage._keepAlive != rhs_storage._keepAlive {return false}
         if _storage._disconnection != rhs_storage._disconnection {return false}
         if _storage._pairedKeyEncryption != rhs_storage._pairedKeyEncryption {return false}
+        if _storage._authenticationMessage != rhs_storage._authenticationMessage {return false}
+        if _storage._authenticationResult != rhs_storage._authenticationResult {return false}
+        if _storage._autoResume != rhs_storage._autoResume {return false}
+        if _storage._autoReconnect != rhs_storage._autoReconnect {return false}
+        if _storage._bandwidthUpgradeRetry != rhs_storage._bandwidthUpgradeRetry {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2113,6 +3190,11 @@ extension Location_Nearby_Connections_V1Frame.FrameType: SwiftProtobuf._ProtoNam
     5: .same(proto: "KEEP_ALIVE"),
     6: .same(proto: "DISCONNECTION"),
     7: .same(proto: "PAIRED_KEY_ENCRYPTION"),
+    8: .same(proto: "AUTHENTICATION_MESSAGE"),
+    9: .same(proto: "AUTHENTICATION_RESULT"),
+    10: .same(proto: "AUTO_RESUME"),
+    11: .same(proto: "AUTO_RECONNECT"),
+    12: .same(proto: "BANDWIDTH_UPGRADE_RETRY"),
   ]
 }
 
@@ -2130,6 +3212,10 @@ extension Location_Nearby_Connections_ConnectionRequestFrame: SwiftProtobuf.Mess
     9: .standard(proto: "keep_alive_timeout_millis"),
     10: .standard(proto: "device_type"),
     11: .standard(proto: "device_info"),
+    12: .standard(proto: "connections_device"),
+    13: .standard(proto: "presence_device"),
+    14: .standard(proto: "connection_mode"),
+    15: .standard(proto: "location_hint"),
   ]
 
   fileprivate class _StorageClass {
@@ -2144,6 +3230,9 @@ extension Location_Nearby_Connections_ConnectionRequestFrame: SwiftProtobuf.Mess
     var _keepAliveTimeoutMillis: Int32? = nil
     var _deviceType: Int32? = nil
     var _deviceInfo: Data? = nil
+    var _device: Location_Nearby_Connections_ConnectionRequestFrame.OneOf_Device?
+    var _connectionMode: Location_Nearby_Connections_ConnectionRequestFrame.ConnectionMode? = nil
+    var _locationHint: Location_Nearby_Connections_LocationHint? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2161,6 +3250,9 @@ extension Location_Nearby_Connections_ConnectionRequestFrame: SwiftProtobuf.Mess
       _keepAliveTimeoutMillis = source._keepAliveTimeoutMillis
       _deviceType = source._deviceType
       _deviceInfo = source._deviceInfo
+      _device = source._device
+      _connectionMode = source._connectionMode
+      _locationHint = source._locationHint
     }
   }
 
@@ -2190,6 +3282,34 @@ extension Location_Nearby_Connections_ConnectionRequestFrame: SwiftProtobuf.Mess
         case 9: try { try decoder.decodeSingularInt32Field(value: &_storage._keepAliveTimeoutMillis) }()
         case 10: try { try decoder.decodeSingularInt32Field(value: &_storage._deviceType) }()
         case 11: try { try decoder.decodeSingularBytesField(value: &_storage._deviceInfo) }()
+        case 12: try {
+          var v: Location_Nearby_Connections_ConnectionsDevice?
+          var hadOneofValue = false
+          if let current = _storage._device {
+            hadOneofValue = true
+            if case .connectionsDevice(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._device = .connectionsDevice(v)
+          }
+        }()
+        case 13: try {
+          var v: Location_Nearby_Connections_PresenceDevice?
+          var hadOneofValue = false
+          if let current = _storage._device {
+            hadOneofValue = true
+            if case .presenceDevice(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._device = .presenceDevice(v)
+          }
+        }()
+        case 14: try { try decoder.decodeSingularEnumField(value: &_storage._connectionMode) }()
+        case 15: try { try decoder.decodeSingularMessageField(value: &_storage._locationHint) }()
         default: break
         }
       }
@@ -2235,6 +3355,23 @@ extension Location_Nearby_Connections_ConnectionRequestFrame: SwiftProtobuf.Mess
       try { if let v = _storage._deviceInfo {
         try visitor.visitSingularBytesField(value: v, fieldNumber: 11)
       } }()
+      switch _storage._device {
+      case .connectionsDevice?: try {
+        guard case .connectionsDevice(let v)? = _storage._device else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+      }()
+      case .presenceDevice?: try {
+        guard case .presenceDevice(let v)? = _storage._device else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      }()
+      case nil: break
+      }
+      try { if let v = _storage._connectionMode {
+        try visitor.visitSingularEnumField(value: v, fieldNumber: 14)
+      } }()
+      try { if let v = _storage._locationHint {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2255,6 +3392,9 @@ extension Location_Nearby_Connections_ConnectionRequestFrame: SwiftProtobuf.Mess
         if _storage._keepAliveTimeoutMillis != rhs_storage._keepAliveTimeoutMillis {return false}
         if _storage._deviceType != rhs_storage._deviceType {return false}
         if _storage._deviceInfo != rhs_storage._deviceInfo {return false}
+        if _storage._device != rhs_storage._device {return false}
+        if _storage._connectionMode != rhs_storage._connectionMode {return false}
+        if _storage._locationHint != rhs_storage._locationHint {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2278,6 +3418,15 @@ extension Location_Nearby_Connections_ConnectionRequestFrame.Medium: SwiftProtob
     9: .same(proto: "WEB_RTC"),
     10: .same(proto: "BLE_L2CAP"),
     11: .same(proto: "USB"),
+    12: .same(proto: "WEB_RTC_NON_CELLULAR"),
+    13: .same(proto: "AWDL"),
+  ]
+}
+
+extension Location_Nearby_Connections_ConnectionRequestFrame.ConnectionMode: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "LEGACY"),
+    1: .same(proto: "INSTANT"),
   ]
 }
 
@@ -2290,6 +3439,9 @@ extension Location_Nearby_Connections_ConnectionResponseFrame: SwiftProtobuf.Mes
     4: .standard(proto: "os_info"),
     5: .standard(proto: "multiplex_socket_bitmask"),
     6: .standard(proto: "nearby_connections_version"),
+    7: .standard(proto: "safe_to_disconnect_version"),
+    8: .standard(proto: "location_hint"),
+    9: .standard(proto: "keep_alive_timeout_millis"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2304,6 +3456,9 @@ extension Location_Nearby_Connections_ConnectionResponseFrame: SwiftProtobuf.Mes
       case 4: try { try decoder.decodeSingularMessageField(value: &self._osInfo) }()
       case 5: try { try decoder.decodeSingularInt32Field(value: &self._multiplexSocketBitmask) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self._nearbyConnectionsVersion) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self._safeToDisconnectVersion) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._locationHint) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self._keepAliveTimeoutMillis) }()
       default: break
       }
     }
@@ -2332,6 +3487,15 @@ extension Location_Nearby_Connections_ConnectionResponseFrame: SwiftProtobuf.Mes
     try { if let v = self._nearbyConnectionsVersion {
       try visitor.visitSingularInt32Field(value: v, fieldNumber: 6)
     } }()
+    try { if let v = self._safeToDisconnectVersion {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._locationHint {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._keepAliveTimeoutMillis {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2342,6 +3506,9 @@ extension Location_Nearby_Connections_ConnectionResponseFrame: SwiftProtobuf.Mes
     if lhs._osInfo != rhs._osInfo {return false}
     if lhs._multiplexSocketBitmask != rhs._multiplexSocketBitmask {return false}
     if lhs._nearbyConnectionsVersion != rhs._nearbyConnectionsVersion {return false}
+    if lhs._safeToDisconnectVersion != rhs._safeToDisconnectVersion {return false}
+    if lhs._locationHint != rhs._locationHint {return false}
+    if lhs._keepAliveTimeoutMillis != rhs._keepAliveTimeoutMillis {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2414,6 +3581,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PacketType: SwiftProt
     0: .same(proto: "UNKNOWN_PACKET_TYPE"),
     1: .same(proto: "DATA"),
     2: .same(proto: "CONTROL"),
+    3: .same(proto: "PAYLOAD_ACK"),
   ]
 }
 
@@ -2426,6 +3594,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadHeader: SwiftP
     4: .standard(proto: "is_sensitive"),
     5: .standard(proto: "file_name"),
     6: .standard(proto: "parent_folder"),
+    7: .standard(proto: "last_modified_timestamp_millis"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2440,6 +3609,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadHeader: SwiftP
       case 4: try { try decoder.decodeSingularBoolField(value: &self._isSensitive) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self._fileName) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self._parentFolder) }()
+      case 7: try { try decoder.decodeSingularInt64Field(value: &self._lastModifiedTimestampMillis) }()
       default: break
       }
     }
@@ -2468,6 +3638,9 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadHeader: SwiftP
     try { if let v = self._parentFolder {
       try visitor.visitSingularStringField(value: v, fieldNumber: 6)
     } }()
+    try { if let v = self._lastModifiedTimestampMillis {
+      try visitor.visitSingularInt64Field(value: v, fieldNumber: 7)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2478,6 +3651,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadHeader: SwiftP
     if lhs._isSensitive != rhs._isSensitive {return false}
     if lhs._fileName != rhs._fileName {return false}
     if lhs._parentFolder != rhs._parentFolder {return false}
+    if lhs._lastModifiedTimestampMillis != rhs._lastModifiedTimestampMillis {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2498,6 +3672,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadChunk: SwiftPr
     1: .same(proto: "flags"),
     2: .same(proto: "offset"),
     3: .same(proto: "body"),
+    4: .same(proto: "index"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2509,6 +3684,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadChunk: SwiftPr
       case 1: try { try decoder.decodeSingularInt32Field(value: &self._flags) }()
       case 2: try { try decoder.decodeSingularInt64Field(value: &self._offset) }()
       case 3: try { try decoder.decodeSingularBytesField(value: &self._body) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self._index) }()
       default: break
       }
     }
@@ -2528,6 +3704,9 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadChunk: SwiftPr
     try { if let v = self._body {
       try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
     } }()
+    try { if let v = self._index {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2535,6 +3714,7 @@ extension Location_Nearby_Connections_PayloadTransferFrame.PayloadChunk: SwiftPr
     if lhs._flags != rhs._flags {return false}
     if lhs._offset != rhs._offset {return false}
     if lhs._body != rhs._body {return false}
+    if lhs._index != rhs._index {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2604,6 +3784,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame: SwiftPro
     2: .standard(proto: "upgrade_path_info"),
     3: .standard(proto: "client_introduction"),
     4: .standard(proto: "client_introduction_ack"),
+    5: .standard(proto: "safe_to_close_prior_channel"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2616,6 +3797,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame: SwiftPro
       case 2: try { try decoder.decodeSingularMessageField(value: &self._upgradePathInfo) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._clientIntroduction) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._clientIntroductionAck) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._safeToClosePriorChannel) }()
       default: break
       }
     }
@@ -2638,6 +3820,9 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame: SwiftPro
     try { if let v = self._clientIntroductionAck {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     } }()
+    try { if let v = self._safeToClosePriorChannel {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2646,6 +3831,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame: SwiftPro
     if lhs._upgradePathInfo != rhs._upgradePathInfo {return false}
     if lhs._clientIntroduction != rhs._clientIntroduction {return false}
     if lhs._clientIntroductionAck != rhs._clientIntroductionAck {return false}
+    if lhs._safeToClosePriorChannel != rhs._safeToClosePriorChannel {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2660,6 +3846,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.EventType
     4: .same(proto: "CLIENT_INTRODUCTION"),
     5: .same(proto: "UPGRADE_FAILURE"),
     6: .same(proto: "CLIENT_INTRODUCTION_ACK"),
+    7: .same(proto: "UPGRADE_PATH_REQUEST"),
   ]
 }
 
@@ -2673,8 +3860,10 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
     5: .standard(proto: "wifi_aware_credentials"),
     6: .standard(proto: "wifi_direct_credentials"),
     8: .standard(proto: "web_rtc_credentials"),
+    11: .standard(proto: "awdl_credentials"),
     7: .standard(proto: "supports_disabling_encryption"),
     9: .standard(proto: "supports_client_introduction_ack"),
+    10: .standard(proto: "upgrade_path_request"),
   ]
 
   fileprivate class _StorageClass {
@@ -2685,8 +3874,10 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
     var _wifiAwareCredentials: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.WifiAwareCredentials? = nil
     var _wifiDirectCredentials: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.WifiDirectCredentials? = nil
     var _webRtcCredentials: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.WebRtcCredentials? = nil
+    var _awdlCredentials: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials? = nil
     var _supportsDisablingEncryption: Bool? = nil
     var _supportsClientIntroductionAck: Bool? = nil
+    var _upgradePathRequest: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2700,8 +3891,10 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
       _wifiAwareCredentials = source._wifiAwareCredentials
       _wifiDirectCredentials = source._wifiDirectCredentials
       _webRtcCredentials = source._webRtcCredentials
+      _awdlCredentials = source._awdlCredentials
       _supportsDisablingEncryption = source._supportsDisablingEncryption
       _supportsClientIntroductionAck = source._supportsClientIntroductionAck
+      _upgradePathRequest = source._upgradePathRequest
     }
   }
 
@@ -2729,6 +3922,8 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
         case 7: try { try decoder.decodeSingularBoolField(value: &_storage._supportsDisablingEncryption) }()
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._webRtcCredentials) }()
         case 9: try { try decoder.decodeSingularBoolField(value: &_storage._supportsClientIntroductionAck) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._upgradePathRequest) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._awdlCredentials) }()
         default: break
         }
       }
@@ -2768,6 +3963,12 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
       try { if let v = _storage._supportsClientIntroductionAck {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 9)
       } }()
+      try { if let v = _storage._upgradePathRequest {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      } }()
+      try { if let v = _storage._awdlCredentials {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2784,8 +3985,10 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
         if _storage._wifiAwareCredentials != rhs_storage._wifiAwareCredentials {return false}
         if _storage._wifiDirectCredentials != rhs_storage._wifiDirectCredentials {return false}
         if _storage._webRtcCredentials != rhs_storage._webRtcCredentials {return false}
+        if _storage._awdlCredentials != rhs_storage._awdlCredentials {return false}
         if _storage._supportsDisablingEncryption != rhs_storage._supportsDisablingEncryption {return false}
         if _storage._supportsClientIntroductionAck != rhs_storage._supportsClientIntroductionAck {return false}
+        if _storage._upgradePathRequest != rhs_storage._upgradePathRequest {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2808,6 +4011,8 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
     8: .same(proto: "WIFI_DIRECT"),
     9: .same(proto: "WEB_RTC"),
     11: .same(proto: "USB"),
+    12: .same(proto: "WEB_RTC_NON_CELLULAR"),
+    13: .same(proto: "AWDL"),
   ]
 }
 
@@ -3011,6 +4216,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
     3: .same(proto: "port"),
     4: .same(proto: "frequency"),
     5: .same(proto: "gateway"),
+    6: .standard(proto: "ip_v6_address"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3024,6 +4230,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
       case 3: try { try decoder.decodeSingularInt32Field(value: &self._port) }()
       case 4: try { try decoder.decodeSingularInt32Field(value: &self._frequency) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self._gateway) }()
+      case 6: try { try decoder.decodeSingularBytesField(value: &self._ipV6Address) }()
       default: break
       }
     }
@@ -3049,6 +4256,9 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
     try { if let v = self._gateway {
       try visitor.visitSingularStringField(value: v, fieldNumber: 5)
     } }()
+    try { if let v = self._ipV6Address {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 6)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3058,6 +4268,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
     if lhs._port != rhs._port {return false}
     if lhs._frequency != rhs._frequency {return false}
     if lhs._gateway != rhs._gateway {return false}
+    if lhs._ipV6Address != rhs._ipV6Address {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3105,11 +4316,138 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePa
   }
 }
 
+extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.protoMessageName + ".AwdlCredentials"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "service_name"),
+    2: .standard(proto: "service_type"),
+    3: .same(proto: "password"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self._serviceName) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._serviceType) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._password) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._serviceName {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._serviceType {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._password {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials, rhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.AwdlCredentials) -> Bool {
+    if lhs._serviceName != rhs._serviceName {return false}
+    if lhs._serviceType != rhs._serviceType {return false}
+    if lhs._password != rhs._password {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.protoMessageName + ".UpgradePathRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "mediums"),
+    2: .standard(proto: "medium_meta_data"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedEnumField(value: &self.mediums) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._mediumMetaData) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.mediums.isEmpty {
+      try visitor.visitPackedEnumField(value: self.mediums, fieldNumber: 1)
+    }
+    try { if let v = self._mediumMetaData {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest, rhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.UpgradePathInfo.UpgradePathRequest) -> Bool {
+    if lhs.mediums != rhs.mediums {return false}
+    if lhs._mediumMetaData != rhs._mediumMetaData {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.protoMessageName + ".SafeToClosePriorChannel"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "sta_frequency"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self._staFrequency) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._staFrequency {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel, rhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.SafeToClosePriorChannel) -> Bool {
+    if lhs._staFrequency != rhs._staFrequency {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroduction: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.protoMessageName + ".ClientIntroduction"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "endpoint_id"),
     2: .standard(proto: "supports_disabling_encryption"),
+    3: .standard(proto: "last_endpoint_id"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3120,6 +4458,7 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientInt
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self._endpointID) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self._supportsDisablingEncryption) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._lastEndpointID) }()
       default: break
       }
     }
@@ -3136,12 +4475,16 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientInt
     try { if let v = self._supportsDisablingEncryption {
       try visitor.visitSingularBoolField(value: v, fieldNumber: 2)
     } }()
+    try { if let v = self._lastEndpointID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroduction, rhs: Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientIntroduction) -> Bool {
     if lhs._endpointID != rhs._endpointID {return false}
     if lhs._supportsDisablingEncryption != rhs._supportsDisablingEncryption {return false}
+    if lhs._lastEndpointID != rhs._lastEndpointID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3166,10 +4509,71 @@ extension Location_Nearby_Connections_BandwidthUpgradeNegotiationFrame.ClientInt
   }
 }
 
+extension Location_Nearby_Connections_BandwidthUpgradeRetryFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".BandwidthUpgradeRetryFrame"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "supported_medium"),
+    2: .standard(proto: "is_request"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedEnumField(value: &self.supportedMedium) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self._isRequest) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.supportedMedium.isEmpty {
+      try visitor.visitRepeatedEnumField(value: self.supportedMedium, fieldNumber: 1)
+    }
+    try { if let v = self._isRequest {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_BandwidthUpgradeRetryFrame, rhs: Location_Nearby_Connections_BandwidthUpgradeRetryFrame) -> Bool {
+    if lhs.supportedMedium != rhs.supportedMedium {return false}
+    if lhs._isRequest != rhs._isRequest {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_BandwidthUpgradeRetryFrame.Medium: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "UNKNOWN_MEDIUM"),
+    2: .same(proto: "BLUETOOTH"),
+    3: .same(proto: "WIFI_HOTSPOT"),
+    4: .same(proto: "BLE"),
+    5: .same(proto: "WIFI_LAN"),
+    6: .same(proto: "WIFI_AWARE"),
+    7: .same(proto: "NFC"),
+    8: .same(proto: "WIFI_DIRECT"),
+    9: .same(proto: "WEB_RTC"),
+    10: .same(proto: "BLE_L2CAP"),
+    11: .same(proto: "USB"),
+    12: .same(proto: "WEB_RTC_NON_CELLULAR"),
+    13: .same(proto: "AWDL"),
+  ]
+}
+
 extension Location_Nearby_Connections_KeepAliveFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".KeepAliveFrame"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "ack"),
+    2: .standard(proto: "seq_num"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3179,6 +4583,7 @@ extension Location_Nearby_Connections_KeepAliveFrame: SwiftProtobuf.Message, Swi
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBoolField(value: &self._ack) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self._seqNum) }()
       default: break
       }
     }
@@ -3192,11 +4597,15 @@ extension Location_Nearby_Connections_KeepAliveFrame: SwiftProtobuf.Message, Swi
     try { if let v = self._ack {
       try visitor.visitSingularBoolField(value: v, fieldNumber: 1)
     } }()
+    try { if let v = self._seqNum {
+      try visitor.visitSingularUInt32Field(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Location_Nearby_Connections_KeepAliveFrame, rhs: Location_Nearby_Connections_KeepAliveFrame) -> Bool {
     if lhs._ack != rhs._ack {return false}
+    if lhs._seqNum != rhs._seqNum {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3280,6 +4689,196 @@ extension Location_Nearby_Connections_PairedKeyEncryptionFrame: SwiftProtobuf.Me
   }
 }
 
+extension Location_Nearby_Connections_AuthenticationMessageFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AuthenticationMessageFrame"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "auth_message"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBytesField(value: &self._authMessage) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._authMessage {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_AuthenticationMessageFrame, rhs: Location_Nearby_Connections_AuthenticationMessageFrame) -> Bool {
+    if lhs._authMessage != rhs._authMessage {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_AuthenticationResultFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AuthenticationResultFrame"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self._result) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._result {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_AuthenticationResultFrame, rhs: Location_Nearby_Connections_AuthenticationResultFrame) -> Bool {
+    if lhs._result != rhs._result {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_AutoResumeFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AutoResumeFrame"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "event_type"),
+    2: .standard(proto: "pending_payload_id"),
+    3: .standard(proto: "next_payload_chunk_index"),
+    4: .same(proto: "version"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self._eventType) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self._pendingPayloadID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self._nextPayloadChunkIndex) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self._version) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._eventType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._pendingPayloadID {
+      try visitor.visitSingularInt64Field(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._nextPayloadChunkIndex {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._version {
+      try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_AutoResumeFrame, rhs: Location_Nearby_Connections_AutoResumeFrame) -> Bool {
+    if lhs._eventType != rhs._eventType {return false}
+    if lhs._pendingPayloadID != rhs._pendingPayloadID {return false}
+    if lhs._nextPayloadChunkIndex != rhs._nextPayloadChunkIndex {return false}
+    if lhs._version != rhs._version {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_AutoResumeFrame.EventType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "UNKNOWN_AUTO_RESUME_EVENT_TYPE"),
+    1: .same(proto: "PAYLOAD_RESUME_TRANSFER_START"),
+    2: .same(proto: "PAYLOAD_RESUME_TRANSFER_ACK"),
+  ]
+}
+
+extension Location_Nearby_Connections_AutoReconnectFrame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AutoReconnectFrame"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "endpoint_id"),
+    2: .standard(proto: "event_type"),
+    3: .standard(proto: "last_endpoint_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self._endpointID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self._eventType) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._lastEndpointID) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._endpointID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._eventType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._lastEndpointID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_AutoReconnectFrame, rhs: Location_Nearby_Connections_AutoReconnectFrame) -> Bool {
+    if lhs._endpointID != rhs._endpointID {return false}
+    if lhs._eventType != rhs._eventType {return false}
+    if lhs._lastEndpointID != rhs._lastEndpointID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_AutoReconnectFrame.EventType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "UNKNOWN_EVENT_TYPE"),
+    1: .same(proto: "CLIENT_INTRODUCTION"),
+    2: .same(proto: "CLIENT_INTRODUCTION_ACK"),
+  ]
+}
+
 extension Location_Nearby_Connections_MediumMetadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".MediumMetadata"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3294,83 +4893,143 @@ extension Location_Nearby_Connections_MediumMetadata: SwiftProtobuf.Message, Swi
     9: .standard(proto: "wifi_lan_usable_channels"),
     10: .standard(proto: "wifi_aware_usable_channels"),
     11: .standard(proto: "wifi_hotspot_sta_usable_channels"),
+    12: .standard(proto: "medium_role"),
   ]
 
+  fileprivate class _StorageClass {
+    var _supports5Ghz: Bool? = nil
+    var _bssid: String? = nil
+    var _ipAddress: Data? = nil
+    var _supports6Ghz: Bool? = nil
+    var _mobileRadio: Bool? = nil
+    var _apFrequency: Int32? = nil
+    var _availableChannels: Location_Nearby_Connections_AvailableChannels? = nil
+    var _wifiDirectCliUsableChannels: Location_Nearby_Connections_WifiDirectCliUsableChannels? = nil
+    var _wifiLanUsableChannels: Location_Nearby_Connections_WifiLanUsableChannels? = nil
+    var _wifiAwareUsableChannels: Location_Nearby_Connections_WifiAwareUsableChannels? = nil
+    var _wifiHotspotStaUsableChannels: Location_Nearby_Connections_WifiHotspotStaUsableChannels? = nil
+    var _mediumRole: Location_Nearby_Connections_MediumRole? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _supports5Ghz = source._supports5Ghz
+      _bssid = source._bssid
+      _ipAddress = source._ipAddress
+      _supports6Ghz = source._supports6Ghz
+      _mobileRadio = source._mobileRadio
+      _apFrequency = source._apFrequency
+      _availableChannels = source._availableChannels
+      _wifiDirectCliUsableChannels = source._wifiDirectCliUsableChannels
+      _wifiLanUsableChannels = source._wifiLanUsableChannels
+      _wifiAwareUsableChannels = source._wifiAwareUsableChannels
+      _wifiHotspotStaUsableChannels = source._wifiHotspotStaUsableChannels
+      _mediumRole = source._mediumRole
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBoolField(value: &self._supports5Ghz) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self._bssid) }()
-      case 3: try { try decoder.decodeSingularBytesField(value: &self._ipAddress) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self._supports6Ghz) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self._mobileRadio) }()
-      case 6: try { try decoder.decodeSingularInt32Field(value: &self._apFrequency) }()
-      case 7: try { try decoder.decodeSingularMessageField(value: &self._availableChannels) }()
-      case 8: try { try decoder.decodeSingularMessageField(value: &self._wifiDirectCliUsableChannels) }()
-      case 9: try { try decoder.decodeSingularMessageField(value: &self._wifiLanUsableChannels) }()
-      case 10: try { try decoder.decodeSingularMessageField(value: &self._wifiAwareUsableChannels) }()
-      case 11: try { try decoder.decodeSingularMessageField(value: &self._wifiHotspotStaUsableChannels) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularBoolField(value: &_storage._supports5Ghz) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._bssid) }()
+        case 3: try { try decoder.decodeSingularBytesField(value: &_storage._ipAddress) }()
+        case 4: try { try decoder.decodeSingularBoolField(value: &_storage._supports6Ghz) }()
+        case 5: try { try decoder.decodeSingularBoolField(value: &_storage._mobileRadio) }()
+        case 6: try { try decoder.decodeSingularInt32Field(value: &_storage._apFrequency) }()
+        case 7: try { try decoder.decodeSingularMessageField(value: &_storage._availableChannels) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._wifiDirectCliUsableChannels) }()
+        case 9: try { try decoder.decodeSingularMessageField(value: &_storage._wifiLanUsableChannels) }()
+        case 10: try { try decoder.decodeSingularMessageField(value: &_storage._wifiAwareUsableChannels) }()
+        case 11: try { try decoder.decodeSingularMessageField(value: &_storage._wifiHotspotStaUsableChannels) }()
+        case 12: try { try decoder.decodeSingularMessageField(value: &_storage._mediumRole) }()
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._supports5Ghz {
-      try visitor.visitSingularBoolField(value: v, fieldNumber: 1)
-    } }()
-    try { if let v = self._bssid {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._ipAddress {
-      try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
-    } }()
-    try { if let v = self._supports6Ghz {
-      try visitor.visitSingularBoolField(value: v, fieldNumber: 4)
-    } }()
-    try { if let v = self._mobileRadio {
-      try visitor.visitSingularBoolField(value: v, fieldNumber: 5)
-    } }()
-    try { if let v = self._apFrequency {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 6)
-    } }()
-    try { if let v = self._availableChannels {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    } }()
-    try { if let v = self._wifiDirectCliUsableChannels {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-    } }()
-    try { if let v = self._wifiLanUsableChannels {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-    } }()
-    try { if let v = self._wifiAwareUsableChannels {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
-    } }()
-    try { if let v = self._wifiHotspotStaUsableChannels {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-    } }()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      try { if let v = _storage._supports5Ghz {
+        try visitor.visitSingularBoolField(value: v, fieldNumber: 1)
+      } }()
+      try { if let v = _storage._bssid {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+      } }()
+      try { if let v = _storage._ipAddress {
+        try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
+      } }()
+      try { if let v = _storage._supports6Ghz {
+        try visitor.visitSingularBoolField(value: v, fieldNumber: 4)
+      } }()
+      try { if let v = _storage._mobileRadio {
+        try visitor.visitSingularBoolField(value: v, fieldNumber: 5)
+      } }()
+      try { if let v = _storage._apFrequency {
+        try visitor.visitSingularInt32Field(value: v, fieldNumber: 6)
+      } }()
+      try { if let v = _storage._availableChannels {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      } }()
+      try { if let v = _storage._wifiDirectCliUsableChannels {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      } }()
+      try { if let v = _storage._wifiLanUsableChannels {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      } }()
+      try { if let v = _storage._wifiAwareUsableChannels {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
+      } }()
+      try { if let v = _storage._wifiHotspotStaUsableChannels {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+      } }()
+      try { if let v = _storage._mediumRole {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
+      } }()
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Location_Nearby_Connections_MediumMetadata, rhs: Location_Nearby_Connections_MediumMetadata) -> Bool {
-    if lhs._supports5Ghz != rhs._supports5Ghz {return false}
-    if lhs._bssid != rhs._bssid {return false}
-    if lhs._ipAddress != rhs._ipAddress {return false}
-    if lhs._supports6Ghz != rhs._supports6Ghz {return false}
-    if lhs._mobileRadio != rhs._mobileRadio {return false}
-    if lhs._apFrequency != rhs._apFrequency {return false}
-    if lhs._availableChannels != rhs._availableChannels {return false}
-    if lhs._wifiDirectCliUsableChannels != rhs._wifiDirectCliUsableChannels {return false}
-    if lhs._wifiLanUsableChannels != rhs._wifiLanUsableChannels {return false}
-    if lhs._wifiAwareUsableChannels != rhs._wifiAwareUsableChannels {return false}
-    if lhs._wifiHotspotStaUsableChannels != rhs._wifiHotspotStaUsableChannels {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._supports5Ghz != rhs_storage._supports5Ghz {return false}
+        if _storage._bssid != rhs_storage._bssid {return false}
+        if _storage._ipAddress != rhs_storage._ipAddress {return false}
+        if _storage._supports6Ghz != rhs_storage._supports6Ghz {return false}
+        if _storage._mobileRadio != rhs_storage._mobileRadio {return false}
+        if _storage._apFrequency != rhs_storage._apFrequency {return false}
+        if _storage._availableChannels != rhs_storage._availableChannels {return false}
+        if _storage._wifiDirectCliUsableChannels != rhs_storage._wifiDirectCliUsableChannels {return false}
+        if _storage._wifiLanUsableChannels != rhs_storage._wifiLanUsableChannels {return false}
+        if _storage._wifiAwareUsableChannels != rhs_storage._wifiAwareUsableChannels {return false}
+        if _storage._wifiHotspotStaUsableChannels != rhs_storage._wifiHotspotStaUsableChannels {return false}
+        if _storage._mediumRole != rhs_storage._mediumRole {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3536,6 +5195,84 @@ extension Location_Nearby_Connections_WifiHotspotStaUsableChannels: SwiftProtobu
   }
 }
 
+extension Location_Nearby_Connections_MediumRole: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MediumRole"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "support_wifi_direct_group_owner"),
+    2: .standard(proto: "support_wifi_direct_group_client"),
+    3: .standard(proto: "support_wifi_hotspot_host"),
+    4: .standard(proto: "support_wifi_hotspot_client"),
+    5: .standard(proto: "support_wifi_aware_publisher"),
+    6: .standard(proto: "support_wifi_aware_subscriber"),
+    7: .standard(proto: "support_awdl_publisher"),
+    8: .standard(proto: "support_awdl_subscriber"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self._supportWifiDirectGroupOwner) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self._supportWifiDirectGroupClient) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self._supportWifiHotspotHost) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self._supportWifiHotspotClient) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self._supportWifiAwarePublisher) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self._supportWifiAwareSubscriber) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self._supportAwdlPublisher) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self._supportAwdlSubscriber) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._supportWifiDirectGroupOwner {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._supportWifiDirectGroupClient {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._supportWifiHotspotHost {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._supportWifiHotspotClient {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._supportWifiAwarePublisher {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._supportWifiAwareSubscriber {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._supportAwdlPublisher {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._supportAwdlSubscriber {
+      try visitor.visitSingularBoolField(value: v, fieldNumber: 8)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_MediumRole, rhs: Location_Nearby_Connections_MediumRole) -> Bool {
+    if lhs._supportWifiDirectGroupOwner != rhs._supportWifiDirectGroupOwner {return false}
+    if lhs._supportWifiDirectGroupClient != rhs._supportWifiDirectGroupClient {return false}
+    if lhs._supportWifiHotspotHost != rhs._supportWifiHotspotHost {return false}
+    if lhs._supportWifiHotspotClient != rhs._supportWifiHotspotClient {return false}
+    if lhs._supportWifiAwarePublisher != rhs._supportWifiAwarePublisher {return false}
+    if lhs._supportWifiAwareSubscriber != rhs._supportWifiAwareSubscriber {return false}
+    if lhs._supportAwdlPublisher != rhs._supportAwdlPublisher {return false}
+    if lhs._supportAwdlSubscriber != rhs._supportAwdlSubscriber {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Location_Nearby_Connections_LocationHint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".LocationHint"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3649,5 +5386,161 @@ extension Location_Nearby_Connections_OsInfo.OsType: SwiftProtobuf._ProtoNamePro
     3: .same(proto: "WINDOWS"),
     4: .same(proto: "APPLE"),
     100: .same(proto: "LINUX"),
+  ]
+}
+
+extension Location_Nearby_Connections_ConnectionsDevice: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ConnectionsDevice"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "endpoint_id"),
+    2: .standard(proto: "endpoint_type"),
+    3: .standard(proto: "connectivity_info_list"),
+    4: .standard(proto: "endpoint_info"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self._endpointID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self._endpointType) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self._connectivityInfoList) }()
+      case 4: try { try decoder.decodeSingularBytesField(value: &self._endpointInfo) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._endpointID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._endpointType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._connectivityInfoList {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._endpointInfo {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_ConnectionsDevice, rhs: Location_Nearby_Connections_ConnectionsDevice) -> Bool {
+    if lhs._endpointID != rhs._endpointID {return false}
+    if lhs._endpointType != rhs._endpointType {return false}
+    if lhs._connectivityInfoList != rhs._connectivityInfoList {return false}
+    if lhs._endpointInfo != rhs._endpointInfo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_PresenceDevice: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PresenceDevice"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "endpoint_id"),
+    2: .standard(proto: "endpoint_type"),
+    3: .standard(proto: "connectivity_info_list"),
+    4: .standard(proto: "device_id"),
+    5: .standard(proto: "device_name"),
+    6: .standard(proto: "device_type"),
+    7: .standard(proto: "device_image_url"),
+    8: .standard(proto: "discovery_medium"),
+    9: .same(proto: "actions"),
+    10: .standard(proto: "identity_type"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self._endpointID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self._endpointType) }()
+      case 3: try { try decoder.decodeSingularBytesField(value: &self._connectivityInfoList) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self._deviceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self._deviceName) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self._deviceType) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self._deviceImageURL) }()
+      case 8: try { try decoder.decodeRepeatedEnumField(value: &self.discoveryMedium) }()
+      case 9: try { try decoder.decodeRepeatedInt32Field(value: &self.actions) }()
+      case 10: try { try decoder.decodeRepeatedInt64Field(value: &self.identityType) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._endpointID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._endpointType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._connectivityInfoList {
+      try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
+    } }()
+    try { if let v = self._deviceID {
+      try visitor.visitSingularInt64Field(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._deviceName {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 5)
+    } }()
+    try { if let v = self._deviceType {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 6)
+    } }()
+    try { if let v = self._deviceImageURL {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 7)
+    } }()
+    if !self.discoveryMedium.isEmpty {
+      try visitor.visitPackedEnumField(value: self.discoveryMedium, fieldNumber: 8)
+    }
+    if !self.actions.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.actions, fieldNumber: 9)
+    }
+    if !self.identityType.isEmpty {
+      try visitor.visitPackedInt64Field(value: self.identityType, fieldNumber: 10)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Location_Nearby_Connections_PresenceDevice, rhs: Location_Nearby_Connections_PresenceDevice) -> Bool {
+    if lhs._endpointID != rhs._endpointID {return false}
+    if lhs._endpointType != rhs._endpointType {return false}
+    if lhs._connectivityInfoList != rhs._connectivityInfoList {return false}
+    if lhs._deviceID != rhs._deviceID {return false}
+    if lhs._deviceName != rhs._deviceName {return false}
+    if lhs._deviceType != rhs._deviceType {return false}
+    if lhs._deviceImageURL != rhs._deviceImageURL {return false}
+    if lhs.discoveryMedium != rhs.discoveryMedium {return false}
+    if lhs.actions != rhs.actions {return false}
+    if lhs.identityType != rhs.identityType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Location_Nearby_Connections_PresenceDevice.DeviceType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "UNKNOWN"),
+    1: .same(proto: "PHONE"),
+    2: .same(proto: "TABLET"),
+    3: .same(proto: "DISPLAY"),
+    4: .same(proto: "LAPTOP"),
+    5: .same(proto: "TV"),
+    6: .same(proto: "WATCH"),
   ]
 }
