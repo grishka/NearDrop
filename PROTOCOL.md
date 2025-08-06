@@ -38,12 +38,17 @@ The **endpoint ID** is 4 random alphanumeric characters. It identifies devices t
 The service also needs to have a TXT record with key `n` and the value of the following encoded in URL-safe base64 ("endpoint info"):
 
 * 1 byte: bit field
-	* 3 bits: version, set to 0
+	* 3 bits: version, set to 1 or 0, doesn't seem to make a difference
 	* 1 bit: visibility, 0 = visible
-	* 3 bits: device type. Android uses this to pick an icon. 0 = unknown, 1 = phone, 2 = tablet, 3 = laptop
+	* 3 bits: device type. Android uses this to pick an icon. 0 = unknown, 1 = phone, 2 = tablet, 3 = laptop, 4 = car, 5 = foldable phone, 6 = XR device
 	* 1 bit: reserved, set to 0
-* 16 bytes of unknown purpose. I set them to random.
-* User-visible device name in UTF-8, prefixed with 1-byte length.
+* 16 bytes that are somehow related to device identification. Probably meaningless without talking to Google servers. It's ok to make them random.
+    * 2 bytes: salt, "Random bytes that were used as salt during encryption of public certificate metadata"
+    * 14 bytes: encrypted metadata key, "An encrypted symmetric key that was used to encrypt public certificate metadata, including an account identifier signifying the remote device. The key can be decrypted using |salt| and the corresponding public certificate's secret/authenticity key."
+* User-visible device name in UTF-8, prefixed with 1-byte length. Only present if the visibility bit in the first byte is 0.
+* Optional TLV records. Each: 1 byte type, 1 byte length, length bytes value. Possible types:
+    * 1: QR code data. See below.
+    * 2: vendor ID. 1 byte, not sure what this is for. 0 = "none", 1 = Samsung.
 
 Android does not advertise the MDNS service all the time regardless of the visibility setting. It waits for a BLE advertisement with the following parameters:
 
@@ -53,6 +58,29 @@ Android does not advertise the MDNS service all the time regardless of the visib
 This can't be sent from macOS because there's no API I could find that would allow setting the service data. As far as I can tell, the Android side is hardcoded to look for that prefix in the service data so there really is no way to make it work on macOS. Android sends these BLE advertisements periodically while searching for Nearby Share targets; these are also what makes the "device nearby is sharing" notification pop up.
 
 The service ID (FC9F...) comes from SHA256("NearbySharing") = `fc9f5ed42c8a5e9e94684076ef3bf938a809c60ad354992b0435aebbdc58b97b`.
+
+#### QR codes
+
+The sending device can generate a QR code to be scanned by the receiving device. This bypasses the need to send BLE broadcasts. The QR code contains a URL of the form
+
+```
+https://quickshare.google/qrcode#key=XXX
+```
+Where XXX is the ECDSA public key of the sending device, in the "compressed" format (i.e. just the X value) prefixed with a 2-byte version number of 0 and *another* 1-byte version of 2 or 3, and encoded in URL-safe base64. This public key doesn't have to match the one used later in the connection — this can be a separate key pair just for the QR code.
+
+Both devices need to derive two keys from this `key` parameter (after decoding the base64, but still including the version numbers):
+* The **advertising token**: HKDF-SHA256(IKM = `key` parameter, salt is empty, info = `advertisingContext`, output length = 16)
+* The **name encryption key**: HKDF-SHA256(IKM = `key` parameter, salt is empty, info = `encryptionKey`, output length = 16)
+
+When the receiving device scans the code (or, more precisely, when the activity handling that URL launches), it starts advertising its MDNS service. A "QR code" (type 1) TLV record is added to the endpoint info. The contents of that record depend on the visibility setting on the receiving device.
+
+If the device is **visible**, the TLV record simply contains the *advertising token* as-is.
+
+If the device is **hidden**, the visibility bit will be set to 1, there will be no name in plain text, and the TLV record will contain the name encrypted using AES-GCM. The format is: 12 bytes initialization vector, then encrypted data itself, then 16 bytes authentication tag. The key is the *name encryption key*, the additional data for authentication is the *advertising token*.
+
+While the QR code is displayed, the sender will check each device it finds to see if it matches either of these conditions. The way it is implemented in GMS, it would first compare the TLV record with the *advertising token*, and if it doesn't match, try to decrypt it. As soon as a matching device is found, the sender will connect to it automatically.
+
+To skip the user prompt, the `qr_code_handshake_data` inside the `PairedKeyEncryptionFrame` sent by the sending device must be an ECDSA signature of the UKEY2 auth key (the same one used to derive the connection PIN) made with the private key that corresponds to the public key used in the QR code. The signature is in the "IEEE P1363" format, i.e. just the `R` and `S` values concatenated together, for a total of 64 bytes. TODO: figure out why this sometimes fails and the prompt still appears.
 
 ### High-level diagram
 
