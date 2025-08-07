@@ -75,6 +75,10 @@ Yes. Drag the icon off the menu bar while holding cmd. To bring it back, launch 
 
 Make sure you have "do not disturb" off. The notification may also sometimes (rarely) end up in the notification center without being shown as a popup first — I'm not sure why this happens.
 
+#### NearDrop not appearing in share menu on Mac
+
+On Mac go to settings and enable NearDrop sharing extension in `Settings > Privacy & Security > Extensions > Sharing`. After that you will see it in mac finder share menu section.
+
 #### Why is the app not notarized?
 
 Because I don't want to pay Apple $99 a year for the privilege of developing macOS apps and I oppose their idea of security. The slightly less scary security warning isn't worth $99/year IMO.
