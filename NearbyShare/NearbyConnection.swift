@@ -44,6 +44,7 @@ class NearbyConnection{
 	private var clientSeq:Int32=0
 	
 	private(set) var pinCode:String?
+	private(set) var authKey:SymmetricKey?
 	
 	init(connection:NWConnection, id:String) {
 		self.connection=connection
@@ -340,7 +341,7 @@ class NearbyConnection{
 		if #available(macOS 11.0, *){
 			return HKDF<SHA256>.deriveKey(inputKeyMaterial: inputKeyMaterial, salt: salt, info: info, outputByteCount: outputByteCount)
 		}else{
-			return SymmetricKey(data: hkdfExpand(prk: hkdfExtract(salt: salt, ikm: inputKeyMaterial.withUnsafeBytes({return Data(bytes: $0.baseAddress!, count: $0.count)})), info: info, length: outputByteCount))
+			return SymmetricKey(data: hkdfExpand(prk: hkdfExtract(salt: salt, ikm: inputKeyMaterial.data()), info: info, length: outputByteCount))
 		}
 	}
 	
@@ -369,6 +370,7 @@ class NearbyConnection{
 		let authString=NearbyConnection.hkdf(inputKeyMaterial: SymmetricKey(data: derivedSecretKey), salt: "UKEY2 v1 auth".data(using: .utf8)!, info: ukeyInfo, outputByteCount: 32)
 		let nextSecret=NearbyConnection.hkdf(inputKeyMaterial: SymmetricKey(data: derivedSecretKey), salt: "UKEY2 v1 next".data(using: .utf8)!, info: ukeyInfo, outputByteCount: 32)
 		
+		authKey=authString
 		pinCode=NearbyConnection.pinCodeFromAuthKey(authString)
 		
 		let salt:Data=Data([0x82, 0xAA, 0x55, 0xA0, 0xD3, 0x97, 0xF8, 0x83, 0x46, 0xCA, 0x1C,

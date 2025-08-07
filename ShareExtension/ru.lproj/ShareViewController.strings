@@ -5,8 +5,20 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "6Up-t3-mwm"; */
 "6Up-t3-mwm.title" = "Отменить";
 
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "9EW-Db-fGL"; */
+"9EW-Db-fGL.title" = "Отменить";
+
+/* Class = "NSButtonCell"; title = "Use QR code..."; ObjectID = "Ll5-lP-3bU"; */
+"Ll5-lP-3bU.title" = "Использовать QR-код...";
+
 /* Class = "NSTextFieldCell"; title = "Looking for devices..."; ObjectID = "NaJ-Wx-Pim"; */
 "NaJ-Wx-Pim.title" = "Ищу устройства...";
+
+/* Class = "NSTextFieldCell"; title = "Scan this QR code with an Android device. The transfer will begin automatically."; ObjectID = "d3J-ot-h5d"; */
+"d3J-ot-h5d.title" = "Отсканируйте этот QR-код на Android-устройстве. Передача начнётся автоматически.";
+
+/* Class = "NSTextFieldCell"; title = "If this doesn't work, make sure that the device and your Mac are on the same network, and that the router isn't blocking LAN communication."; ObjectID = "uuF-4K-rMR"; */
+"uuF-4K-rMR.title" = "Если соединиться не удаётся, убедитесь, что устройство и Mac находятся в одной сети, и что роутер не блокирует передачу данных по локальной сети.";
 
 /* Class = "NSTextFieldCell"; title = "If you don't see your device, open \"Files by Google\" app and tap \"Receive\" on the Nearby Share tab."; ObjectID = "vla-gF-eJo"; */
 "vla-gF-eJo.title" = "Если Вы не видите своё устройство, откройте приложение \"Google Files\" и нажмите \"Получить\" на вкладке Обмен.";

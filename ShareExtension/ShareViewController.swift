@@ -8,6 +8,7 @@
 import Foundation
 import Cocoa
 import NearbyShare
+import QRCode
 
 class ShareViewController: NSViewController, ShareExtensionDelegate{
 	
@@ -15,6 +16,7 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	private var foundDevices:[RemoteDeviceInfo]=[]
 	private var chosenDevice:RemoteDeviceInfo?
 	private var lastError:Error?
+	private var sheetWindow:NSWindow?
 	
 	@IBOutlet var filesIcon:NSImageView?
 	@IBOutlet var filesLabel:NSTextField?
@@ -30,6 +32,11 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	@IBOutlet var progressState:NSTextField?
 	@IBOutlet var progressDeviceIconWrap:NSView?
 	@IBOutlet var progressDeviceSecondaryIcon:NSImageView?
+	@IBOutlet var qrCodeButton:NSButton?
+	
+	@IBOutlet var qrCodeSheetView:NSView?
+	@IBOutlet var qrCodeView:NSImageView?
+	@IBOutlet var qrCodeWrapView:NSView?
 	
 	override var nibName: NSNib.Name? {
 		return NSNib.Name("ShareViewController")
@@ -38,7 +45,6 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 	override func loadView() {
 		super.loadView()
 	
-		// Insert code here to customize the view
 		let item = self.extensionContext!.inputItems[0] as! NSExtensionItem
 			if let attachments = item.attachments {
 			for attachment in attachments as NSArray{
@@ -99,6 +105,13 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		
 		progressDeviceIconWrap!.wantsLayer=true
 		progressDeviceIconWrap!.layer!.masksToBounds=false
+		
+		qrCodeWrapView!.wantsLayer=true
+		qrCodeWrapView!.layer!.masksToBounds=false
+		qrCodeWrapView!.layer!.shadowColor = .black
+		qrCodeWrapView!.layer!.shadowOpacity=0.3
+		qrCodeWrapView!.layer!.shadowRadius=12
+		qrCodeWrapView!.layer!.shadowOffset=CGSizeMake(0, -5)
 	}
 	
 	override func viewDidLoad(){
@@ -120,6 +133,39 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		}
 		let cancelError = NSError(domain: NSCocoaErrorDomain, code: NSUserCancelledError, userInfo: nil)
 		self.extensionContext!.cancelRequest(withError: cancelError)
+	}
+	
+	@IBAction func useQrCode(_ sender: AnyObject?) {
+		let window=contentWrap!.window!
+		let sheetWindow=NSWindow()
+		sheetWindow.contentView=qrCodeSheetView!
+		let size=NSSize(width: 380, height: 400)
+		sheetWindow.contentMaxSize=size
+		sheetWindow.contentMinSize=size
+		sheetWindow.setContentSize(size)
+		
+		let qrKey=NearbyConnectionManager.shared.generateQrCodeKey()
+		let qrCodeImage=try! QRCode.build
+			.text("https://quickshare.google/qrcode#key=\(qrKey)")
+			.backgroundColor(CGColor(srgbRed: 1, green: 1, blue: 1, alpha: 0))
+			.quietZonePixelCount(3)
+			.onPixels.shape(.circle())
+			.eye.shape(.roundedPointing())
+			.errorCorrection(.low)
+			.generate.image(dimension: Int(qrCodeView!.frame.width)*2)
+		qrCodeView!.image=NSImage(cgImage: qrCodeImage, size: qrCodeImage.size)
+		
+		self.sheetWindow=sheetWindow
+		window.beginSheet(sheetWindow) { response in
+			self.sheetWindow=nil
+			NearbyConnectionManager.shared.clearQrCodeKey()
+		}
+	}
+	
+	@IBAction func dismissQrCodeSheet(_ sender: AnyObject?){
+		contentWrap!.window!.endSheet(sheetWindow!)
+		sheetWindow=nil
+		NearbyConnectionManager.shared.clearQrCodeKey()
 	}
 	
 	private func urlsReady(){
@@ -170,6 +216,11 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		if foundDevices.isEmpty{
 			loadingOverlay?.animator().isHidden=false
 		}
+	}
+	
+	func startTransferWithQrCode(device: RemoteDeviceInfo){
+		dismissQrCodeSheet(nil)
+		selectDevice(device: device)
 	}
 	
 	func connectionWasEstablished(pinCode: String) {
@@ -224,6 +275,7 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		NearbyConnectionManager.shared.stopDeviceDiscovery()
 		listViewWrapper?.animator().isHidden=true
 		progressView?.animator().isHidden=false
+		qrCodeButton?.animator().isHidden=true
 		progressDeviceName?.stringValue=device.name
 		progressDeviceIcon?.image=imageForDeviceType(type: device.type)
 		progressProgressBar?.startAnimation(nil)

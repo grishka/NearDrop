@@ -21,6 +21,13 @@ extension Data{
 		})
 	}
 	
+	func suffixOfAtMost(numBytes:Int) -> Data{
+		if count<=numBytes{
+			return self;
+		}
+		return subdata(in: count-numBytes..<count)
+	}
+	
 	static func randomData(length: Int) -> Data{
 		var data=Data(count: length)
 		data.withUnsafeMutableBytes {

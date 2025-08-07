@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,6 +22,10 @@
                 <outlet property="progressProgressBar" destination="J5x-hu-Kn5" id="vYH-DN-03b"/>
                 <outlet property="progressState" destination="y8I-D3-scQ" id="Tj3-xa-8VG"/>
                 <outlet property="progressView" destination="Q9K-dc-THx" id="LlE-4d-mI5"/>
+                <outlet property="qrCodeButton" destination="ZsR-MN-QVA" id="KaY-NO-F5z"/>
+                <outlet property="qrCodeSheetView" destination="cIc-n7-hIV" id="Ol8-aW-fH0"/>
+                <outlet property="qrCodeView" destination="9Hk-Pa-eYI" id="Weo-3l-5pN"/>
+                <outlet property="qrCodeWrapView" destination="dq7-IV-6Ef" id="V35-5n-nyq"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -94,12 +98,28 @@ Gw
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="ACO-U2-AZj">
                     <rect key="frame" x="0.0" y="40" width="404" height="146"/>
                 </customView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZsR-MN-QVA">
+                    <rect key="frame" x="3" y="3" width="125" height="32"/>
+                    <buttonCell key="cell" type="push" title="Use QR code..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ll5-lP-3bU">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="7o5-tK-dlg"/>
+                    </constraints>
+                    <connections>
+                        <action selector="useQrCode:" target="-2" id="BS0-WG-B7q"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="ZsR-MN-QVA" secondAttribute="bottom" constant="10" id="76Q-6H-r3I"/>
                 <constraint firstItem="OEz-QK-nem" firstAttribute="top" secondItem="1xF-vr-5sH" secondAttribute="bottom" constant="10" id="852-oh-vM0"/>
+                <constraint firstItem="ZsR-MN-QVA" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="10" id="CHP-wF-HhN"/>
                 <constraint firstItem="OEz-QK-nem" firstAttribute="leading" secondItem="afM-Om-nLQ" secondAttribute="trailing" constant="5" id="CIj-Dk-Md0"/>
                 <constraint firstAttribute="trailing" secondItem="ACO-U2-AZj" secondAttribute="trailing" id="HIg-sX-IK0"/>
                 <constraint firstItem="ACO-U2-AZj" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="IGL-2g-wpe"/>
+                <constraint firstItem="ZsR-MN-QVA" firstAttribute="top" secondItem="ACO-U2-AZj" secondAttribute="bottom" constant="10" id="K9U-z1-gie"/>
                 <constraint firstItem="afM-Om-nLQ" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="10" id="LK2-cg-qcY"/>
                 <constraint firstItem="NVE-vN-dkz" firstAttribute="top" secondItem="ACO-U2-AZj" secondAttribute="bottom" constant="10" id="RSD-PX-W0H"/>
                 <constraint firstAttribute="bottom" secondItem="NVE-vN-dkz" secondAttribute="bottom" constant="10" id="USG-Gg-of3"/>
@@ -256,6 +276,82 @@ Gw
             </scroller>
             <point key="canvasLocation" x="-397.5" y="30"/>
         </scrollView>
+        <customView id="cIc-n7-hIV">
+            <rect key="frame" x="0.0" y="0.0" width="380" height="400"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oJM-qC-yyW">
+                    <rect key="frame" x="8" y="358" width="364" height="32"/>
+                    <textFieldCell key="cell" alignment="center" title="Scan this QR code with an Android device. The transfer will begin automatically." id="d3J-ot-h5d">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pLr-Yq-OMn">
+                    <rect key="frame" x="301" y="3" width="76" height="32"/>
+                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9EW-Db-fGL">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        <connections>
+                            <action selector="dismissQrCodeSheet:" target="-2" id="OX6-j3-Dag"/>
+                        </connections>
+                    </buttonCell>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="eRJ-dH-AQv"/>
+                    </constraints>
+                </button>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="mP8-S4-SUv">
+                    <rect key="frame" x="8" y="40" width="364" height="42"/>
+                    <textFieldCell key="cell" alignment="center" id="uuF-4K-rMR">
+                        <font key="font" metaFont="smallSystem"/>
+                        <string key="title">If this doesn't work, make sure that the device and your Mac are on the same network, and that the router isn't blocking LAN communication.</string>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="dq7-IV-6Ef">
+                    <rect key="frame" x="80" y="113" width="220" height="220"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="lnf-Ci-bVP" customClass="QrCodeBackgroundView" customModule="ShareExtension" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="220"/>
+                        </customView>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9Hk-Pa-eYI">
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="220"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="J6N-uf-WsV"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="lnf-Ci-bVP" firstAttribute="leading" secondItem="dq7-IV-6Ef" secondAttribute="leading" id="16L-0N-tMO"/>
+                        <constraint firstItem="9Hk-Pa-eYI" firstAttribute="top" secondItem="dq7-IV-6Ef" secondAttribute="top" id="22t-Se-FtM"/>
+                        <constraint firstAttribute="bottom" secondItem="lnf-Ci-bVP" secondAttribute="bottom" id="9XU-id-5Lj"/>
+                        <constraint firstItem="9Hk-Pa-eYI" firstAttribute="leading" secondItem="dq7-IV-6Ef" secondAttribute="leading" id="KWg-eg-4sO"/>
+                        <constraint firstAttribute="width" constant="220" id="drn-Gr-Tx6"/>
+                        <constraint firstAttribute="trailing" secondItem="9Hk-Pa-eYI" secondAttribute="trailing" id="fif-Sg-QCc"/>
+                        <constraint firstAttribute="bottom" secondItem="9Hk-Pa-eYI" secondAttribute="bottom" id="iVK-yf-1Ev"/>
+                        <constraint firstAttribute="height" constant="220" id="l69-dh-xwJ"/>
+                        <constraint firstAttribute="trailing" secondItem="lnf-Ci-bVP" secondAttribute="trailing" id="pva-qe-Ibk"/>
+                        <constraint firstItem="lnf-Ci-bVP" firstAttribute="top" secondItem="dq7-IV-6Ef" secondAttribute="top" id="yOu-Bz-qVZ"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="oJM-qC-yyW" firstAttribute="leading" secondItem="cIc-n7-hIV" secondAttribute="leading" constant="10" id="HaS-Sl-afe"/>
+                <constraint firstItem="dq7-IV-6Ef" firstAttribute="centerX" secondItem="cIc-n7-hIV" secondAttribute="centerX" id="Iip-bT-bl3"/>
+                <constraint firstItem="dq7-IV-6Ef" firstAttribute="top" secondItem="oJM-qC-yyW" secondAttribute="bottom" constant="25" id="YMN-xe-7cI"/>
+                <constraint firstAttribute="trailing" secondItem="pLr-Yq-OMn" secondAttribute="trailing" constant="10" id="cAr-rb-sXX"/>
+                <constraint firstItem="oJM-qC-yyW" firstAttribute="top" secondItem="cIc-n7-hIV" secondAttribute="top" constant="10" id="gts-uR-3Ej"/>
+                <constraint firstAttribute="trailing" secondItem="oJM-qC-yyW" secondAttribute="trailing" constant="10" id="hwy-vE-lHk"/>
+                <constraint firstAttribute="bottom" secondItem="pLr-Yq-OMn" secondAttribute="bottom" constant="10" id="jpn-he-6Ju"/>
+                <constraint firstItem="pLr-Yq-OMn" firstAttribute="top" secondItem="mP8-S4-SUv" secondAttribute="bottom" constant="10" id="sbP-BO-Te7"/>
+                <constraint firstItem="mP8-S4-SUv" firstAttribute="leading" secondItem="cIc-n7-hIV" secondAttribute="leading" constant="10" id="vUz-rq-dbN"/>
+                <constraint firstAttribute="trailing" secondItem="mP8-S4-SUv" secondAttribute="trailing" constant="10" id="way-Az-buy"/>
+            </constraints>
+            <point key="canvasLocation" x="-13" y="400"/>
+        </customView>
     </objects>
     <resources>
         <image name="NSCaution" width="32" height="32"/>

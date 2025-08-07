@@ -15,6 +15,9 @@
 		691F53C72AC2594E0089FD92 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 691F53C52AC2594E0089FD92 /* Localizable.strings */; };
 		691F53CB2AC2599B0089FD92 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 691F53C92AC2599B0089FD92 /* Localizable.stringsdict */; };
 		693D8DC92E41325300E8E7F4 /* sharing_enums.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693D8DC82E41325300E8E7F4 /* sharing_enums.pb.swift */; };
+		693D8DCC2E43771D00E8E7F4 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 693D8DCB2E43771D00E8E7F4 /* QRCode */; };
+		697DDEEC2E43986400B4749C /* SymmetricKey+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697DDEEB2E43986400B4749C /* SymmetricKey+Extensions.swift */; };
+		697DDF0F2E4422B300B4749C /* QrCodeBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697DDF0E2E4422B300B4749C /* QrCodeBackgroundView.swift */; };
 		698DFB0329E362140064F247 /* NDNotificationCenterHackery.m in Sources */ = {isa = PBXBuildFile; fileRef = 698DFB0229E362140064F247 /* NDNotificationCenterHackery.m */; };
 		699B03452AB5FBA300E0D718 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 699B03442AB5FBA300E0D718 /* Assets.xcassets */; };
 		699DEBA62AB0573200115D22 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699DEBA52AB0573200115D22 /* ShareViewController.swift */; };
@@ -148,6 +151,8 @@
 		693D8DC82E41325300E8E7F4 /* sharing_enums.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sharing_enums.pb.swift; sourceTree = "<group>"; };
 		6978D5392BFE97E100A6100C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		6978D53A2BFE97E900A6100C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		697DDEEB2E43986400B4749C /* SymmetricKey+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SymmetricKey+Extensions.swift"; sourceTree = "<group>"; };
+		697DDF0E2E4422B300B4749C /* QrCodeBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeBackgroundView.swift; sourceTree = "<group>"; };
 		698DFAE529E2F91A0064F247 /* NearbyConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConnection.swift; sourceTree = "<group>"; };
 		698DFAED29E353220064F247 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		698DFAEF29E353220064F247 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -217,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				693D8DCC2E43771D00E8E7F4 /* QRCode in Frameworks */,
 				69DCF49D2AB8C9A500CBE2CC /* libNearbyShare.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				699DEBA52AB0573200115D22 /* ShareViewController.swift */,
+				697DDF0E2E4422B300B4749C /* QrCodeBackgroundView.swift */,
 				691F53B92ABB70840089FD92 /* DeviceListCell.swift */,
 				691F53BA2ABB70840089FD92 /* DeviceListCell.xib */,
 				699DEBA72AB0573200115D22 /* ShareViewController.xib */,
@@ -328,6 +335,7 @@
 				691F53BD2ABF03820089FD92 /* OutboundNearbyConnection.swift */,
 				698DFAE529E2F91A0064F247 /* NearbyConnection.swift */,
 				69DA9A2029E0CC4E00A442DA /* Data+Extensions.swift */,
+				697DDEEB2E43986400B4749C /* SymmetricKey+Extensions.swift */,
 			);
 			path = NearbyShare;
 			sourceTree = "<group>";
@@ -459,6 +467,7 @@
 			packageReferences = (
 				69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				69DA9A3429E1994C00A442DA /* XCRemoteSwiftPackageReference "SwiftECC" */,
+				693D8DCA2E43771D00E8E7F4 /* XCRemoteSwiftPackageReference "qrcode" */,
 			);
 			productRefGroup = 69DA9A0F29E0BF5100A442DA /* Products */;
 			projectDirPath = "";
@@ -505,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				699DEBA62AB0573200115D22 /* ShareViewController.swift in Sources */,
+				697DDF0F2E4422B300B4749C /* QrCodeBackgroundView.swift in Sources */,
 				691F53BB2ABB70840089FD92 /* DeviceListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +543,7 @@
 				69DCF4902AB70E9700CBE2CC /* InboundNearbyConnection.swift in Sources */,
 				69DCF48B2AB70E8C00CBE2CC /* ukey.pb.swift in Sources */,
 				69DCF48A2AB70E8C00CBE2CC /* wire_format.pb.swift in Sources */,
+				697DDEEC2E43986400B4749C /* SymmetricKey+Extensions.swift in Sources */,
 				69DCF4932AB70E9700CBE2CC /* Data+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,7 +694,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NearDrop;
@@ -694,7 +705,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.grishka.NearDrop.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -709,7 +720,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NearDrop;
@@ -720,7 +731,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.0.2;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.grishka.NearDrop.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -852,9 +863,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NearDrop/NearDrop.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -866,9 +880,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.grishka.NearDrop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NearDrop/NearDrop-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -884,9 +899,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = NearDrop/NearDrop.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -898,9 +916,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MARKETING_VERSION = 2.1.0;
+				MARKETING_VERSION = 2.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.grishka.NearDrop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NearDrop/NearDrop-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -981,6 +1000,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		693D8DCA2E43771D00E8E7F4 /* XCRemoteSwiftPackageReference "qrcode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dagronf/qrcode.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 26.10.0;
+			};
+		};
 		69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -1000,6 +1027,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		693D8DCB2E43771D00E8E7F4 /* QRCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 693D8DCA2E43771D00E8E7F4 /* XCRemoteSwiftPackageReference "qrcode" */;
+			productName = QRCode;
+		};
 		69DCF4992AB8C58500CBE2CC /* SwiftProtobuf */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */;

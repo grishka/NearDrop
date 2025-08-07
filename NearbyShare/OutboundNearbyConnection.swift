@@ -27,6 +27,8 @@ class OutboundNearbyConnection:NearbyConnection{
 	private var cancelled:Bool=false
 	private var textPayloadID:Int64=0
 	
+	public var qrCodePrivateKey:ECPrivateKey?
+	
 	enum State{
 		case initial, sentUkeyClientInit, sentUkeyClientFinish, sentPairedKeyEncryption, sentPairedKeyResult, sentIntroduction, sendingFiles
 	}
@@ -237,6 +239,12 @@ class OutboundNearbyConnection:NearbyConnection{
 		pairedEncryption.v1.pairedKeyEncryption=Sharing_Nearby_PairedKeyEncryptionFrame()
 		pairedEncryption.v1.pairedKeyEncryption.secretIDHash=Data.randomData(length: 6)
 		pairedEncryption.v1.pairedKeyEncryption.signedData=Data.randomData(length: 72)
+		if let qrKey=qrCodePrivateKey{
+			let signature=qrKey.sign(msg: authKey!.data())
+			var serializedSignature=Data(signature.r)
+			serializedSignature.append(Data(signature.s))
+			pairedEncryption.v1.pairedKeyEncryption.qrCodeHandshakeData=serializedSignature
+		}
 		try sendTransferSetupFrame(pairedEncryption)
 		
 		currentState = .sentPairedKeyEncryption
