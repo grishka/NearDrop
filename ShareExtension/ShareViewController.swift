@@ -158,14 +158,12 @@ class ShareViewController: NSViewController, ShareExtensionDelegate{
 		self.sheetWindow=sheetWindow
 		window.beginSheet(sheetWindow) { response in
 			self.sheetWindow=nil
-			NearbyConnectionManager.shared.clearQrCodeKey()
 		}
 	}
 	
 	@IBAction func dismissQrCodeSheet(_ sender: AnyObject?){
 		contentWrap!.window!.endSheet(sheetWindow!)
 		sheetWindow=nil
-		NearbyConnectionManager.shared.clearQrCodeKey()
 	}
 	
 	private func urlsReady(){
