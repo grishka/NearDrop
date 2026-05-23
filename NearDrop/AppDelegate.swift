@@ -19,6 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
+		let sendFilesItem=menu.addItem(withTitle: NSLocalizedString("SendFiles", value: "Send Files...", comment: ""), action: #selector(sendFiles(_:)), keyEquivalent: "")
+		sendFilesItem.target=self
+		menu.addItem(NSMenuItem.separator())
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		statusItem=NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image=NSImage(named: "MenuBarIcon")
@@ -42,6 +45,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
 		NearbyConnectionManager.shared.mainAppDelegate=self
 		NearbyConnectionManager.shared.becomeVisible()
+	}
+	
+	@objc func sendFiles(_ sender:Any?){
+		NSApp.activate(ignoringOtherApps: true)
+		let openPanel=NSOpenPanel()
+		openPanel.canChooseFiles=true
+		openPanel.canChooseDirectories=false
+		openPanel.allowsMultipleSelection=true
+		openPanel.begin { response in
+			guard response == .OK, !openPanel.urls.isEmpty else { return }
+			guard let button=self.statusItem?.button else { return }
+			let picker=NSSharingServicePicker(items: openPanel.urls)
+			picker.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+		}
 	}
 	
 	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
