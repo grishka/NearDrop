@@ -305,8 +305,8 @@ class InboundNearbyConnection: NearbyConnection{
 		if frame.v1.introduction.fileMetadata.count>0 && frame.v1.introduction.textMetadata.isEmpty{
 			let downloadsDirectory=(try FileManager.default.url(for: .downloadsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).resolvingSymlinksInPath()
 			for file in frame.v1.introduction.fileMetadata{
-				let dest=makeFileDestinationURL(downloadsDirectory.appendingPathComponent(file.name))
-				let info=InternalFileInfo(meta: FileMetadata(name: file.name, size: file.size, mimeType: file.mimeType),
+				let dest=makeFileDestinationURL(downloadsDirectory.appendingPathComponent(file.name.sanitizedAsFileName()))
+				let info=InternalFileInfo(meta: FileMetadata(name: dest.lastPathComponent, size: file.size, mimeType: file.mimeType),
 										  payloadID: file.payloadID,
 										  destinationURL: dest)
 				transferredFiles[file.payloadID]=info

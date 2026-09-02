@@ -279,7 +279,7 @@ class OutboundNearbyConnection:NearbyConnection{
 			for url in urlsToSend{
 				guard url.isFileURL else {continue}
 				var meta=Sharing_Nearby_FileMetadata()
-				meta.name=OutboundNearbyConnection.sanitizeFileName(name: url.lastPathComponent)
+				meta.name=url.lastPathComponent.sanitizedAsFileName()
 				let attrs=try FileManager.default.attributesOfItem(atPath: url.path)
 				meta.size=(attrs[FileAttributeKey.size] as! NSNumber).int64Value
 				let typeID=try? url.resourceValues(forKeys: [.typeIdentifierKey]).typeIdentifier
@@ -433,10 +433,6 @@ class OutboundNearbyConnection:NearbyConnection{
 			print("sent EOF, current transfer: \(String(describing: currentTransfer))")
 			#endif
 		}
-	}
-	
-	private static func sanitizeFileName(name:String)->String{
-		return name.replacingOccurrences(of: "[\\/\\\\?%\\*:\\|\"<>=]", with: "_", options: .regularExpression)
 	}
 }
 

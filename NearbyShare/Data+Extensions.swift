@@ -52,3 +52,15 @@ extension Data{
 		return Data(base64Encoded: regularB64, options: .ignoreUnknownCharacters)
 	}
 }
+
+extension String{
+	/// Replaces characters that are invalid in file names, including path separators, so a
+	/// name received from a remote device can't point anywhere other than the intended directory.
+	func sanitizedAsFileName() -> String{
+		let sanitized=replacingOccurrences(of: "[\\/\\\\?%\\*:\\|\"<>=]", with: "_", options: .regularExpression)
+		if sanitized.isEmpty || sanitized=="." || sanitized==".."{
+			return "_"+sanitized
+		}
+		return sanitized
+	}
+}
