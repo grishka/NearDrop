@@ -16,7 +16,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 		let menu=NSMenu()
-		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
+		let visibility=menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: #selector(toggleVisibility(_:)), keyEquivalent: "")
+		visibility.target=self
+		visibility.state = .on
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
@@ -47,6 +49,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
 		statusItem?.isVisible=true
 		return true
+	}
+
+	@objc private func toggleVisibility(_ sender:NSMenuItem){
+		let visible=sender.state != .on
+		sender.state=visible ? .on : .off
+		statusItem?.button?.appearsDisabled = !visible
+		visible ? NearbyConnectionManager.shared.becomeVisible() : NearbyConnectionManager.shared.becomeInvisible()
 	}
 
     func applicationWillTerminate(_ aNotification: Notification) {

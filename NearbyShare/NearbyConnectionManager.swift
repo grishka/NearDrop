@@ -211,7 +211,17 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 	}
 	
 	public func becomeVisible(){
-		startTCPListener()
+		guard mdnsService==nil else {return}
+		if case .ready = tcpListener.state{
+			initMDNS()
+		}else{
+			startTCPListener()
+		}
+	}
+
+	public func becomeInvisible(){
+		mdnsService?.stop()
+		mdnsService=nil
 	}
 	
 	private func startTCPListener(){
