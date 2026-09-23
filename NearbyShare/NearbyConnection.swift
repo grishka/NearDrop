@@ -16,6 +16,7 @@ import BigInt
 
 class NearbyConnection{
 	internal static let SANE_FRAME_LENGTH=5*1024*1024
+	private static let MAX_RECEIVE_LENGTH=16*1024
 	private static let dispatchQueue=DispatchQueue(label: "me.grishka.NearDrop.queue", qos: .utility) // FIFO (non-concurrent) queue to avoid those exciting concurrency bugs
 	
 	internal let connection:NWConnection
@@ -125,7 +126,18 @@ class NearbyConnection{
 	}
 	
 	private func receiveFrameAsync(length:UInt32){
-		connection.receive(minimumIncompleteLength: Int(length), maximumLength: Int(length)) { content, contentContext, isComplete, error in
+		receiveFrameChunkAsync(remaining: Int(length), accumulated: NSMutableData(capacity: Int(length)) ?? NSMutableData())
+	}
+
+	// File payloads arrive in 512 KB frames, and asking for one of those in a single receive
+	// hands back damaged bytes, so reassemble the frame from bounded reads instead.
+	private func receiveFrameChunkAsync(remaining:Int, accumulated:NSMutableData){
+		if remaining<=0{
+			processReceivedFrame(frameData: accumulated as Data)
+			receiveFrameAsync()
+			return
+		}
+		connection.receive(minimumIncompleteLength: 1, maximumLength: min(remaining, NearbyConnection.MAX_RECEIVE_LENGTH)) { content, contentContext, isComplete, error in
 			if self.connectionClosed{
 				return
 			}
@@ -133,12 +145,12 @@ class NearbyConnection{
 				self.handleConnectionClosure()
 				return
 			}
-			guard let content=content else {
+			guard let content=content, !content.isEmpty else {
 				self.protocolError()
 				return
 			}
-			self.processReceivedFrame(frameData: content)
-			self.receiveFrameAsync()
+			accumulated.append(content)
+			self.receiveFrameChunkAsync(remaining: remaining-content.count, accumulated: accumulated)
 		}
 	}
 	
